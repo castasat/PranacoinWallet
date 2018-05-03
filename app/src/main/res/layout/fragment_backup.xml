@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/backupLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/backupMessageTextView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/fragment_margin"
+        android:layout_marginLeft="@dimen/fragment_margin"
+        android:layout_marginRight="@dimen/fragment_margin"
+        android:layout_marginStart="@dimen/fragment_margin"
+        android:layout_marginTop="@dimen/fragment_margin"
+        android:text="@string/recieve_private_key_message"
+        android:textSize="@dimen/normalText"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"/>
+
+    <Button
+        android:id="@+id/buttonRequest"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/fragment_margin"
+        android:text="@string/receive_private_key"
+        app:layout_constraintTop_toBottomOf="@+id/backupMessageTextView"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5" />
+
+    <TextView
+        android:id="@+id/textPrivaddr"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/fragment_margin"
+        android:layout_marginStart="@dimen/fragment_margin"
+        android:layout_marginRight="@dimen/fragment_margin"
+        android:layout_marginEnd="@dimen/fragment_margin"
+        android:layout_marginTop="@dimen/fragment_margin"
+        android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
+        android:textIsSelectable="true"
+        android:textSize="@dimen/normalText"
+        app:layout_constraintTop_toBottomOf="@+id/buttonRequest"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"/>
+
+    <ImageView
+        android:id="@+id/imagePrivaddr"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/fragment_margin"
+        app:layout_constraintTop_toBottomOf="@+id/textPrivaddr"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        android:contentDescription="@string/private_address_image" />
+
+</android.support.constraint.ConstraintLayout>
