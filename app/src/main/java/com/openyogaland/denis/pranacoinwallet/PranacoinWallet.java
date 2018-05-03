@@ -1,42 +1,49 @@
 package com.openyogaland.denis.pranacoinwallet;
 
-import android.app.Application;
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.support.annotation.NonNull;
 
-/**
- * Singleton pattern safe for threads
- */
-public final class PranacoinWallet extends Application
+import com.google.android.gms.iid.InstanceID;
+
+// singleton class to get application context
+// + not in a static manner to prevent memory leaks
+// + has lazy initialization
+// + safe for threads
+class PranacoinWallet
 {
   // fields
-  // never cached in thread memory
-  private volatile static PranacoinWallet instance = null;
+  @SuppressLint("StaticFieldLeak")
+  private static volatile PranacoinWallet instance;
+  private final           Context         context;
   
-  // empty constructor (called from getInstance())
-  public PranacoinWallet()
+  // constructor
+  private PranacoinWallet(@NonNull Context context)
   {
+    this.context = context.getApplicationContext();
   }
   
-  // called from getPranacoinWalletContext()
-  public static PranacoinWallet getInstance()
+  // double-check locking safe for threads
+  static PranacoinWallet getInstance(@NonNull Context context)
   {
-    if(instance == null)
+    PranacoinWallet localInstance = instance;
+    if (localInstance == null)
     {
       synchronized(PranacoinWallet.class)
       {
-        if(instance == null)
+        localInstance = instance;
+        if(localInstance == null)
         {
-          instance = new PranacoinWallet();
+          instance = new PranacoinWallet(context);
         }
       }
     }
     return instance;
   }
   
-  @NonNull
-  static Context getPranacoinWalletContext()
+  // get idOfUser using application context
+  public String getIdOfUser()
   {
-    return getInstance().getApplicationContext();
+    return InstanceID.getInstance(this.context).getId();
   }
 }
