@@ -11,8 +11,8 @@
     <string name="image">QR-код</string>
     <string name="input_address_here">Введите адрес…</string>
     <string name="input_sum_here">Введите сумму…</string>
-    <string name="app_name">ПранаКошелёк</string>
-    <string name="title_activity_any_orientation_capture">ПранаКошелёк</string>
+    <string name="app_name">ПранакоинКошелёк</string>
+    <string name="title_activity_any_orientation_capture">ПранакоинКошелёк</string>
     <string name="receive_private_key">Получить приватный ключ</string>
     <string name="scan">Сканировать</string>
 </resources>
