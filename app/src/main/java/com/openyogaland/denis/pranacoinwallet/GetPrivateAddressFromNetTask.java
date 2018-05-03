@@ -3,7 +3,6 @@ package com.openyogaland.denis.pranacoinwallet;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.util.Log;
 
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
@@ -20,9 +19,7 @@ class GetPrivateAddressFromNetTask implements Listener<String>, ErrorListener,
                                               RequestFinishedListener<StringRequest>
 {
   // constants
-  private final static String LOG_TAG          = "PranaWallet";
   private final static String GET_PRIVADDR_API = "http://95.213.191.196/api.php?action=getprivaddr&walletid=";
-  
   
   private RequestQueue                     requestQueue;
   private OnPrivateAddressObtainedListener onPrivateAddressObtainedListener;
@@ -64,7 +61,6 @@ class GetPrivateAddressFromNetTask implements Listener<String>, ErrorListener,
   {
     if(stringNotEmpty(response) && (onPrivateAddressObtainedListener != null))
     {
-      Log.d(LOG_TAG, "onResponse privateAddress = " + response);
       onPrivateAddressObtainedListener.onPrivateAddressObtained(response);
     }
   }
@@ -77,7 +73,6 @@ class GetPrivateAddressFromNetTask implements Listener<String>, ErrorListener,
   public void onErrorResponse(VolleyError error)
   {
     error.printStackTrace();
-    Log.e(LOG_TAG, error.toString(), error);
   }
   
   private boolean stringNotEmpty(String string)

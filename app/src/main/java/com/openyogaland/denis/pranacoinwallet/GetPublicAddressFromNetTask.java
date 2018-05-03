@@ -3,8 +3,6 @@ package com.openyogaland.denis.pranacoinwallet;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.util.Log;
-
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.Request.Method;
@@ -20,9 +18,7 @@ class GetPublicAddressFromNetTask implements Listener<String>, ErrorListener,
                                              RequestFinishedListener<StringRequest>
 {
   // constants
-  private final static String LOG_TAG         = "PranaWallet";
   private final static String GET_ADDRESS_API = "http://95.213.191.196/api.php?action=getpubaddr&walletid=";
-  
   
   private RequestQueue                    requestQueue;
   private OnPublicAddressObtainedListener onPublicAddressObtainedListener;
@@ -33,7 +29,6 @@ class GetPublicAddressFromNetTask implements Listener<String>, ErrorListener,
    */
   GetPublicAddressFromNetTask(@NonNull Context context, @Nullable String idOfUser)
   {
-    log("GetPublicAddressFromNetTask constructor idOfUser = " + idOfUser);
     if (stringNotEmpty(idOfUser))
     {
       String publicAddressUrl = GET_ADDRESS_API + idOfUser;
@@ -60,7 +55,6 @@ class GetPublicAddressFromNetTask implements Listener<String>, ErrorListener,
   @Override
   public void onResponse(String response)
   {
-    log("GetPublicAddressFromNetTask onResponse() response = " + response);
     if(stringNotEmpty(response) && (onPublicAddressObtainedListener != null))
     {
       onPublicAddressObtainedListener.onPublicAddressObtained(response);
@@ -74,14 +68,11 @@ class GetPublicAddressFromNetTask implements Listener<String>, ErrorListener,
   @Override
   public void onErrorResponse(VolleyError error)
   {
-    log("GetPublicAddressFromNetTask onErrorResponse() error = " + error.toString());
     error.printStackTrace();
-    Log.e(LOG_TAG, error.toString(), error);
   }
   
   private boolean stringNotEmpty(String string)
   {
-    log("GetPublicAddressFromNetTask stringNotEmpty() string = " + string);
     return ((string != null) && (!"".equals(string)));
   }
   
@@ -101,10 +92,5 @@ class GetPublicAddressFromNetTask implements Listener<String>, ErrorListener,
   public void setOnPublicAddressObtainedListener(OnPublicAddressObtainedListener onPublicAddressObtainedListener)
   {
     this.onPublicAddressObtainedListener = onPublicAddressObtainedListener;
-  }
-  
-  private void log(String message)
-  {
-    Log.d(LOG_TAG, message);
   }
 }

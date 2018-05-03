@@ -3,7 +3,6 @@ package com.openyogaland.denis.pranacoinwallet;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.util.Log;
 
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
@@ -20,7 +19,6 @@ class GetBalanceFromNetTask implements Listener<String>, ErrorListener,
                                        RequestFinishedListener<StringRequest>
 {
   // constants
-  private final static String LOG_TAG         = "PranaWallet";
   private final static String GET_BALANCE_API = "http://95.213.191.196/api.php?action=getbalance&walletid=";
   
   
@@ -34,7 +32,6 @@ class GetBalanceFromNetTask implements Listener<String>, ErrorListener,
    */
   GetBalanceFromNetTask(@NonNull Context context, @Nullable String idOfUser)
   {
-    log("GetBalanceFromNetTask constructor idOfUser = " + idOfUser);
     if(stringNotEmpty(idOfUser))
     {
       String balanceUrl = GET_BALANCE_API + idOfUser;
@@ -60,7 +57,6 @@ class GetBalanceFromNetTask implements Listener<String>, ErrorListener,
   @Override
   public void onResponse(String response)
   {
-    log("GetBalanceFromNetTask onResponse() response = " + response);
     if(stringNotEmpty(response) && (onBalanceObtainedListener != null))
     {
       onBalanceObtainedListener.onBalanceObtained(response);
@@ -74,9 +70,7 @@ class GetBalanceFromNetTask implements Listener<String>, ErrorListener,
   @Override
   public void onErrorResponse(VolleyError error)
   {
-    log("GetBalanceFromNetTask onErrorResponse() error = " + error.toString());
     error.printStackTrace();
-    Log.e(LOG_TAG, error.toString(), error);
   }
   
   private boolean stringNotEmpty(String string)
@@ -100,10 +94,5 @@ class GetBalanceFromNetTask implements Listener<String>, ErrorListener,
   public void setOnBalanceObtainedListener(OnBalanceObtainedListener onBalanceObtainedListener)
   {
     this.onBalanceObtainedListener = onBalanceObtainedListener;
-  }
-  
-  private void log(String message)
-  {
-    Log.d(LOG_TAG, message);
   }
 }

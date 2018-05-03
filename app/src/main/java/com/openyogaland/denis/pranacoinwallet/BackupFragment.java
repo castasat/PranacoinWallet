@@ -50,14 +50,14 @@ public class BackupFragment extends Fragment
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState)
     {
-        super.onViewCreated(view, savedInstanceState);
+      super.onViewCreated(view, savedInstanceState);
     
-        // getting context
-        context = getContext();
-        if(context != null)
-        {
-          idOfUser = PranacoinWallet.getInstance(context).getIdOfUser();
-        }
+      // getting context
+      context = getContext();
+      if(context != null)
+      {
+        idOfUser = PranacoinWallet.getInstance(context).getIdOfUser();
+      }
 
         final TextView textView1 = view.findViewById(R.id.textPrivaddr);
 
@@ -131,7 +131,8 @@ public class BackupFragment extends Fragment
 
             for (int x = 0; x < bitMatrixWidth; x++)
             {
-                pixels[offset + x] = bitMatrix.get(x, y) ? getResources().getColor(R.color.QRCodeBlackColor) :
+                pixels[offset + x] = bitMatrix.get(x, y) ?
+                    getResources().getColor(R.color.QRCodeBlackColor) :
                     getResources().getColor(R.color.QRCodeWhiteColor);
             }
         }

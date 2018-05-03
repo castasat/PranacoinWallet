@@ -1,10 +1,8 @@
 package com.openyogaland.denis.pranacoinwallet;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.support.annotation.NonNull;
-
-import com.google.android.gms.iid.InstanceID;
+import com.google.firebase.iid.FirebaseInstanceId;
 
 // singleton class to get application context
 // + not in a static manner to prevent memory leaks
@@ -13,14 +11,11 @@ import com.google.android.gms.iid.InstanceID;
 class PranacoinWallet
 {
   // fields
-  @SuppressLint("StaticFieldLeak")
   private static volatile PranacoinWallet instance;
-  private final           Context         context;
   
-  // constructor
   private PranacoinWallet(@NonNull Context context)
   {
-    this.context = context.getApplicationContext();
+    Context applicationContext = context.getApplicationContext();
   }
   
   // double-check locking safe for threads
@@ -42,8 +37,8 @@ class PranacoinWallet
   }
   
   // get idOfUser using application context
-  public String getIdOfUser()
+  String getIdOfUser()
   {
-    return InstanceID.getInstance(this.context).getId();
+    return FirebaseInstanceId.getInstance().getId();
   }
 }

@@ -76,8 +76,7 @@ public class SendFragment extends Fragment
                               recepaddr +
                               "&sum=" +
                               amount;
-
-                //final RequestQueue requestQueue1 = Volley.newRequestQueue(getActivity().getApplicationContext());
+                
                 final RequestQueue requestQueue1 = Volley.newRequestQueue(context);
 
                 StringRequest stringRequest1 = new StringRequest(Method.GET, url1,

@@ -35,7 +35,10 @@ dependencies
   implementation 'com.google.zxing:core:3.3.2'                     // qr-code scanning library
   implementation 'com.journeyapps:zxing-android-embedded:3.6.0'    // qr-code scanning library
   implementation 'com.google.android.gms:play-services-iid:15.0.1' // google id
+  implementation 'com.google.firebase:firebase-core:15.0.2'        // firebase
   testImplementation 'junit:junit:4.12'
   androidTestImplementation 'com.android.support.test:runner:1.0.2'
   androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
 }
+
+apply plugin: 'com.google.gms.google-services'
