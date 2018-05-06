@@ -9,6 +9,8 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 
+import org.jetbrains.annotations.Contract;
+
 public class MainActivity extends AppCompatActivity implements OnNavigationItemSelectedListener
 {
   // fields
@@ -67,6 +69,7 @@ public class MainActivity extends AppCompatActivity implements OnNavigationItemS
     return loadFragment(fragment);
   }
   
+  @Contract("null -> false")
   private boolean loadFragment(Fragment fragment)
   {
     if(fragment != null)

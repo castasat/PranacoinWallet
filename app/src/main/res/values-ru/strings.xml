@@ -6,13 +6,15 @@
     <string name="title_restore">Восстановить</string>
     <string name="title_balance">Баланс</string>
     <string name="title_myaddress">Мой адрес:</string>
-    <string name="private_address_image">QR-код приватного ключа</string>
-    <string name="recieve_private_key_message">Чтобы получить приватный ключ, нажмите на кнопку. Сохраните ключ в безопасном месте.</string>
-    <string name="image">QR-код</string>
+    <string name="private_address_qr_code">QR-код приватного ключа</string>
+    <string name="receive_private_key_message">
+        Чтобы получить приватный ключ, нажмите на кнопку. Сохраните ключ в безопасном месте.
+    </string>
     <string name="input_address_here">Введите адрес…</string>
     <string name="input_sum_here">Введите сумму…</string>
     <string name="app_name">ПранакоинКошелёк</string>
     <string name="title_activity_any_orientation_capture">ПранакоинКошелёк</string>
-    <string name="receive_private_key">Получить приватный ключ</string>
+    <string name="get_private_key">Получить приватный ключ</string>
     <string name="scan">Сканировать</string>
+    <string name="public_address_qr_code">QR-код публичного адреса</string>
 </resources>

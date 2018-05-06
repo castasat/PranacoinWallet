@@ -19,7 +19,7 @@ class GetPublicAddressFromNetTask implements Listener<String>, ErrorListener,
 {
   // constants
   private final static String GET_ADDRESS_API = "http://95.213.191.196/api.php?action=getpubaddr&walletid=";
-  
+  // fields
   private RequestQueue                    requestQueue;
   private OnPublicAddressObtainedListener onPublicAddressObtainedListener;
   
@@ -29,7 +29,7 @@ class GetPublicAddressFromNetTask implements Listener<String>, ErrorListener,
    */
   GetPublicAddressFromNetTask(@NonNull Context context, @Nullable String idOfUser)
   {
-    if (stringNotEmpty(idOfUser))
+    if (PranacoinWallet.stringNotEmpty(idOfUser))
     {
       String publicAddressUrl = GET_ADDRESS_API + idOfUser;
       DefaultRetryPolicy retryPolicy = new DefaultRetryPolicy(DefaultRetryPolicy.DEFAULT_TIMEOUT_MS,
@@ -55,7 +55,7 @@ class GetPublicAddressFromNetTask implements Listener<String>, ErrorListener,
   @Override
   public void onResponse(String response)
   {
-    if(stringNotEmpty(response) && (onPublicAddressObtainedListener != null))
+    if(PranacoinWallet.stringNotEmpty(response) && (onPublicAddressObtainedListener != null))
     {
       onPublicAddressObtainedListener.onPublicAddressObtained(response);
     }
@@ -69,11 +69,6 @@ class GetPublicAddressFromNetTask implements Listener<String>, ErrorListener,
   public void onErrorResponse(VolleyError error)
   {
     error.printStackTrace();
-  }
-  
-  private boolean stringNotEmpty(String string)
-  {
-    return ((string != null) && (!"".equals(string)));
   }
   
   /**

@@ -8,10 +8,13 @@
     <string name="title_balance">Balance:</string>
     <string name="title_myaddress">My address:</string>
     <string name="title_activity_any_orientation_capture">PranaWallet</string>
-    <string name="private_address_image">private key QR-code</string>
-    <string name="receive_private_key">Receive private key</string>
-    <string name="recieve_private_key_message">Press button below in order to receive private key. Save it in the safe place.</string>
+    <string name="private_address_qr_code">private key QR-code</string>
+    <string name="get_private_key">Receive private key</string>
+    <string name="receive_private_key_message">
+        Press button below in order to receive private key. Save it in the safe place.
+    </string>
     <string name="input_address_here">Input address here…</string>
     <string name="input_sum_here">Input sum here…</string>
     <string name="scan">Scan</string>
+    <string name="public_address_qr_code">public address QR-Code</string>
 </resources>

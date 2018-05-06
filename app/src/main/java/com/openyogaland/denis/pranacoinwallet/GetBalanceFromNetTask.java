@@ -3,7 +3,6 @@ package com.openyogaland.denis.pranacoinwallet;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.Request.Method;
@@ -20,11 +19,9 @@ class GetBalanceFromNetTask implements Listener<String>, ErrorListener,
 {
   // constants
   private final static String GET_BALANCE_API = "http://95.213.191.196/api.php?action=getbalance&walletid=";
-  
-  
+  // fields
   private RequestQueue              requestQueue;
   private OnBalanceObtainedListener onBalanceObtainedListener;
-  
   
   /**
    * constructor
@@ -32,7 +29,7 @@ class GetBalanceFromNetTask implements Listener<String>, ErrorListener,
    */
   GetBalanceFromNetTask(@NonNull Context context, @Nullable String idOfUser)
   {
-    if(stringNotEmpty(idOfUser))
+    if(PranacoinWallet.stringNotEmpty(idOfUser))
     {
       String balanceUrl = GET_BALANCE_API + idOfUser;
       DefaultRetryPolicy retryPolicy = new DefaultRetryPolicy(DefaultRetryPolicy.DEFAULT_TIMEOUT_MS,
@@ -57,7 +54,7 @@ class GetBalanceFromNetTask implements Listener<String>, ErrorListener,
   @Override
   public void onResponse(String response)
   {
-    if(stringNotEmpty(response) && (onBalanceObtainedListener != null))
+    if(PranacoinWallet.stringNotEmpty(response) && (onBalanceObtainedListener != null))
     {
       onBalanceObtainedListener.onBalanceObtained(response);
     }
@@ -71,11 +68,6 @@ class GetBalanceFromNetTask implements Listener<String>, ErrorListener,
   public void onErrorResponse(VolleyError error)
   {
     error.printStackTrace();
-  }
-  
-  private boolean stringNotEmpty(String string)
-  {
-    return ((string != null) && (!"".equals(string)));
   }
   
   /**

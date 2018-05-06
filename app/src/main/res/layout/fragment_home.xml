@@ -2,7 +2,6 @@
 <android.support.constraint.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/homeLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
@@ -15,7 +14,6 @@
         android:layout_marginLeft="@dimen/fragment_margin"
         android:layout_marginStart="@dimen/fragment_margin"
         android:text="@string/title_balance"
-        android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
         android:textSize="@dimen/bigText"
         app:fontFamily="sans-serif"
         app:layout_constraintTop_toTopOf="parent"
@@ -36,7 +34,7 @@
         app:layout_constraintLeft_toRightOf="@id/balanceLabelTextView"/>
 
     <ProgressBar
-        android:id="@+id/balanceProgressBar"
+        android:id="@+id/privateAddressQRCodeProgressBar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:visibility="visible"
@@ -63,45 +61,50 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <ProgressBar
-        android:id="@+id/addressProgressBar"
+        android:id="@+id/publicAddressProgressBar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:visibility="visible"
         android:layout_marginTop="@dimen/fragment_margin"
         android:layout_marginLeft="@dimen/fragment_margin"
         android:layout_marginStart="@dimen/fragment_margin"
-        app:layout_constraintTop_toBottomOf="@id/balanceProgressBar"
+        app:layout_constraintTop_toBottomOf="@id/privateAddressQRCodeProgressBar"
         app:layout_constraintStart_toEndOf="@id/myAddressLabelTextView"
         app:layout_constraintLeft_toRightOf="@id/myAddressLabelTextView"/>
 
-    <TextView
-        android:id="@+id/publicAddressTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/fragment_margin"
-        android:textIsSelectable="true"
-        android:textSize="@dimen/normalText"
-        app:fontFamily="sans-serif"
-        app:layout_constraintTop_toBottomOf="@+id/myAddressLabelTextView"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
-
     <ImageView
-        android:id="@+id/addressQRCodeImageView"
+        android:id="@+id/publicAddressQRCodeImageView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:contentDescription="@string/public_address_qr_code"
         app:layout_constraintTop_toBottomOf="@id/publicAddressTextView"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        tools:ignore="ContentDescription" />
+        app:layout_constraintHorizontal_bias="0.5"/>
+
+    <TextView
+        android:id="@+id/publicAddressTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/fragment_margin"
+        android:layout_marginStart="@dimen/fragment_margin"
+        android:layout_marginLeft="@dimen/fragment_margin"
+        android:layout_marginEnd="@dimen/fragment_margin"
+        android:layout_marginRight="@dimen/fragment_margin"
+        android:textIsSelectable="true"
+        android:textSize="@dimen/normalText"
+        app:fontFamily="sans-serif"
+        app:layout_constraintTop_toBottomOf="@+id/myAddressLabelTextView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <ProgressBar
-        android:id="@+id/imagePublicProgressBar"
+        android:id="@+id/publicAddressQRCodeProgressBar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:visibility="visible"
