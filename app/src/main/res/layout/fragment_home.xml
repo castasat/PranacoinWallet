@@ -34,7 +34,7 @@
         app:layout_constraintLeft_toRightOf="@id/balanceLabelTextView"/>
 
     <ProgressBar
-        android:id="@+id/privateAddressQRCodeProgressBar"
+        android:id="@+id/balanceProgressBar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:visibility="visible"
@@ -68,7 +68,7 @@
         android:layout_marginTop="@dimen/fragment_margin"
         android:layout_marginLeft="@dimen/fragment_margin"
         android:layout_marginStart="@dimen/fragment_margin"
-        app:layout_constraintTop_toBottomOf="@id/privateAddressQRCodeProgressBar"
+        app:layout_constraintTop_toBottomOf="@id/balanceProgressBar"
         app:layout_constraintStart_toEndOf="@id/myAddressLabelTextView"
         app:layout_constraintLeft_toRightOf="@id/myAddressLabelTextView"/>
 

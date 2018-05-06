@@ -1,5 +1,8 @@
 <resources>
     <string name="app_name">PranaWallet</string>
+    <string name="quit_dialog_message">Exit: Are you sure?</string>
+    <string name="exit_yes">Yes</string>
+    <string name="exit_no">No</string>
     <string name="title_home">Home</string>
     <string name="title_send">Send</string>
     <string name="title_history">History</string>

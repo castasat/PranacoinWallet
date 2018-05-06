@@ -1,5 +1,8 @@
 <resources>
     <string name="title_home">Домой</string>
+    <string name="quit_dialog_message">Выход: Вы уверены?</string>
+    <string name="exit_yes">Да</string>
+    <string name="exit_no">Нет</string>
     <string name="title_send">Отправить</string>
     <string name="title_history">История</string>
     <string name="title_backup">Резервная копия</string>

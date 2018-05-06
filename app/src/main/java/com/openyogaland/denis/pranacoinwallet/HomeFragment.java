@@ -49,7 +49,7 @@ public class HomeFragment extends Fragment implements OnPublicAddressObtainedLis
     // find views by ids
     publicAddressTextView           = view.findViewById(R.id.publicAddressTextView);
     balanceAmountTextView           = view.findViewById(R.id.balanceAmountTextView);
-    privateAddressQRCodeProgressBar = view.findViewById(R.id.privateAddressQRCodeProgressBar);
+    privateAddressQRCodeProgressBar = view.findViewById(R.id.balanceProgressBar);
     publicAddressProgressBar        = view.findViewById(R.id.publicAddressProgressBar);
     publicAddressQRCodeImageView    = view.findViewById(R.id.publicAddressQRCodeImageView);
     publicAddressQRCodeProgressBar  = view.findViewById(R.id.publicAddressQRCodeProgressBar);

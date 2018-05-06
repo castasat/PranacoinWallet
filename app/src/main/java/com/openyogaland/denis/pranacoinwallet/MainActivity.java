@@ -1,5 +1,8 @@
 package com.openyogaland.denis.pranacoinwallet;
 
+import android.app.AlertDialog.Builder;
+import android.content.DialogInterface;
+import android.content.DialogInterface.OnClickListener;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -7,14 +10,15 @@ import android.support.design.widget.BottomNavigationView.OnNavigationItemSelect
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
+import android.view.KeyEvent;
 import android.view.MenuItem;
 
 import org.jetbrains.annotations.Contract;
 
-public class MainActivity extends AppCompatActivity implements OnNavigationItemSelectedListener
+public class MainActivity extends AppCompatActivity implements OnNavigationItemSelectedListener,
+                                                               OnClickListener
 {
   // fields
-  
   private HomeFragment    homeFragment;
   // TODO private HistoryFragment historyFragment;
   private SendFragment    sendFragment;
@@ -84,5 +88,45 @@ public class MainActivity extends AppCompatActivity implements OnNavigationItemS
       return true;
     }
     return false;
+  }
+  
+  @Override
+  public void onBackPressed()
+  {
+    openQuitDialog();
+  }
+  
+  @Override
+  public boolean onKeyDown(int keyCode, KeyEvent event)
+  {
+    // on BACK key down
+    if(keyCode == KeyEvent.KEYCODE_BACK)
+    {
+      openQuitDialog();
+      return true;
+    }
+    return super.onKeyDown(keyCode, event);
+  }
+  
+  private void openQuitDialog()
+  {
+    Builder quitDialog = new Builder(this);
+    quitDialog.setTitle(R.string.quit_dialog_message);
+    quitDialog.setPositiveButton(R.string.exit_yes, this);
+    quitDialog.setNegativeButton(R.string.exit_no, this);
+    quitDialog.show();
+  }
+  
+  @Override
+  public void onClick(DialogInterface dialogInstance, int which)
+  {
+    if(which == DialogInterface.BUTTON_POSITIVE)
+    {
+      finish();
+    }
+    else if(which == DialogInterface.BUTTON_NEGATIVE)
+    {
+      dialogInstance.dismiss();
+    }
   }
 }
