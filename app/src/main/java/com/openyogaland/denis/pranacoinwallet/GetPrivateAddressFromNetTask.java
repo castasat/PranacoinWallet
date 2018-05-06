@@ -2,7 +2,6 @@ package com.openyogaland.denis.pranacoinwallet;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.Request.Method;
@@ -27,7 +26,7 @@ class GetPrivateAddressFromNetTask implements Listener<String>, ErrorListener,
    * constructor
    * @param idOfUser - id of user
    */
-  GetPrivateAddressFromNetTask(@NonNull Context context, @Nullable String idOfUser)
+  GetPrivateAddressFromNetTask(@NonNull Context context, @NonNull String idOfUser)
   {
     if(PranacoinWallet.stringNotEmpty(idOfUser))
     {

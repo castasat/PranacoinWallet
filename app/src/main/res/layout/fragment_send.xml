@@ -7,7 +7,7 @@
     android:layout_height="match_parent">
 
     <EditText
-        android:id="@+id/input_address"
+        android:id="@+id/recipientAddressEditText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/fragment_margin"
@@ -22,37 +22,37 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/buttonScan"
+        android:id="@+id/scanButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/scan"
         android:layout_margin="@dimen/fragment_margin"
-        app:layout_constraintTop_toBottomOf="@id/input_address"
+        app:layout_constraintTop_toBottomOf="@id/recipientAddressEditText"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintEnd_toEndOf="parent"/>
 
     <EditText
-        android:id="@+id/Sum"
+        android:id="@+id/sumEditText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/fragment_margin"
         android:hint="@string/input_sum_here"
         android:inputType="numberDecimal"
-        app:layout_constraintTop_toBottomOf="@+id/buttonScan"
+        app:layout_constraintTop_toBottomOf="@+id/scanButton"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintEnd_toEndOf="parent"/>
 
     <Button
-        android:id="@+id/buttonSend"
+        android:id="@+id/sendButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/fragment_margin"
         android:text="@string/title_send"
-        app:layout_constraintTop_toBottomOf="@+id/Sum"
+        app:layout_constraintTop_toBottomOf="@+id/sumEditText"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintRight_toRightOf="parent"
