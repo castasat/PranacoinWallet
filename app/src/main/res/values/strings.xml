@@ -20,4 +20,6 @@
     <string name="input_sum_here">Input sum here…</string>
     <string name="scan">Scan</string>
     <string name="public_address_qr_code">public address QR-Code</string>
+    <string name="continue_button">Continue</string>
+    <string name="accept_privacy_policy">I have READ and ACCEPT this Privacy Policy</string>
 </resources>

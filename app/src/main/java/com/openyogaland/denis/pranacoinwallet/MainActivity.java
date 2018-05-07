@@ -1,6 +1,8 @@
 package com.openyogaland.denis.pranacoinwallet;
 
+import android.app.AlertDialog;
 import android.app.AlertDialog.Builder;
+import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
 import android.os.Bundle;
@@ -10,20 +12,27 @@ import android.support.design.widget.BottomNavigationView.OnNavigationItemSelect
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.AppCompatCheckedTextView;
 import android.view.KeyEvent;
 import android.view.MenuItem;
+import android.webkit.WebView;
+import android.widget.Button;
 
 import org.jetbrains.annotations.Contract;
 
 public class MainActivity extends AppCompatActivity implements OnNavigationItemSelectedListener,
                                                                OnClickListener
 {
+  // constants
+  private final static String privacyPolicyUrl = "file:///android_asset/privacy_policy.html";
   // fields
-  private HomeFragment    homeFragment;
+  private boolean        privacyPolicyAcceptedByUser = false;
+  private PolicyFragment policyFragment;
+  private HomeFragment   homeFragment;
   // TODO private HistoryFragment historyFragment;
-  private SendFragment    sendFragment;
+  private SendFragment   sendFragment;
   // TODO private RestoreFragment restoreFragment;
-  private BackupFragment  backupFragment;
+  private BackupFragment backupFragment;
   
   @Override
   protected void onCreate(Bundle savedInstanceState)
@@ -31,15 +40,27 @@ public class MainActivity extends AppCompatActivity implements OnNavigationItemS
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_main);
     
-    // during the first program start
-    if(savedInstanceState == null)
+    // TODO show privacy policy
+    // privacyPolicyDialog = new Dialog(this);
+    // privacyPolicyDialog.setTitle("Privacy Policy");
+    // privacyPolicyDialog.setContentView(R.layout.privacy_policy_dialog_fragment);
+    // load privacy policy
+    // WebView webView = privacyPolicyDialog.findViewById(R.id.webView);
+    // webView.loadUrl(privacyPolicyUrl);
+    // Button nextButton = privacyPolicyDialog.findViewById(R.id.nextButton);
+    
+    // during the first program start or until user has not accepted Privacy Policy
+    if(!privacyPolicyAcceptedByUser)
+    {
+      policyFragment = (policyFragment == null) ? new PolicyFragment() : policyFragment;
+    }
+    else
     {
       homeFragment = (homeFragment == null) ? new HomeFragment() : homeFragment;
       loadFragment(homeFragment);
+      BottomNavigationView navigationView = findViewById(R.id.navigation);
+      navigationView.setOnNavigationItemSelectedListener(this);
     }
-    
-    BottomNavigationView navigationView = findViewById(R.id.navigation);
-    navigationView.setOnNavigationItemSelectedListener(this);
   }
   
   @Override

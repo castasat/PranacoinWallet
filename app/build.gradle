@@ -40,10 +40,8 @@ dependencies
   implementation 'com.android.support:support-vector-drawable:27.1.1'
   implementation 'org.jetbrains:annotations-java5:15.0'            // extended annotations
   implementation 'com.android.volley:volley:1.1.0'                 // http library
-  implementation 'com.google.zxing:core:3.3.2'                     // qr-code scanning library
   implementation 'com.journeyapps:zxing-android-embedded:3.6.0'    // embedded qr-code scanning
-  implementation 'com.google.android.gms:play-services-iid:15.0.0' // google play services
-  implementation 'com.google.firebase:firebase-core:15.0.0'        // firebase
+  implementation 'com.google.firebase:firebase-core:15.0.2'        // firebase
   testImplementation 'junit:junit:4.12'
   androidTestImplementation 'com.android.support.test:runner:1.0.2'
   androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'

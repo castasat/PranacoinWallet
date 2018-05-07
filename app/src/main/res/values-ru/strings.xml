@@ -20,4 +20,6 @@
     <string name="get_private_key">Получить приватный ключ</string>
     <string name="scan">Сканировать</string>
     <string name="public_address_qr_code">QR-код публичного адреса</string>
+    <string name="continue_button">Продолжить</string>
+    <string name="accept_privacy_policy">Я ПРОЧЕЛ(ЛА) и ПРИНИМАЮ эту Политику Конфиденциальности</string>
 </resources>
