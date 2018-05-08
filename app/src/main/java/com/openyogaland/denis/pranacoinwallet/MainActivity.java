@@ -1,10 +1,11 @@
 package com.openyogaland.denis.pranacoinwallet;
 
-import android.app.AlertDialog;
 import android.app.AlertDialog.Builder;
-import android.app.Dialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
+import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -12,27 +13,27 @@ import android.support.design.widget.BottomNavigationView.OnNavigationItemSelect
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.AppCompatCheckedTextView;
+import android.support.v7.app.AppCompatDialogFragment;
 import android.view.KeyEvent;
 import android.view.MenuItem;
-import android.webkit.WebView;
-import android.widget.Button;
 
 import org.jetbrains.annotations.Contract;
 
 public class MainActivity extends AppCompatActivity implements OnNavigationItemSelectedListener,
-                                                               OnClickListener
+                                                               OnClickListener,
+                                                               OnPrivacyPolicyAcceptedListener
 {
   // constants
-  private final static String privacyPolicyUrl = "file:///android_asset/privacy_policy.html";
+  private final static String PRIVACY_POLICY_ACCEPTED = "privacy policy accepted";
   // fields
-  private boolean        privacyPolicyAcceptedByUser = false;
-  private PolicyFragment policyFragment;
-  private HomeFragment   homeFragment;
-  // TODO private HistoryFragment historyFragment;
-  private SendFragment   sendFragment;
-  // TODO private RestoreFragment restoreFragment;
-  private BackupFragment backupFragment;
+  private boolean           privacyPolicyAcceptedByUser = false;
+  private SharedPreferences sharedPreferences;
+  private PolicyFragment    policyFragment;
+  private HomeFragment      homeFragment;
+  // TODO private HistoryFragment   historyFragment;
+  private SendFragment      sendFragment;
+  // TODO private RestoreFragment   restoreFragment;
+  private BackupFragment    backupFragment;
   
   @Override
   protected void onCreate(Bundle savedInstanceState)
@@ -40,27 +41,20 @@ public class MainActivity extends AppCompatActivity implements OnNavigationItemS
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_main);
     
-    // TODO show privacy policy
-    // privacyPolicyDialog = new Dialog(this);
-    // privacyPolicyDialog.setTitle("Privacy Policy");
-    // privacyPolicyDialog.setContentView(R.layout.privacy_policy_dialog_fragment);
-    // load privacy policy
-    // WebView webView = privacyPolicyDialog.findViewById(R.id.webView);
-    // webView.loadUrl(privacyPolicyUrl);
-    // Button nextButton = privacyPolicyDialog.findViewById(R.id.nextButton);
+    privacyPolicyAcceptedByUser = loadPrivacyPolicyAcceptedState();
     
     // during the first program start or until user has not accepted Privacy Policy
     if(!privacyPolicyAcceptedByUser)
     {
       policyFragment = (policyFragment == null) ? new PolicyFragment() : policyFragment;
+      policyFragment.setStyle(AppCompatDialogFragment.STYLE_NO_TITLE, R.style.CustomDialog);
+      policyFragment.setOnPrivacyPolicyAcceptedListener(this);
+      loadFragment(policyFragment);
     }
-    else
-    {
-      homeFragment = (homeFragment == null) ? new HomeFragment() : homeFragment;
-      loadFragment(homeFragment);
-      BottomNavigationView navigationView = findViewById(R.id.navigation);
-      navigationView.setOnNavigationItemSelectedListener(this);
-    }
+    homeFragment = (homeFragment == null) ? new HomeFragment() : homeFragment;
+    loadFragment(homeFragment);
+    BottomNavigationView navigationView = findViewById(R.id.navigation);
+    navigationView.setOnNavigationItemSelectedListener(this);
   }
   
   @Override
@@ -104,8 +98,15 @@ public class MainActivity extends AppCompatActivity implements OnNavigationItemS
       
       // commiting transaction
       transaction = getSupportFragmentManager().beginTransaction();
-      transaction.replace(R.id.fragment_container, fragment);
-      transaction.commit();
+      if (fragment instanceof AppCompatDialogFragment && (!fragment.isAdded()))
+      {
+        ((AppCompatDialogFragment) fragment).show(transaction, "");
+      }
+      else
+      {
+        transaction.replace(R.id.fragment_container, fragment);
+        transaction.commit();
+      }
       return true;
     }
     return false;
@@ -129,7 +130,7 @@ public class MainActivity extends AppCompatActivity implements OnNavigationItemS
     return super.onKeyDown(keyCode, event);
   }
   
-  private void openQuitDialog()
+  void openQuitDialog()
   {
     Builder quitDialog = new Builder(this);
     quitDialog.setTitle(R.string.quit_dialog_message);
@@ -139,7 +140,7 @@ public class MainActivity extends AppCompatActivity implements OnNavigationItemS
   }
   
   @Override
-  public void onClick(DialogInterface dialogInstance, int which)
+  public void onClick(DialogInterface dialog, int which)
   {
     if(which == DialogInterface.BUTTON_POSITIVE)
     {
@@ -147,7 +148,28 @@ public class MainActivity extends AppCompatActivity implements OnNavigationItemS
     }
     else if(which == DialogInterface.BUTTON_NEGATIVE)
     {
-      dialogInstance.dismiss();
+      dialog.dismiss();
     }
+  }
+  
+  @Override
+  public void onPrivacyPolicyAccepted(boolean privacyPolicyAcceptedByUser)
+  {
+    this.privacyPolicyAcceptedByUser = privacyPolicyAcceptedByUser;
+    savePrivacyPolicyAcceptedState(privacyPolicyAcceptedByUser);
+  }
+  
+  private void savePrivacyPolicyAcceptedState(boolean privacyPolicyAcceptedByUser)
+  {
+    sharedPreferences = getPreferences(Context.MODE_PRIVATE);
+    Editor editor = sharedPreferences.edit();
+    editor.putBoolean(PRIVACY_POLICY_ACCEPTED, privacyPolicyAcceptedByUser);
+    editor.apply();
+  }
+  
+  private boolean loadPrivacyPolicyAcceptedState()
+  {
+    sharedPreferences = getPreferences(Context.MODE_PRIVATE);
+    return sharedPreferences.getBoolean(PRIVACY_POLICY_ACCEPTED, false);
   }
 }

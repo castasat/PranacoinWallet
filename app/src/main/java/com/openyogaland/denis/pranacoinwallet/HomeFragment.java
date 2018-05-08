@@ -157,7 +157,7 @@ public class HomeFragment extends Fragment implements OnPublicAddressObtainedLis
     {
       try
       {
-        Bitmap bitmap = PranacoinWallet.getInstance(context).textToImageEncode(publicAddress);
+        Bitmap bitmap = PranacoinWallet.getInstance(context).textToImageEncode(publicAddress,false);
         publicAddressQRCodeImageView.setImageBitmap(bitmap);
         publicAddressQRCodeImageView.setVisibility(View.VISIBLE);
         publicAddressQRCodeProgressBar.setVisibility(View.GONE);

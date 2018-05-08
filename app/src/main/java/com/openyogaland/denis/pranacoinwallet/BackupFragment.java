@@ -127,7 +127,7 @@ public class BackupFragment extends Fragment implements OnPrivateAddressObtained
       privateAddressTextView.setText(privateAddress);
       try
       {
-        Bitmap bitmap = PranacoinWallet.getInstance(context).textToImageEncode(privateAddress);
+        Bitmap bitmap = PranacoinWallet.getInstance(context).textToImageEncode(privateAddress,true);
         privateAddressQRCodeImageView.setImageBitmap(bitmap);
       }
       catch(WriterException e)

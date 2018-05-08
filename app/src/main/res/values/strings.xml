@@ -22,4 +22,5 @@
     <string name="public_address_qr_code">public address QR-Code</string>
     <string name="continue_button">Continue</string>
     <string name="accept_privacy_policy">I have READ and ACCEPT this Privacy Policy</string>
+    <string name="locale_asset_path">/</string>
 </resources>

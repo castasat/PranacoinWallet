@@ -88,3 +88,8 @@ class GetPublicAddressFromNetTask implements Listener<String>, ErrorListener,
     this.onPublicAddressObtainedListener = onPublicAddressObtainedListener;
   }
 }
+
+interface OnPublicAddressObtainedListener
+{
+  void onPublicAddressObtained(@NonNull String publicAddress);
+}

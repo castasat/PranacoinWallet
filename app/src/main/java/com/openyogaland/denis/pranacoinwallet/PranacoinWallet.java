@@ -26,6 +26,7 @@ class PranacoinWallet
   private static volatile PranacoinWallet instance;
   private                 int             blackColor;
   private                 int             whiteColor;
+  private                 int             redColor;
   
   private PranacoinWallet(@NonNull @NotNull Context context)
   {
@@ -34,6 +35,7 @@ class PranacoinWallet
     // define colors
     blackColor = applicationContext.getResources().getColor(R.color.QRCodeBlackColor);
     whiteColor = applicationContext.getResources().getColor(R.color.QRCodeWhiteColor);
+    redColor   = applicationContext.getResources().getColor(R.color.QRCodeRedColor);
   }
   
   // obtain instance of singleton, double-check locking safe for threads
@@ -94,9 +96,10 @@ class PranacoinWallet
   }
   
   // encode string information to obtain QR-code
-  Bitmap textToImageEncode(String address) throws WriterException
+  Bitmap textToImageEncode(String address, boolean isPrivate) throws WriterException
   {
     BitMatrix bitMatrix;
+    int qrCodeColor = (isPrivate) ? redColor : blackColor;
     try
     {
       bitMatrix = new MultiFormatWriter()
@@ -115,7 +118,7 @@ class PranacoinWallet
       int offset = y * bitMatrixWidth;
       for(int x = 0; x < bitMatrixWidth; x++)
       {
-        pixels[offset + x] = bitMatrix.get(x, y) ? blackColor : whiteColor;
+        pixels[offset + x] = bitMatrix.get(x, y) ? qrCodeColor : whiteColor;
       }
     }
     Bitmap bitmap = Bitmap.createBitmap(bitMatrixWidth, bitMatrixHeight, Bitmap.Config.ARGB_4444);

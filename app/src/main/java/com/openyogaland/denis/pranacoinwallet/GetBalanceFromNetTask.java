@@ -87,3 +87,8 @@ class GetBalanceFromNetTask implements Listener<String>, ErrorListener,
     this.onBalanceObtainedListener = onBalanceObtainedListener;
   }
 }
+
+interface OnBalanceObtainedListener
+{
+  void onBalanceObtained(@NonNull String balance);
+}

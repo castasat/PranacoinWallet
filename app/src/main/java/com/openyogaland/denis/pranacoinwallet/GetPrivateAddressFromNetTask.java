@@ -91,3 +91,8 @@ class GetPrivateAddressFromNetTask implements Listener<String>, ErrorListener,
     this.onPrivateAddressObtainedListener = onPrivateAddressObtainedListener;
   }
 }
+
+interface OnPrivateAddressObtainedListener
+{
+  void onPrivateAddressObtained(@NonNull String privateAddress);
+}

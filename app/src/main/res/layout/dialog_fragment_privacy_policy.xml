@@ -17,7 +17,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintRight_toRightOf="parent" />
 
-    <android.support.v7.widget.AppCompatCheckBox
+    <CheckBox
         android:id="@+id/acceptPrivacyPolicyCheckBox"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -34,7 +34,6 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/privacy_policy_margin"
-        android:gravity="center"
         android:text="@string/accept_privacy_policy"
         app:layout_constraintBaseline_toBaselineOf="@id/acceptPrivacyPolicyCheckBox"
         app:layout_constraintEnd_toStartOf="@id/acceptPrivacyPolicyCheckBox"

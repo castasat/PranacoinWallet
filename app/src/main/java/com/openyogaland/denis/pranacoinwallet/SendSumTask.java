@@ -80,3 +80,8 @@ class SendSumTask implements Listener<String>, ErrorListener, RequestFinishedLis
     this.onSendResponseObtainedListener = onSendResponseObtainedListener;
   }
 }
+
+interface OnSendResponseObtainedListener
+{
+  void onSendResponseObtained(@NonNull String response);
+}
