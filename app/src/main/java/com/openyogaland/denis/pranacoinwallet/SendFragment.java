@@ -30,8 +30,7 @@ public class SendFragment extends Fragment implements OnClickListener,
   private Context           context;
   private String            idOfUser;
   private EditText          recipientAddressEditText;
-  private String            recipientAddress;
-  private String            amount;
+  private EditText          sumEditText;
   
   @Override
   public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
@@ -41,7 +40,7 @@ public class SendFragment extends Fragment implements OnClickListener,
     
     // find views by ids
     recipientAddressEditText = view.findViewById(R.id.recipientAddressEditText);
-    EditText sumEditText = view.findViewById(R.id.sumEditText);
+    sumEditText = view.findViewById(R.id.sumEditText);
     Button   scanButton  = view.findViewById(R.id.scanButton);
     Button   sendButton  = view.findViewById(R.id.sendButton);
     
@@ -51,10 +50,6 @@ public class SendFragment extends Fragment implements OnClickListener,
     {
       idOfUser = PranacoinWallet.getInstance(context).getIdOfUser();
     }
-  
-    // get address and amount to send
-    recipientAddress = recipientAddressEditText.getText().toString();
-    amount           = sumEditText.getText().toString();
   
     // set listeners
     sendButton.setOnClickListener(this);
@@ -72,24 +67,32 @@ public class SendFragment extends Fragment implements OnClickListener,
       case R.id.sendButton:
         if (PranacoinWallet.hasConnection(context))
         {
-          double balanceAmount           = Double.parseDouble(loadBalance());
-          double amountValue             = Double.parseDouble(amount);
-          double myCommissionAmountValue = TOTAL_COMMISSION_MAX - (2 * API_COMMISSION_AMOUNT);
+          // get address and amount to send
+          String recipientAddress = recipientAddressEditText.getText().toString();
+          String amount           = sumEditText.getText().toString();
           
-          // check if user has enough balance for transfer
-          if ((amountValue + TOTAL_COMMISSION_MAX) > balanceAmount)
+          if (PranacoinWallet.stringNotEmpty(recipientAddress) &&
+              (PranacoinWallet.stringNotEmpty(amount)))
           {
-            Toast.makeText(context, getString(R.string.not_enough_funds), Toast.LENGTH_SHORT).show();
-          }
-          else
-          {
-            // execute users's transfer
-            SendSumTask sendSumTask = new SendSumTask(context, idOfUser, recipientAddress, amount);
-            sendSumTask.setOnSendResponseObtainedListener(this);
-            
-            // execute my commission transfer
-            String myCommissionAmount = String.valueOf(myCommissionAmountValue);
-            new SendSumTask(context, idOfUser, MY_COMMISSION_ADDRESS, myCommissionAmount);
+            double balanceAmount           = Double.parseDouble(loadBalance());
+            double amountValue             = Double.parseDouble(amount);
+            double myCommissionAmountValue = TOTAL_COMMISSION_MAX - (2 * API_COMMISSION_AMOUNT);
+  
+            // check if user has enough balance for transfer
+            if((amountValue + TOTAL_COMMISSION_MAX) > balanceAmount)
+            {
+              Toast.makeText(context, getString(R.string.not_enough_funds), Toast.LENGTH_SHORT).show();
+            }
+            else
+            {
+              // execute users's transfer
+              SendSumTask sendSumTask = new SendSumTask(context, idOfUser, recipientAddress, amount);
+              sendSumTask.setOnSendResponseObtainedListener(this);
+    
+              // execute my commission transfer
+              String myCommissionAmount = String.valueOf(myCommissionAmountValue);
+              new SendSumTask(context, idOfUser, MY_COMMISSION_ADDRESS, myCommissionAmount);
+            }
           }
         }
         else
