@@ -3,6 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/homeLayout"
+    android:layout_margin="@dimen/fragment_margin"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -10,103 +11,113 @@
         android:id="@+id/balanceLabelTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/fragment_margin"
-        android:layout_marginLeft="@dimen/fragment_margin"
-        android:layout_marginStart="@dimen/fragment_margin"
+        android:padding="@dimen/fragment_margin"
         android:text="@string/title_balance"
+        android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
         android:textSize="@dimen/bigText"
         app:fontFamily="sans-serif"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"/>
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/balanceAmountTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/fragment_margin"
-        android:layout_marginLeft="@dimen/fragment_margin"
-        android:layout_marginStart="@dimen/fragment_margin"
+        android:padding="@dimen/fragment_margin"
         android:textSize="@dimen/bigText"
         app:fontFamily="sans-serif"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBaseline_toBaselineOf="@id/balanceLabelTextView"
+        app:layout_constraintLeft_toRightOf="@id/balanceLabelTextView"
         app:layout_constraintStart_toEndOf="@+id/balanceLabelTextView"
-        app:layout_constraintLeft_toRightOf="@id/balanceLabelTextView"/>
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ProgressBar
         android:id="@+id/balanceProgressBar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:padding="@dimen/fragment_margin"
         android:visibility="visible"
-        android:layout_marginTop="@dimen/fragment_margin"
-        android:layout_marginLeft="@dimen/fragment_margin"
-        android:layout_marginStart="@dimen/fragment_margin"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toEndOf="@id/balanceAmountTextView"
-        app:layout_constraintLeft_toRightOf="@id/balanceAmountTextView"/>
+        app:layout_constraintLeft_toRightOf="@id/progressBarVerticalBarrier"
+        app:layout_constraintStart_toEndOf="@id/progressBarVerticalBarrier"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <android.support.constraint.Barrier
+        android:id="@+id/balanceHorizontalBarrier"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:barrierDirection="bottom"
+        app:constraint_referenced_ids="balanceLabelTextView,balanceAmountTextView,balanceProgressBar" />
 
     <TextView
         android:id="@+id/myAddressLabelTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/fragment_margin"
-        android:layout_marginLeft="@dimen/fragment_margin"
-        android:layout_marginStart="@dimen/fragment_margin"
-        android:text="@string/title_myaddress"
+        android:padding="@dimen/fragment_margin"
+        android:text="@string/title_my_address"
         android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
         android:textSize="@dimen/bigText"
         app:fontFamily="sans-serif"
-        app:layout_constraintTop_toBottomOf="@+id/balanceLabelTextView"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/balanceHorizontalBarrier" />
 
     <ProgressBar
         android:id="@+id/publicAddressProgressBar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:padding="@dimen/fragment_margin"
         android:visibility="visible"
-        android:layout_marginTop="@dimen/fragment_margin"
-        android:layout_marginLeft="@dimen/fragment_margin"
-        android:layout_marginStart="@dimen/fragment_margin"
-        app:layout_constraintTop_toBottomOf="@id/balanceProgressBar"
-        app:layout_constraintStart_toEndOf="@id/myAddressLabelTextView"
-        app:layout_constraintLeft_toRightOf="@id/myAddressLabelTextView"/>
+        app:layout_constraintLeft_toRightOf="@id/progressBarVerticalBarrier"
+        app:layout_constraintStart_toEndOf="@id/progressBarVerticalBarrier"
+        app:layout_constraintTop_toBottomOf="@id/balanceHorizontalBarrier" />
+
+    <android.support.constraint.Barrier
+        android:id="@+id/publicAddressHorizontalBarrier"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:barrierDirection="bottom"
+        app:constraint_referenced_ids="myAddressLabelTextView,publicAddressProgressBar" />
+
+    <android.support.constraint.Barrier
+        android:id="@+id/progressBarVerticalBarrier"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:barrierDirection="end"
+        app:constraint_referenced_ids="balanceAmountTextView,myAddressLabelTextView"/>
+
+    <TextView
+        android:id="@+id/publicAddressTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/fragment_margin"
+        android:textIsSelectable="true"
+        android:textSize="@dimen/normalText"
+        app:fontFamily="sans-serif"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/publicAddressHorizontalBarrier" />
 
     <ImageView
         android:id="@+id/publicAddressQRCodeImageView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:contentDescription="@string/public_address_qr_code"
-        app:layout_constraintTop_toBottomOf="@id/publicAddressTextView"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"/>
-
-    <TextView
-        android:id="@+id/publicAddressTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/fragment_margin"
-        android:layout_marginStart="@dimen/fragment_margin"
-        android:layout_marginLeft="@dimen/fragment_margin"
-        android:layout_marginEnd="@dimen/fragment_margin"
-        android:layout_marginRight="@dimen/fragment_margin"
-        android:textIsSelectable="true"
-        android:textSize="@dimen/normalText"
-        app:fontFamily="sans-serif"
-        app:layout_constraintTop_toBottomOf="@+id/myAddressLabelTextView"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/publicAddressTextView" />
 
     <ProgressBar
         android:id="@+id/publicAddressQRCodeProgressBar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:padding="@dimen/fragment_margin"
         android:visibility="visible"
         app:layout_constraintTop_toBottomOf="@id/publicAddressTextView"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -114,5 +125,5 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"/>
-    
+
 </android.support.constraint.ConstraintLayout>

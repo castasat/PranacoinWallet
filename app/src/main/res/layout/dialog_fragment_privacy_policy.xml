@@ -34,6 +34,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/privacy_policy_margin"
+        android:textStyle="bold"
         android:text="@string/accept_privacy_policy"
         app:layout_constraintBaseline_toBaselineOf="@id/acceptPrivacyPolicyCheckBox"
         app:layout_constraintEnd_toStartOf="@id/acceptPrivacyPolicyCheckBox"

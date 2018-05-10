@@ -1,18 +1,39 @@
 apply plugin: 'com.android.application'
 
+// Create a variable called keystorePropertiesFile, and initialize it to your
+// keystore.properties file, in the rootProject folder.
+def keystorePropertiesFile = rootProject.file("keystore.properties")
+
+// Initialize a new Properties() object called keystoreProperties.
+def keystoreProperties = new Properties()
+
+// Load your keystore.properties file into the keystoreProperties object.
+keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
+
 android
 {
+  signingConfigs
+  {
+    config
+    {
+      keyAlias keystoreProperties['keyAlias']
+      keyPassword keystoreProperties['keyPassword']
+      storeFile file(keystoreProperties['storeFile'])
+      storePassword keystoreProperties['storePassword']
+    }
+  }
   compileSdkVersion 27
   
   defaultConfig
   {
-      applicationId "com.openyogaland.denis.pranacoinwallet"
-      minSdkVersion 14
-      targetSdkVersion 27
-      versionCode 1
-      versionName "1.0.0"
-      testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
-      multiDexEnabled false
+    applicationId "com.openyogaland.denis.pranacoinwallet"
+    minSdkVersion 14
+    targetSdkVersion 27
+    versionCode 1
+    versionName "1.0.0"
+    testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    multiDexEnabled false
+    signingConfig signingConfigs.config
   }
   
   buildTypes
@@ -23,25 +44,36 @@ android
       shrinkResources true
       proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
     }
+    debug
+    {
+      signingConfig signingConfigs.config
+    }
   }
   
-  lintOptions
-  {
+  lintOptions {
     checkReleaseBuilds false
   }
+  buildToolsVersion '27.0.3'
 }
 
-dependencies
-{
-  implementation fileTree(dir: 'libs', include: ['*.jar'])
+dependencies {
+  implementation fileTree(include: ['*.jar'], dir: 'libs')
   implementation 'com.android.support:appcompat-v7:27.1.1'
   implementation 'com.android.support.constraint:constraint-layout:1.1.0'
   implementation 'com.android.support:design:27.1.1'
   implementation 'com.android.support:support-vector-drawable:27.1.1'
-  implementation 'org.jetbrains:annotations-java5:15.0'            // extended annotations
-  implementation 'com.android.volley:volley:1.1.0'                 // http library
-  implementation 'com.journeyapps:zxing-android-embedded:3.6.0'    // embedded qr-code scanning
-  implementation 'com.google.firebase:firebase-core:15.0.2'        // firebase
+  implementation 'org.jetbrains:annotations-java5:15.0'
+  
+  // extended annotations
+  implementation 'com.android.volley:volley:1.1.0'
+  
+  // http library
+  implementation 'com.journeyapps:zxing-android-embedded:3.6.0'
+  
+  // embedded qr-code scanning
+  implementation 'com.google.firebase:firebase-core:15.0.2'
+  
+  // firebase
   testImplementation 'junit:junit:4.12'
   androidTestImplementation 'com.android.support.test:runner:1.0.2'
   androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'

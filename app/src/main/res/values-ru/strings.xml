@@ -8,7 +8,7 @@
     <string name="title_backup">Резервная копия</string>
     <string name="title_restore">Восстановить</string>
     <string name="title_balance">Баланс</string>
-    <string name="title_myaddress">Мой адрес:</string>
+    <string name="title_my_address">Мой адрес:</string>
     <string name="private_address_qr_code">QR-код приватного ключа</string>
     <string name="receive_private_key_message">
         Чтобы получить приватный ключ, нажмите на кнопку. Сохраните ключ в безопасном месте.
@@ -18,9 +18,13 @@
     <string name="app_name">ПранакоинКошелёк</string>
     <string name="title_activity_any_orientation_capture">ПранакоинКошелёк</string>
     <string name="get_private_key">Получить приватный ключ</string>
-    <string name="scan">Сканировать</string>
+    <string name="scan">Сканировать адрес</string>
     <string name="public_address_qr_code">QR-код публичного адреса</string>
     <string name="continue_button">Продолжить</string>
     <string name="accept_privacy_policy">Я ПРИНИМАЮ Политику Конфиденциальности</string>
     <string name="locale_asset_path">/ru/</string>
+    <string name="commission_message">Комиссия: 0.1 PNC</string>
+    <string name="not_enough_funds">На вашем балансе недостаточно средств, чтобы перевести указанную сумму и заплатить комиссию</string>
+    <string name="check_internet_connection">Проверьте интернет-соединение</string>
+    <string name="scanning_cancelled">Сканирование отменено пользователем</string>
 </resources>

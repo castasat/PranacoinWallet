@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">PranaWallet</string>
+    <string name="app_name">PranacoinWallet</string>
     <string name="quit_dialog_message">Exit: Are you sure?</string>
     <string name="exit_yes">Yes</string>
     <string name="exit_no">No</string>
@@ -9,7 +9,7 @@
     <string name="title_backup">Backup</string>
     <string name="title_restore">Restore</string>
     <string name="title_balance">Balance:</string>
-    <string name="title_myaddress">My address:</string>
+    <string name="title_my_address">My address:</string>
     <string name="title_activity_any_orientation_capture">PranaWallet</string>
     <string name="private_address_qr_code">private key QR-code</string>
     <string name="get_private_key">Receive private key</string>
@@ -18,9 +18,13 @@
     </string>
     <string name="input_address_here">Input address here…</string>
     <string name="input_sum_here">Input sum here…</string>
-    <string name="scan">Scan</string>
+    <string name="scan">Scan Address</string>
     <string name="public_address_qr_code">public address QR-Code</string>
     <string name="continue_button">Continue</string>
     <string name="accept_privacy_policy">I have READ and ACCEPT this Privacy Policy</string>
     <string name="locale_asset_path">/</string>
+    <string name="commission_message">Commission: 0.1 PNC</string>
+    <string name="not_enough_funds">You do not have enough funds on your balance to send this amount and pay the commission</string>
+    <string name="check_internet_connection">Check internet connection</string>
+    <string name="scanning_cancelled">Scanning cancelled by user</string>
 </resources>
