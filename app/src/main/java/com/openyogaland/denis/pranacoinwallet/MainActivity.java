@@ -4,6 +4,7 @@ import android.app.AlertDialog.Builder;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
@@ -30,9 +31,7 @@ public class MainActivity extends AppCompatActivity implements OnNavigationItemS
   private SharedPreferences sharedPreferences;
   private PolicyFragment    policyFragment;
   private HomeFragment      homeFragment;
-  // TODO private HistoryFragment   historyFragment;
   private SendFragment      sendFragment;
-  // TODO private RestoreFragment   restoreFragment;
   private BackupFragment    backupFragment;
   
   @Override
@@ -40,9 +39,9 @@ public class MainActivity extends AppCompatActivity implements OnNavigationItemS
   {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_main);
-    
+  
     privacyPolicyAcceptedByUser = loadPrivacyPolicyAcceptedState();
-    
+  
     // during the first program start or until user has not accepted Privacy Policy
     if(!privacyPolicyAcceptedByUser)
     {
@@ -55,6 +54,11 @@ public class MainActivity extends AppCompatActivity implements OnNavigationItemS
     loadFragment(homeFragment);
     BottomNavigationView navigationView = findViewById(R.id.navigation);
     navigationView.setOnNavigationItemSelectedListener(this);
+    
+    // TODO handle app links and application indexing
+    Intent appLinkIntent = getIntent();
+    appLinkIntent.getAction();
+    appLinkIntent.getData();
   }
   
   @Override
@@ -68,18 +72,10 @@ public class MainActivity extends AppCompatActivity implements OnNavigationItemS
         homeFragment = (homeFragment == null) ? new HomeFragment() : homeFragment;
         fragment = homeFragment;
         break;
-      // TODO case R.id.navigation_history:
-        // historyFragment = (historyFragment == null) ? new HistoryFragment() : historyFragment;
-        // fragment = historyFragment;
-        // break;
       case R.id.navigation_send:
         sendFragment = (sendFragment == null) ? new SendFragment() : sendFragment;
         fragment = sendFragment;
         break;
-      // TODO case R.id.navigation_restore:
-        // restoreFragment = (restoreFragment == null) ? new RestoreFragment() : restoreFragment;
-        // fragment = restoreFragment;
-        // break;
       case R.id.navigation_backup:
         backupFragment = (backupFragment == null) ? new BackupFragment() : backupFragment;
         fragment = backupFragment;

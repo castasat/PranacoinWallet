@@ -5,6 +5,8 @@ import android.graphics.Bitmap;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.support.annotation.NonNull;
+
+import com.crashlytics.android.Crashlytics;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.MultiFormatWriter;
@@ -107,6 +109,7 @@ class PranacoinWallet
     }
     catch(IllegalArgumentException e)
     {
+      Crashlytics.logException(e);
       e.printStackTrace();
       return null;
     }

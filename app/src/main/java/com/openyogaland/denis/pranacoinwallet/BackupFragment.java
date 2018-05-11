@@ -19,6 +19,7 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.crashlytics.android.Crashlytics;
 import com.google.zxing.WriterException;
 
 public class BackupFragment extends Fragment implements OnPrivateAddressObtainedListener,
@@ -132,6 +133,7 @@ public class BackupFragment extends Fragment implements OnPrivateAddressObtained
       }
       catch(WriterException e)
       {
+        Crashlytics.logException(e);
         e.printStackTrace();
       }
       finally

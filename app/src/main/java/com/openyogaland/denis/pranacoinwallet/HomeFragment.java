@@ -15,6 +15,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+
+import com.crashlytics.android.Crashlytics;
 import com.google.zxing.WriterException;
 
 public class HomeFragment extends Fragment implements OnPublicAddressObtainedListener,
@@ -164,6 +166,7 @@ public class HomeFragment extends Fragment implements OnPublicAddressObtainedLis
       }
       catch(WriterException e)
       {
+        Crashlytics.logException(e);
         e.printStackTrace();
       }
     }
