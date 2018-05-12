@@ -1,6 +1,6 @@
 apply plugin: 'com.android.application'
 apply plugin: 'io.fabric'
-apply plugin: 'com.google.firebase.firebase-perf'
+// apply plugin: 'com.google.firebase.firebase-perf'
 
 // Create a variable called keystorePropertiesFile, and initialize it to your
 // keystore.properties file, in the rootProject folder.
@@ -31,8 +31,8 @@ android
     applicationId "com.openyogaland.denis.pranacoinwallet"
     minSdkVersion 14
     targetSdkVersion 27
-    versionCode 2
-    versionName "1.0.1"
+    versionCode 3
+    versionName "1.0.2"
     testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     multiDexEnabled false
     signingConfig signingConfigs.config
@@ -46,12 +46,14 @@ android
       shrinkResources true
       proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
     }
-    debug {
+    debug
+    {
       signingConfig signingConfigs.config
     }
   }
   
-  lintOptions {
+  lintOptions
+  {
     checkReleaseBuilds false
   }
   buildToolsVersion '27.0.3'
@@ -68,14 +70,14 @@ dependencies
   implementation 'com.android.volley:volley:1.1.0'
   implementation 'com.journeyapps:zxing-android-embedded:3.6.0'
   
-  //noinspection GradleDependency
+  // noinspection GradleDependency
   implementation 'com.google.firebase:firebase-core:15.0.0'
-  //noinspection GradleDependency
+  // noinspection GradleDependency
   implementation 'com.google.firebase:firebase-appindexing:15.0.0'
-  //noinspection GradleDependency
-  implementation 'com.google.firebase:firebase-perf:15.0.0'
-  //noinspection GradleDependency
-  implementation 'com.google.firebase:firebase-invites:15.0.0'
+  // noinspection GradleDependency
+  // implementation 'com.google.firebase:firebase-perf:15.0.0'
+  // noinspection GradleDependency
+  // implementation 'com.google.firebase:firebase-invites:15.0.0'
   
   implementation 'com.crashlytics.sdk.android:crashlytics:2.9.2'   
   

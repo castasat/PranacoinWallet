@@ -15,7 +15,7 @@
     </string>
     <string name="input_address_here">Введите адрес…</string>
     <string name="input_sum_here">Введите сумму…</string>
-    <string name="app_name">ПранакоинКошелёк</string>
+    <string name="app_name">Пранакоин Кошелёк</string>
     <string name="title_activity_any_orientation_capture">ПранакоинКошелёк</string>
     <string name="get_private_key">Получить приватный ключ</string>
     <string name="scan">Сканировать адрес</string>
