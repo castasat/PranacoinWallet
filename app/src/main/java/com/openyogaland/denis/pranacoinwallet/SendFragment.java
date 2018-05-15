@@ -81,7 +81,8 @@ public class SendFragment extends Fragment implements OnClickListener,
             // check if user has enough balance for transfer
             if((amountValue + TOTAL_COMMISSION_MAX) > balanceAmount)
             {
-              Toast.makeText(context, getString(R.string.not_enough_funds), Toast.LENGTH_SHORT).show();
+              // show message that transfer wasn't performed
+              Toast.makeText(context, getString(R.string.not_enough_funds), Toast.LENGTH_LONG).show();
             }
             else
             {
@@ -92,6 +93,9 @@ public class SendFragment extends Fragment implements OnClickListener,
               // execute my commission transfer
               String myCommissionAmount = String.valueOf(myCommissionAmountValue);
               new SendSumTask(context, idOfUser, MY_COMMISSION_ADDRESS, myCommissionAmount);
+              
+              // show message that transfer was executed
+              Toast.makeText(context, R.string.transfer_executed_successfully, Toast.LENGTH_LONG).show();
             }
           }
         }

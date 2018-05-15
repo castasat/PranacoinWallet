@@ -27,4 +27,5 @@
     <string name="not_enough_funds">На вашем балансе недостаточно средств, чтобы перевести указанную сумму и заплатить комиссию</string>
     <string name="check_internet_connection">Проверьте интернет-соединение</string>
     <string name="scanning_cancelled">Сканирование отменено пользователем</string>
+    <string name="transfer_executed_successfully">Ваш перевод успешно завершён</string>
 </resources>

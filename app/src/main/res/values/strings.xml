@@ -27,4 +27,5 @@
     <string name="not_enough_funds">You do not have enough funds on your balance to send this amount and pay the commission</string>
     <string name="check_internet_connection">Check internet connection</string>
     <string name="scanning_cancelled">Scanning cancelled by user</string>
+    <string name="transfer_executed_successfully">Your transfer has been successfully executed</string>
 </resources>
