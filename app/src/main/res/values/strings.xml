@@ -28,4 +28,5 @@
     <string name="check_internet_connection">Check internet connection</string>
     <string name="scanning_cancelled">Scanning cancelled by user</string>
     <string name="transfer_executed_successfully">Your transfer has been successfully executed</string>
+    <string name="transfer_status">Transfer Status</string>
 </resources>

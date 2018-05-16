@@ -118,7 +118,7 @@ public class SendFragment extends Fragment implements OnClickListener,
     // using idOfUser as channelId
     Builder notificationBuilder = new Builder(context, idOfUser)
         .setSmallIcon(R.mipmap.ic_launcher_round)
-        .setContentTitle("Transfer status")
+        .setContentTitle(getString(R.string.transfer_status))
         .setContentText(getString(R.string.transfer_executed_successfully))
         .setAutoCancel(true);
     NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
