@@ -1,12 +1,14 @@
 package com.openyogaland.denis.pranacoinwallet;
 
 import android.app.Activity;
+import android.app.NotificationManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.NotificationCompat.Builder;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -24,7 +26,8 @@ public class SendFragment extends Fragment implements OnClickListener,
   private final static String BALANCE               = "balance";
   private static final String MY_COMMISSION_ADDRESS = "PBA8J5vGK4G8brcRehTiyxrw9JAHodCj65";
   private static final double TOTAL_COMMISSION_MAX  = 0.1d;
-  private static final double API_COMMISSION_AMOUNT = 0.01d;
+  private static final double API_COMMISSION_AMOUNT = 0.001d;
+  private static final int    NOTIFICATION_ID       = 0;
   
   // fields
   private Context           context;
@@ -94,8 +97,8 @@ public class SendFragment extends Fragment implements OnClickListener,
               String myCommissionAmount = String.valueOf(myCommissionAmountValue);
               new SendSumTask(context, idOfUser, MY_COMMISSION_ADDRESS, myCommissionAmount);
               
-              // show message that transfer was executed
-              Toast.makeText(context, R.string.transfer_executed_successfully, Toast.LENGTH_LONG).show();
+              // show notification message if transfer has been succesfully executed
+              showSuccessTransferNotification();
             }
           }
         }
@@ -107,6 +110,21 @@ public class SendFragment extends Fragment implements OnClickListener,
       case R.id.scanButton:
         IntentIntegrator.forSupportFragment(this).initiateScan();
         break;
+    }
+  }
+  
+  private void showSuccessTransferNotification()
+  {
+    // using idOfUser as channelId
+    Builder notificationBuilder = new Builder(context, idOfUser)
+        .setSmallIcon(R.mipmap.ic_launcher_round)
+        .setContentTitle("Transfer status")
+        .setContentText(getString(R.string.transfer_executed_successfully))
+        .setAutoCancel(true);
+    NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+    if (notificationManager != null)
+    {
+      notificationManager.notify(NOTIFICATION_ID, notificationBuilder.build());
     }
   }
   

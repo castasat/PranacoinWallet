@@ -23,7 +23,7 @@
     <string name="continue_button">Продолжить</string>
     <string name="accept_privacy_policy">Я ПРИНИМАЮ Политику Конфиденциальности</string>
     <string name="locale_asset_path">/ru/</string>
-    <string name="commission_message">Комиссия: 0.1 PNC</string>
+    <string name="commission_message">Комиссия: до 0.1 PNC</string>
     <string name="not_enough_funds">На вашем балансе недостаточно средств, чтобы перевести указанную сумму и заплатить комиссию</string>
     <string name="check_internet_connection">Проверьте интернет-соединение</string>
     <string name="scanning_cancelled">Сканирование отменено пользователем</string>
