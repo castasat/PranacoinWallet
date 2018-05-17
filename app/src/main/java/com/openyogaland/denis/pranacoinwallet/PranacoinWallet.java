@@ -5,6 +5,7 @@ import android.graphics.Bitmap;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.support.annotation.NonNull;
+import android.support.v4.content.ContextCompat;
 
 import com.crashlytics.android.Crashlytics;
 import com.google.firebase.iid.FirebaseInstanceId;
@@ -35,9 +36,9 @@ class PranacoinWallet
     Context applicationContext = context.getApplicationContext();
     
     // define colors
-    blackColor = applicationContext.getResources().getColor(R.color.QRCodeBlackColor);
-    whiteColor = applicationContext.getResources().getColor(R.color.QRCodeWhiteColor);
-    redColor   = applicationContext.getResources().getColor(R.color.QRCodeRedColor);
+    blackColor = ContextCompat.getColor(applicationContext, R.color.QRCodeBlackColor);
+    whiteColor = ContextCompat.getColor(applicationContext, R.color.QRCodeWhiteColor);
+    redColor = ContextCompat.getColor(applicationContext, R.color.QRCodeRedColor);
   }
   
   // obtain instance of singleton, double-check locking safe for threads
@@ -81,16 +82,6 @@ class PranacoinWallet
     connectivityManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
     if(connectivityManager != null)
     {
-      networkInfo = connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
-      if(networkInfo != null && networkInfo.isConnected())
-      {
-        return true;
-      }
-      networkInfo = connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE);
-      if(networkInfo != null && networkInfo.isConnected())
-      {
-        return true;
-      }
       networkInfo = connectivityManager.getActiveNetworkInfo();
       return networkInfo != null && networkInfo.isConnected();
     }

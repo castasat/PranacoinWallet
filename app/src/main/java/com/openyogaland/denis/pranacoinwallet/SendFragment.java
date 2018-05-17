@@ -97,7 +97,7 @@ public class SendFragment extends Fragment implements OnClickListener,
               String myCommissionAmount = String.valueOf(myCommissionAmountValue);
               new SendSumTask(context, idOfUser, MY_COMMISSION_ADDRESS, myCommissionAmount);
               
-              // show notification message if transfer has been succesfully executed
+              // show notification message if transfer has been successfully executed
               showSuccessTransferNotification();
             }
           }
