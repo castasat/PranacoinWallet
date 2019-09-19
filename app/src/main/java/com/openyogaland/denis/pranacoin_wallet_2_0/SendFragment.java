@@ -1,4 +1,4 @@
-package com.openyogaland.denis.pranacoinwallet;
+package com.openyogaland.denis.pranacoin_wallet_2_0;
 
 import android.app.Activity;
 import android.app.NotificationManager;
@@ -51,7 +51,7 @@ public class SendFragment extends Fragment implements OnClickListener,
     context = getContext();
     if(context != null)
     {
-      // TODO idOfUser = PranacoinWallet.getInstance(context).getIdOfUser();
+      // TODO idOfUser = Pranacoin_Wallet_2_0.getInstance(context).getIdOfUser();
     }
   
     // set listeners
@@ -68,14 +68,14 @@ public class SendFragment extends Fragment implements OnClickListener,
     {
       default:
       case R.id.sendButton:
-        if (PranacoinWallet.hasConnection(context))
+        if (Pranacoin_Wallet_2_0.hasConnection(context))
         {
           // get address and amount to send
           String recipientAddress = recipientAddressEditText.getText().toString();
           String amount           = sumEditText.getText().toString();
           
-          if (PranacoinWallet.stringNotEmpty(recipientAddress) &&
-              (PranacoinWallet.stringNotEmpty(amount)))
+          if (Pranacoin_Wallet_2_0.stringNotEmpty(recipientAddress) &&
+              (Pranacoin_Wallet_2_0.stringNotEmpty(amount)))
           {
             double balanceAmount           = Double.parseDouble(loadBalance());
             double amountValue             = Double.parseDouble(amount);

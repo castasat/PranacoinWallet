@@ -6,10 +6,10 @@ buildscript
   {
     google()
     jcenter()
-    maven
+    /*maven
     {
       url 'https://maven.fabric.io/public'
-    }
+    }*/
   }
   dependencies
   {

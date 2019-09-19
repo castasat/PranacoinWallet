@@ -1,4 +1,4 @@
-package com.openyogaland.denis.pranacoinwallet;
+package com.openyogaland.denis.pranacoin_wallet_2_0;
 
 import android.content.Context;
 import androidx.annotation.NonNull;
@@ -13,35 +13,34 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
-class GetPublicAddressFromNetTask implements Listener<String>, ErrorListener,
-                                             RequestFinishedListener<StringRequest>
+class GetBalanceFromNetTask implements Listener<String>, ErrorListener,
+                                       RequestFinishedListener<StringRequest>
 {
   // constants
-  private final static String GET_ADDRESS_API = "http://95.213.191.196/api.php?action=getpubaddr&walletid=";
+  private final static String GET_BALANCE_API = "http://95.213.191.196/api.php?action=getbalance&walletid=";
   // fields
-  private RequestQueue                    requestQueue;
-  private OnPublicAddressObtainedListener onPublicAddressObtainedListener;
+  private RequestQueue              requestQueue;
+  private OnBalanceObtainedListener onBalanceObtainedListener;
   
   /**
    * constructor
    * @param idOfUser - id of user
    */
-  GetPublicAddressFromNetTask(@NonNull Context context, @NonNull String idOfUser)
+  GetBalanceFromNetTask(@NonNull Context context, @NonNull String idOfUser)
   {
-    if (PranacoinWallet.stringNotEmpty(idOfUser))
+    if(Pranacoin_Wallet_2_0.stringNotEmpty(idOfUser))
     {
-      String publicAddressUrl = GET_ADDRESS_API + idOfUser;
+      String balanceUrl = GET_BALANCE_API + idOfUser;
       DefaultRetryPolicy retryPolicy = new DefaultRetryPolicy(DefaultRetryPolicy.DEFAULT_TIMEOUT_MS,
           DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT);
       requestQueue = Volley.newRequestQueue(context);
       // try to get publicAddress from net
-      StringRequest publicAddressRequest =
-          new StringRequest(Method.GET, publicAddressUrl, this, this);
-      
+      StringRequest balanceRequest = new StringRequest(Method.GET, balanceUrl, this, this);
+  
       if(requestQueue != null)
       {
-        publicAddressRequest.setRetryPolicy(retryPolicy);
-        requestQueue.add(publicAddressRequest);
+        balanceRequest.setRetryPolicy(retryPolicy);
+        requestQueue.add(balanceRequest);
         requestQueue.addRequestFinishedListener(this);
       }
     }
@@ -54,9 +53,9 @@ class GetPublicAddressFromNetTask implements Listener<String>, ErrorListener,
   @Override
   public void onResponse(String response)
   {
-    if(PranacoinWallet.stringNotEmpty(response) && (onPublicAddressObtainedListener != null))
+    if(Pranacoin_Wallet_2_0.stringNotEmpty(response) && (onBalanceObtainedListener != null))
     {
-      onPublicAddressObtainedListener.onPublicAddressObtained(response);
+      onBalanceObtainedListener.onBalanceObtained(response);
     }
   }
   
@@ -81,15 +80,15 @@ class GetPublicAddressFromNetTask implements Listener<String>, ErrorListener,
   
   /**
    * setter
-   * @param onPublicAddressObtainedListener listener
+   * @param onBalanceObtainedListener listener
    */
-  public void setOnPublicAddressObtainedListener(OnPublicAddressObtainedListener onPublicAddressObtainedListener)
+  public void setOnBalanceObtainedListener(OnBalanceObtainedListener onBalanceObtainedListener)
   {
-    this.onPublicAddressObtainedListener = onPublicAddressObtainedListener;
+    this.onBalanceObtainedListener = onBalanceObtainedListener;
   }
 }
 
-interface OnPublicAddressObtainedListener
+interface OnBalanceObtainedListener
 {
-  void onPublicAddressObtained(@NonNull String publicAddress);
+  void onBalanceObtained(@NonNull String balance);
 }

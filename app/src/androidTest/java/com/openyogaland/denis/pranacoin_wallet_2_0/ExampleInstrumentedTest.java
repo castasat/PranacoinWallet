@@ -1,4 +1,4 @@
-package com.openyogaland.denis.pranacoinwallet;
+package com.openyogaland.denis.pranacoin_wallet_2_0;
 
 import android.content.Context;
 import androidx.test.platform.app.InstrumentationRegistry;
@@ -22,6 +22,6 @@ public class ExampleInstrumentedTest
     // Context of the app under test.
     Context appContext = InstrumentationRegistry.getTargetContext();
 
-    assertEquals("com.openyogaland.denis.pranacoinwallet", appContext.getPackageName());
+    assertEquals("com.openyogaland.denis.pranacoin_wallet_2_0", appContext.getPackageName());
   }
 }

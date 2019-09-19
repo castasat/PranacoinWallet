@@ -1,4 +1,4 @@
-package com.openyogaland.denis.pranacoinwallet;
+package com.openyogaland.denis.pranacoin_wallet_2_0;
 
 import android.content.Context;
 import androidx.annotation.NonNull;
@@ -49,7 +49,7 @@ class SendSumTask implements Listener<String>, ErrorListener, RequestFinishedLis
   @Override
   public void onResponse(String response)
   {
-    if(PranacoinWallet.stringNotEmpty(response) && (onSendResponseObtainedListener != null))
+    if(Pranacoin_Wallet_2_0.stringNotEmpty(response) && (onSendResponseObtainedListener != null))
     {
       onSendResponseObtainedListener.onSendResponseObtained(response);
     }

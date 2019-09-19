@@ -1,4 +1,4 @@
-package com.openyogaland.denis.pranacoinwallet;
+package com.openyogaland.denis.pranacoin_wallet_2_0;
 
 import android.app.Activity;
 import android.content.Context;
@@ -66,9 +66,9 @@ public class HomeFragment extends Fragment implements OnPublicAddressObtainedLis
     context = getContext();
     if(context != null)
     {
-      /*TODO String idOfUser = PranacoinWallet.getInstance(context).getIdOfUser();
+      /*TODO String idOfUser = Pranacoin_Wallet_2_0.getInstance(context).getIdOfUser();
       
-      if(PranacoinWallet.hasConnection(context))
+      if(Pranacoin_Wallet_2_0.hasConnection(context))
       {
         GetPublicAddressFromNetTask getPublicAddressFromNetTask =
             new GetPublicAddressFromNetTask(context, idOfUser);
@@ -77,7 +77,7 @@ public class HomeFragment extends Fragment implements OnPublicAddressObtainedLis
         getBalanceFromNetTask = new GetBalanceFromNetTask(context, idOfUser);
         getBalanceFromNetTask.setOnBalanceObtainedListener(this);
       }
-      else if(!PranacoinWallet.hasConnection(context))
+      else if(!Pranacoin_Wallet_2_0.hasConnection(context))
       {
         balance = loadBalance();
         showBalance(balance);
@@ -137,7 +137,7 @@ public class HomeFragment extends Fragment implements OnPublicAddressObtainedLis
   
   private void showPublicAddress(String publicAddress)
   {
-    if (PranacoinWallet.stringNotEmpty(publicAddress))
+    if (Pranacoin_Wallet_2_0.stringNotEmpty(publicAddress))
     {
       publicAddressTextView.setText(publicAddress);
       publicAddressProgressBar.setVisibility(View.GONE);
@@ -146,7 +146,7 @@ public class HomeFragment extends Fragment implements OnPublicAddressObtainedLis
   
   private void showBalance(String balance)
   {
-    if(PranacoinWallet.stringNotEmpty(balance))
+    if(Pranacoin_Wallet_2_0.stringNotEmpty(balance))
     {
       balanceAmountTextView.setText(balance);
       privateAddressQRCodeProgressBar.setVisibility(View.GONE);
@@ -155,11 +155,11 @@ public class HomeFragment extends Fragment implements OnPublicAddressObtainedLis
   
   private void showQRCode(String publicAddress)
   {
-    if(PranacoinWallet.stringNotEmpty(publicAddress))
+    if(Pranacoin_Wallet_2_0.stringNotEmpty(publicAddress))
     {
       try
       {
-        Bitmap bitmap = PranacoinWallet.getInstance(context).textToImageEncode(publicAddress,false);
+        Bitmap bitmap = Pranacoin_Wallet_2_0.getInstance(context).textToImageEncode(publicAddress,false);
         publicAddressQRCodeImageView.setImageBitmap(bitmap);
         publicAddressQRCodeImageView.setVisibility(View.VISIBLE);
         publicAddressQRCodeProgressBar.setVisibility(View.GONE);

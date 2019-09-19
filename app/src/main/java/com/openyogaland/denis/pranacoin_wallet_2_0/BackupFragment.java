@@ -1,4 +1,4 @@
-package com.openyogaland.denis.pranacoinwallet;
+package com.openyogaland.denis.pranacoin_wallet_2_0;
 
 import android.app.Activity;
 import android.content.Context;
@@ -105,15 +105,15 @@ public class BackupFragment extends Fragment implements OnPrivateAddressObtained
     if(context != null)
     {
       privateAddressQRCodeProgressBar.setVisibility(View.VISIBLE);
-      /*TODO String idOfUser = PranacoinWallet.getInstance(context).getIdOfUser();
+      /*TODO String idOfUser = Pranacoin_Wallet_2_0.getInstance(context).getIdOfUser();
     
-      if(PranacoinWallet.hasConnection(context))
+      if(Pranacoin_Wallet_2_0.hasConnection(context))
       {
         GetPrivateAddressFromNetTask getPrivateAddressFromNetTask =
             new GetPrivateAddressFromNetTask(context, idOfUser);
         getPrivateAddressFromNetTask.setOnPrivateAddressObtainedListener(this);
       }
-      else if(!PranacoinWallet.hasConnection(context))
+      else if(!Pranacoin_Wallet_2_0.hasConnection(context))
       {
         String privateAddress = loadPrivateAddress();
         showPrivateAddressGroup(privateAddress);
@@ -123,12 +123,12 @@ public class BackupFragment extends Fragment implements OnPrivateAddressObtained
   
   private void showPrivateAddressGroup(String privateAddress)
   {
-    if(PranacoinWallet.stringNotEmpty(privateAddress))
+    if(Pranacoin_Wallet_2_0.stringNotEmpty(privateAddress))
     {
       privateAddressTextView.setText(privateAddress);
       try
       {
-        Bitmap bitmap = PranacoinWallet.getInstance(context).textToImageEncode(privateAddress,true);
+        Bitmap bitmap = Pranacoin_Wallet_2_0.getInstance(context).textToImageEncode(privateAddress,true);
         privateAddressQRCodeImageView.setImageBitmap(bitmap);
       }
       catch(WriterException e)

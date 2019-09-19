@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Pranacoin Wallet</string>
+    <string name="app_name">Pranacoin Wallet 2.0</string>
     <string name="quit_dialog_message">Exit: Are you sure?</string>
     <string name="exit_yes">Yes</string>
     <string name="exit_no">No</string>
@@ -10,7 +10,6 @@
     <string name="title_restore">Restore</string>
     <string name="title_balance">Balance:</string>
     <string name="title_my_address">My address:</string>
-    <string name="title_activity_any_orientation_capture">PranaWallet</string>
     <string name="private_address_qr_code">private key QR-code</string>
     <string name="get_private_key">Receive private key</string>
     <string name="receive_private_key_message">

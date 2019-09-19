@@ -28,11 +28,11 @@ android
   
   defaultConfig
   {
-    applicationId "com.openyogaland.denis.pranacoinwallet"
+    applicationId "com.openyogaland.denis.pranacoin_wallet_2_0"
     minSdkVersion 14   
     targetSdkVersion 29
-    versionCode 4
-    versionName "1.0.3"
+    versionCode 1
+    versionName "0.0.1"
     testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     multiDexEnabled false
     /*signingConfig signingConfigs.config*/

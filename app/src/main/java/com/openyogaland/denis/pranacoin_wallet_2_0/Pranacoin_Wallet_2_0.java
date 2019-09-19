@@ -1,4 +1,4 @@
-package com.openyogaland.denis.pranacoinwallet;
+package com.openyogaland.denis.pranacoin_wallet_2_0;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -20,18 +20,18 @@ import org.jetbrains.annotations.NotNull;
 // + not in a static manner to prevent memory leaks
 // + has lazy initialization
 // + safe for threads
-class PranacoinWallet
+class Pranacoin_Wallet_2_0
 {
   // constants
   private final static int QR_CODE_DIMENSION = 500;
   
   // fields
-  private static volatile PranacoinWallet instance;
+  private static volatile Pranacoin_Wallet_2_0 instance;
   private                 int             blackColor;
   private                 int             whiteColor;
   private                 int             redColor;
   
-  private PranacoinWallet(@NonNull @NotNull Context context)
+  private Pranacoin_Wallet_2_0(@NonNull @NotNull Context context)
   {
     Context applicationContext = context.getApplicationContext();
     
@@ -42,17 +42,17 @@ class PranacoinWallet
   }
   
   // obtain instance of singleton, double-check locking safe for threads
-  static PranacoinWallet getInstance(@NonNull Context context)
+  static Pranacoin_Wallet_2_0 getInstance(@NonNull Context context)
   {
-    PranacoinWallet localInstance = instance;
+    Pranacoin_Wallet_2_0 localInstance = instance;
     if (localInstance == null)
     {
-      synchronized(PranacoinWallet.class)
+      synchronized(Pranacoin_Wallet_2_0.class)
       {
         localInstance = instance;
         if(localInstance == null)
         {
-          instance = new PranacoinWallet(context);
+          instance = new Pranacoin_Wallet_2_0(context);
         }
       }
     }
