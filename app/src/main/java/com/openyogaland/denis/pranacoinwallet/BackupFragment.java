@@ -19,7 +19,7 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import com.crashlytics.android.Crashlytics;
+//import com.crashlytics.android.Crashlytics;
 import com.google.zxing.WriterException;
 
 public class BackupFragment extends Fragment implements OnPrivateAddressObtainedListener,
@@ -105,7 +105,7 @@ public class BackupFragment extends Fragment implements OnPrivateAddressObtained
     if(context != null)
     {
       privateAddressQRCodeProgressBar.setVisibility(View.VISIBLE);
-      String idOfUser = PranacoinWallet.getInstance(context).getIdOfUser();
+      /*TODO String idOfUser = PranacoinWallet.getInstance(context).getIdOfUser();
     
       if(PranacoinWallet.hasConnection(context))
       {
@@ -117,7 +117,7 @@ public class BackupFragment extends Fragment implements OnPrivateAddressObtained
       {
         String privateAddress = loadPrivateAddress();
         showPrivateAddressGroup(privateAddress);
-      }
+      }*/
     }
   }
   
@@ -133,7 +133,7 @@ public class BackupFragment extends Fragment implements OnPrivateAddressObtained
       }
       catch(WriterException e)
       {
-        Crashlytics.logException(e);
+        //Crashlytics.logException(e);
         e.printStackTrace();
       }
       finally

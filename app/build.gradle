@@ -1,5 +1,5 @@
 apply plugin: 'com.android.application'
-apply plugin: 'io.fabric'
+//apply plugin: 'io.fabric'
 // apply plugin: 'com.google.firebase.firebase-perf'
 
 // Create a variable called keystorePropertiesFile, and initialize it to your
@@ -71,15 +71,15 @@ dependencies
   implementation 'com.journeyapps:zxing-android-embedded:3.6.0'
   
   // noinspection GradleDependency
-  implementation 'com.google.firebase:firebase-core:17.2.0'
+  //implementation 'com.google.firebase:firebase-core:17.2.0'
   // noinspection GradleDependency
-  implementation 'com.google.firebase:firebase-appindexing:19.0.0'
+  // implementation 'com.google.firebase:firebase-appindexing:19.0.0'
   // noinspection GradleDependency
   // implementation 'com.google.firebase:firebase-perf:15.0.0'
   // noinspection GradleDependency
   // implementation 'com.google.firebase:firebase-invites:15.0.0'
   
-  implementation 'com.crashlytics.sdk.android:crashlytics:2.10.1'
+  //implementation 'com.crashlytics.sdk.android:crashlytics:2.10.1'
 
   implementation 'org.jetbrains:annotations-java5:15.0'
   
@@ -88,4 +88,4 @@ dependencies
   androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
 }
 
-apply plugin: 'com.google.gms.google-services'
+//apply plugin: 'com.google.gms.google-services'

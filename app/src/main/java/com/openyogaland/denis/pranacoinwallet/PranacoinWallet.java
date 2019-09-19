@@ -7,8 +7,8 @@ import android.net.NetworkInfo;
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 
-import com.crashlytics.android.Crashlytics;
-import com.google.firebase.iid.FirebaseInstanceId;
+//import com.crashlytics.android.Crashlytics;
+//import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.MultiFormatWriter;
 import com.google.zxing.WriterException;
@@ -60,10 +60,10 @@ class PranacoinWallet
   }
   
   // get idOfUser using application context
-  String getIdOfUser()
+  /* TODO String getIdOfUser()
   {
     return FirebaseInstanceId.getInstance().getId();
-  }
+  }*/
   
   // check if string is not empty and not equal to null
   @Contract("null -> false")
@@ -100,7 +100,7 @@ class PranacoinWallet
     }
     catch(IllegalArgumentException e)
     {
-      Crashlytics.logException(e);
+      //Crashlytics.logException(e);
       e.printStackTrace();
       return null;
     }

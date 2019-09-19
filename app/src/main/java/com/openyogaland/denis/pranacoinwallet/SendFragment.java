@@ -51,7 +51,7 @@ public class SendFragment extends Fragment implements OnClickListener,
     context = getContext();
     if(context != null)
     {
-      idOfUser = PranacoinWallet.getInstance(context).getIdOfUser();
+      // TODO idOfUser = PranacoinWallet.getInstance(context).getIdOfUser();
     }
   
     // set listeners
