@@ -22,8 +22,11 @@ import android.widget.TextView;
 //import com.crashlytics.android.Crashlytics;
 import com.google.zxing.WriterException;
 import com.openyogaland.denis.pranacoin_wallet_2_0.R;
-import com.openyogaland.denis.pranacoin_wallet_2_0.application.Pranacoin_Wallet_2_0;
+import com.openyogaland.denis.pranacoin_wallet_2_0.application.PranacoinWallet2;
 import com.openyogaland.denis.pranacoin_wallet_2_0.listener.OnPrivateAddressObtainedListener;
+
+import static com.openyogaland.denis.pranacoin_wallet_2_0.application.PranacoinWallet2.stringNotEmpty;
+import static com.openyogaland.denis.pranacoin_wallet_2_0.domain.QRCodeDomain.textToImageEncode;
 
 public class BackupFragment extends Fragment implements OnPrivateAddressObtainedListener,
                                                         OnClickListener
@@ -108,15 +111,15 @@ public class BackupFragment extends Fragment implements OnPrivateAddressObtained
     if(context != null)
     {
       privateAddressQRCodeProgressBar.setVisibility(View.VISIBLE);
-      /*TODO String idOfUser = Pranacoin_Wallet_2_0.getInstance(context).getIdOfUser();
+      /*TODO String idOfUser = PranacoinWallet2.getInstance(context).getIdOfUser();
     
-      if(Pranacoin_Wallet_2_0.hasConnection(context))
+      if(PranacoinWallet2.hasConnection(context))
       {
         GetPrivateAddressFromNetTask getPrivateAddressFromNetTask =
             new GetPrivateAddressFromNetTask(context, idOfUser);
         getPrivateAddressFromNetTask.setOnPrivateAddressObtainedListener(this);
       }
-      else if(!Pranacoin_Wallet_2_0.hasConnection(context))
+      else if(!PranacoinWallet2.hasConnection(context))
       {
         String privateAddress = loadPrivateAddress();
         showPrivateAddressGroup(privateAddress);
@@ -126,12 +129,12 @@ public class BackupFragment extends Fragment implements OnPrivateAddressObtained
   
   private void showPrivateAddressGroup(String privateAddress)
   {
-    if(Pranacoin_Wallet_2_0.stringNotEmpty(privateAddress))
+    if(stringNotEmpty(privateAddress))
     {
       privateAddressTextView.setText(privateAddress);
       try
       {
-        Bitmap bitmap = Pranacoin_Wallet_2_0.getInstance(context).textToImageEncode(privateAddress,true);
+        Bitmap bitmap = textToImageEncode(context, privateAddress,true);
         privateAddressQRCodeImageView.setImageBitmap(bitmap);
       }
       catch(WriterException e)

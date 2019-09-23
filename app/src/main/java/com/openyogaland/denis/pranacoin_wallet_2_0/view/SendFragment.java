@@ -21,7 +21,10 @@ import com.google.zxing.integration.android.IntentResult;
 import com.openyogaland.denis.pranacoin_wallet_2_0.async.SendSumTask;
 import com.openyogaland.denis.pranacoin_wallet_2_0.listener.OnSendResponseObtainedListener;
 import com.openyogaland.denis.pranacoin_wallet_2_0.R;
-import com.openyogaland.denis.pranacoin_wallet_2_0.application.Pranacoin_Wallet_2_0;
+import com.openyogaland.denis.pranacoin_wallet_2_0.application.PranacoinWallet2;
+
+import static com.openyogaland.denis.pranacoin_wallet_2_0.application.PranacoinWallet2.hasConnection;
+import static com.openyogaland.denis.pranacoin_wallet_2_0.application.PranacoinWallet2.stringNotEmpty;
 
 public class SendFragment extends Fragment implements OnClickListener,
         OnSendResponseObtainedListener
@@ -55,7 +58,7 @@ public class SendFragment extends Fragment implements OnClickListener,
     context = getContext();
     if(context != null)
     {
-      // TODO idOfUser = Pranacoin_Wallet_2_0.getInstance(context).getIdOfUser();
+      // TODO idOfUser = PranacoinWallet2.getInstance(context).getIdOfUser();
     }
   
     // set listeners
@@ -72,14 +75,14 @@ public class SendFragment extends Fragment implements OnClickListener,
     {
       default:
       case R.id.sendButton:
-        if (Pranacoin_Wallet_2_0.hasConnection(context))
+        if (hasConnection(context))
         {
           // get address and amount to send
           String recipientAddress = recipientAddressEditText.getText().toString();
           String amount           = sumEditText.getText().toString();
           
-          if (Pranacoin_Wallet_2_0.stringNotEmpty(recipientAddress) &&
-              (Pranacoin_Wallet_2_0.stringNotEmpty(amount)))
+          if (stringNotEmpty(recipientAddress) &&
+              (stringNotEmpty(amount)))
           {
             double balanceAmount           = Double.parseDouble(loadBalance());
             double amountValue             = Double.parseDouble(amount);

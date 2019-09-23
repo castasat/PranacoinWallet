@@ -6,9 +6,11 @@ import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.graphics.Bitmap;
 import android.os.Bundle;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,20 +24,26 @@ import com.openyogaland.denis.pranacoin_wallet_2_0.async.GetBalanceFromNetTask;
 import com.openyogaland.denis.pranacoin_wallet_2_0.listener.OnBalanceObtainedListener;
 import com.openyogaland.denis.pranacoin_wallet_2_0.listener.OnPublicAddressObtainedListener;
 import com.openyogaland.denis.pranacoin_wallet_2_0.R;
-import com.openyogaland.denis.pranacoin_wallet_2_0.application.Pranacoin_Wallet_2_0;
+import com.openyogaland.denis.pranacoin_wallet_2_0.application.PranacoinWallet2;
 
-public class HomeFragment extends Fragment implements OnPublicAddressObtainedListener,
-        OnBalanceObtainedListener
+import static com.openyogaland.denis.pranacoin_wallet_2_0.application.PranacoinWallet2.stringNotEmpty;
+import static com.openyogaland.denis.pranacoin_wallet_2_0.domain.QRCodeDomain.textToImageEncode;
+
+public
+class HomeFragment
+extends Fragment
+implements OnPublicAddressObtainedListener,
+           OnBalanceObtainedListener
 {
   // constants
-  private final static String            PUBLIC_ADDRESS          = "public address";
-  private final static String            BALANCE                 = "balance";
+  private final static String            PUBLIC_ADDRESS = "public address";
+  private final static String            BALANCE        = "balance";
   // fields
   private              Context           context;
   private              SharedPreferences sharedPreferences;
   private              Editor            editor;
-  private              String            publicAddress           = "";
-  private              String            balance                 = "";
+  private              String            publicAddress  = "";
+  private              String            balance        = "";
   private              TextView          publicAddressTextView;
   private              TextView          balanceAmountTextView;
   private              ProgressBar       privateAddressQRCodeProgressBar;
@@ -43,9 +51,12 @@ public class HomeFragment extends Fragment implements OnPublicAddressObtainedLis
   private              ImageView         publicAddressQRCodeImageView;
   private              ProgressBar       publicAddressQRCodeProgressBar;
   
-  @Override @Nullable
-  public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
-      @Nullable Bundle savedInstanceState)
+  @Override
+  @Nullable
+  public
+  View onCreateView(@NonNull LayoutInflater inflater,
+                    @Nullable ViewGroup container,
+                    @Nullable Bundle savedInstanceState)
   {
     // local variables
     GetBalanceFromNetTask getBalanceFromNetTask;
@@ -54,26 +65,29 @@ public class HomeFragment extends Fragment implements OnPublicAddressObtainedLis
     View view = inflater.inflate(R.layout.fragment_home, container, false);
     
     // find views by ids
-    publicAddressTextView           = view.findViewById(R.id.publicAddressTextView);
-    balanceAmountTextView           = view.findViewById(R.id.balanceAmountTextView);
-    privateAddressQRCodeProgressBar = view.findViewById(R.id.balanceProgressBar);
-    publicAddressProgressBar        = view.findViewById(R.id.publicAddressProgressBar);
-    publicAddressQRCodeImageView    = view.findViewById(R.id.publicAddressQRCodeImageView);
-    publicAddressQRCodeProgressBar  = view.findViewById(R.id.publicAddressQRCodeProgressBar);
-  
+    publicAddressTextView = view.findViewById(R.id.publicAddressTextView);
+    balanceAmountTextView = view.findViewById(R.id.balanceAmountTextView);
+    privateAddressQRCodeProgressBar =
+    view.findViewById(R.id.balanceProgressBar);
+    publicAddressProgressBar = view.findViewById(R.id.publicAddressProgressBar);
+    publicAddressQRCodeImageView =
+    view.findViewById(R.id.publicAddressQRCodeImageView);
+    publicAddressQRCodeProgressBar =
+    view.findViewById(R.id.publicAddressQRCodeProgressBar);
+    
     // setting progress bars visible and imageView not-visible
     publicAddressProgressBar.setVisibility(View.VISIBLE);
     privateAddressQRCodeProgressBar.setVisibility(View.VISIBLE);
     publicAddressQRCodeImageView.setVisibility(View.GONE);
     publicAddressQRCodeProgressBar.setVisibility(View.VISIBLE);
-  
+    
     // show public address and balance
     context = getContext();
     if(context != null)
     {
-      /*TODO String idOfUser = Pranacoin_Wallet_2_0.getInstance(context).getIdOfUser();
+      /*TODO String idOfUser = PranacoinWallet2.getInstance(context).getIdOfUser();
       
-      if(Pranacoin_Wallet_2_0.hasConnection(context))
+      if(PranacoinWallet2.hasConnection(context))
       {
         GetPublicAddressFromNetTask getPublicAddressFromNetTask =
             new GetPublicAddressFromNetTask(context, idOfUser);
@@ -82,7 +96,7 @@ public class HomeFragment extends Fragment implements OnPublicAddressObtainedLis
         getBalanceFromNetTask = new GetBalanceFromNetTask(context, idOfUser);
         getBalanceFromNetTask.setOnBalanceObtainedListener(this);
       }
-      else if(!Pranacoin_Wallet_2_0.hasConnection(context))
+      else if(!PranacoinWallet2.hasConnection(context))
       {
         balance = loadBalance();
         showBalance(balance);
@@ -94,7 +108,8 @@ public class HomeFragment extends Fragment implements OnPublicAddressObtainedLis
     return view;
   }
   
-  private String loadPublicAddress()
+  private
+  String loadPublicAddress()
   {
     Activity activity = getActivity();
     if(activity != null)
@@ -105,7 +120,8 @@ public class HomeFragment extends Fragment implements OnPublicAddressObtainedLis
     return "";
   }
   
-  private String loadBalance()
+  private
+  String loadBalance()
   {
     Activity activity = getActivity();
     if(activity != null)
@@ -116,7 +132,8 @@ public class HomeFragment extends Fragment implements OnPublicAddressObtainedLis
     return "";
   }
   
-  private void savePublicAddress(String publicAddress)
+  private
+  void savePublicAddress(String publicAddress)
   {
     Activity activity = getActivity();
     if(activity != null)
@@ -128,7 +145,8 @@ public class HomeFragment extends Fragment implements OnPublicAddressObtainedLis
     }
   }
   
-  private void saveBalance(String balance)
+  private
+  void saveBalance(String balance)
   {
     Activity activity = getActivity();
     if(activity != null)
@@ -140,31 +158,34 @@ public class HomeFragment extends Fragment implements OnPublicAddressObtainedLis
     }
   }
   
-  private void showPublicAddress(String publicAddress)
+  private
+  void showPublicAddress(String publicAddress)
   {
-    if (Pranacoin_Wallet_2_0.stringNotEmpty(publicAddress))
+    if(stringNotEmpty(publicAddress))
     {
       publicAddressTextView.setText(publicAddress);
       publicAddressProgressBar.setVisibility(View.GONE);
     }
   }
   
-  private void showBalance(String balance)
+  private
+  void showBalance(String balance)
   {
-    if(Pranacoin_Wallet_2_0.stringNotEmpty(balance))
+    if(stringNotEmpty(balance))
     {
       balanceAmountTextView.setText(balance);
       privateAddressQRCodeProgressBar.setVisibility(View.GONE);
     }
   }
   
-  private void showQRCode(String publicAddress)
+  private
+  void showQRCode(String publicAddress)
   {
-    if(Pranacoin_Wallet_2_0.stringNotEmpty(publicAddress))
+    if(stringNotEmpty(publicAddress))
     {
       try
       {
-        Bitmap bitmap = Pranacoin_Wallet_2_0.getInstance(context).textToImageEncode(publicAddress,false);
+        Bitmap bitmap = textToImageEncode(context, publicAddress, false);
         publicAddressQRCodeImageView.setImageBitmap(bitmap);
         publicAddressQRCodeImageView.setVisibility(View.VISIBLE);
         publicAddressQRCodeProgressBar.setVisibility(View.GONE);
@@ -178,7 +199,8 @@ public class HomeFragment extends Fragment implements OnPublicAddressObtainedLis
   }
   
   @Override
-  public void onBalanceObtained(@NonNull String balance)
+  public
+  void onBalanceObtained(@NonNull String balance)
   {
     this.balance = balance;
     showBalance(balance);
@@ -187,7 +209,8 @@ public class HomeFragment extends Fragment implements OnPublicAddressObtainedLis
   }
   
   @Override
-  public void onPublicAddressObtained(@NonNull String publicAddress)
+  public
+  void onPublicAddressObtained(@NonNull String publicAddress)
   {
     this.publicAddress = publicAddress;
     showPublicAddress(publicAddress);

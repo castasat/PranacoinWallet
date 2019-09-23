@@ -12,8 +12,9 @@ import com.android.volley.Response.Listener;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.openyogaland.denis.pranacoin_wallet_2_0.application.Pranacoin_Wallet_2_0;
 import com.openyogaland.denis.pranacoin_wallet_2_0.listener.OnPublicAddressObtainedListener;
+
+import static com.openyogaland.denis.pranacoin_wallet_2_0.application.PranacoinWallet2.stringNotEmpty;
 
 class GetPublicAddressFromNetTask implements Listener<String>, ErrorListener,
                                              RequestFinishedListener<StringRequest>
@@ -30,7 +31,7 @@ class GetPublicAddressFromNetTask implements Listener<String>, ErrorListener,
    */
   GetPublicAddressFromNetTask(@NonNull Context context, @NonNull String idOfUser)
   {
-    if (Pranacoin_Wallet_2_0.stringNotEmpty(idOfUser))
+    if (stringNotEmpty(idOfUser))
     {
       String publicAddressUrl = GET_ADDRESS_API + idOfUser;
       DefaultRetryPolicy retryPolicy = new DefaultRetryPolicy(DefaultRetryPolicy.DEFAULT_TIMEOUT_MS,
@@ -56,7 +57,7 @@ class GetPublicAddressFromNetTask implements Listener<String>, ErrorListener,
   @Override
   public void onResponse(String response)
   {
-    if(Pranacoin_Wallet_2_0.stringNotEmpty(response) && (onPublicAddressObtainedListener != null))
+    if(stringNotEmpty(response) && (onPublicAddressObtainedListener != null))
     {
       onPublicAddressObtainedListener.onPublicAddressObtained(response);
     }

@@ -12,8 +12,10 @@ import com.android.volley.Response.Listener;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.openyogaland.denis.pranacoin_wallet_2_0.application.Pranacoin_Wallet_2_0;
+import com.openyogaland.denis.pranacoin_wallet_2_0.application.PranacoinWallet2;
 import com.openyogaland.denis.pranacoin_wallet_2_0.listener.OnPrivateAddressObtainedListener;
+
+import static com.openyogaland.denis.pranacoin_wallet_2_0.application.PranacoinWallet2.stringNotEmpty;
 
 class GetPrivateAddressFromNetTask implements Listener<String>, ErrorListener,
                                               RequestFinishedListener<StringRequest>
@@ -30,7 +32,7 @@ class GetPrivateAddressFromNetTask implements Listener<String>, ErrorListener,
    */
   GetPrivateAddressFromNetTask(@NonNull Context context, @NonNull String idOfUser)
   {
-    if(Pranacoin_Wallet_2_0.stringNotEmpty(idOfUser))
+    if(stringNotEmpty(idOfUser))
     {
       String privateAddressUrl = GET_PRIVADDR_API + idOfUser;
   
@@ -59,7 +61,7 @@ class GetPrivateAddressFromNetTask implements Listener<String>, ErrorListener,
   @Override
   public void onResponse(String response)
   {
-    if(Pranacoin_Wallet_2_0.stringNotEmpty(response) && (onPrivateAddressObtainedListener != null))
+    if(stringNotEmpty(response) && (onPrivateAddressObtainedListener != null))
     {
       onPrivateAddressObtainedListener.onPrivateAddressObtained(response);
     }

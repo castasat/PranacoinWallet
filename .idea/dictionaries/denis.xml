@@ -1,16 +1,24 @@
 <component name="ProjectDictionaryState">
   <dictionary name="denis">
     <words>
+      <w>apiguardian</w>
+      <w>appindexing</w>
       <w>appinvite</w>
       <w>appspot</w>
       <w>barcodescanner</w>
       <w>crashlytics</w>
       <w>firebase</w>
       <w>journeyapps</w>
+      <w>kapt</w>
+      <w>leakcanary</w>
       <w>mobilesdk</w>
+      <w>okhttp</w>
       <w>openyogaland</w>
+      <w>parcelize</w>
       <w>pranacoin</w>
       <w>pranacoinwallet</w>
+      <w>splunk</w>
+      <w>squareup</w>
     </words>
   </dictionary>
 </component>
