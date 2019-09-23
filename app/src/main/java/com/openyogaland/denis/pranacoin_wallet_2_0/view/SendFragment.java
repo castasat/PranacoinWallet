@@ -1,4 +1,4 @@
-package com.openyogaland.denis.pranacoin_wallet_2_0;
+package com.openyogaland.denis.pranacoin_wallet_2_0.view;
 
 import android.app.Activity;
 import android.app.NotificationManager;
@@ -18,9 +18,13 @@ import android.widget.EditText;
 import android.widget.Toast;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
+import com.openyogaland.denis.pranacoin_wallet_2_0.async.SendSumTask;
+import com.openyogaland.denis.pranacoin_wallet_2_0.listener.OnSendResponseObtainedListener;
+import com.openyogaland.denis.pranacoin_wallet_2_0.R;
+import com.openyogaland.denis.pranacoin_wallet_2_0.application.Pranacoin_Wallet_2_0;
 
 public class SendFragment extends Fragment implements OnClickListener,
-                                                      OnSendResponseObtainedListener
+        OnSendResponseObtainedListener
 {
   // constants
   private final static String BALANCE               = "balance";

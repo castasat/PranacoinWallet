@@ -1,4 +1,4 @@
-package com.openyogaland.denis.pranacoin_wallet_2_0;
+package com.openyogaland.denis.pranacoin_wallet_2_0.application;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -13,6 +13,8 @@ import com.google.zxing.BarcodeFormat;
 import com.google.zxing.MultiFormatWriter;
 import com.google.zxing.WriterException;
 import com.google.zxing.common.BitMatrix;
+import com.openyogaland.denis.pranacoin_wallet_2_0.R;
+
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 
@@ -20,7 +22,7 @@ import org.jetbrains.annotations.NotNull;
 // + not in a static manner to prevent memory leaks
 // + has lazy initialization
 // + safe for threads
-class Pranacoin_Wallet_2_0
+public class Pranacoin_Wallet_2_0
 {
   // constants
   private final static int QR_CODE_DIMENSION = 500;
@@ -42,7 +44,7 @@ class Pranacoin_Wallet_2_0
   }
   
   // obtain instance of singleton, double-check locking safe for threads
-  static Pranacoin_Wallet_2_0 getInstance(@NonNull Context context)
+  public static Pranacoin_Wallet_2_0 getInstance(@NonNull Context context)
   {
     Pranacoin_Wallet_2_0 localInstance = instance;
     if (localInstance == null)
@@ -67,13 +69,13 @@ class Pranacoin_Wallet_2_0
   
   // check if string is not empty and not equal to null
   @Contract("null -> false")
-  static boolean stringNotEmpty(String string)
+  public static boolean stringNotEmpty(String string)
   {
     return ((string != null) && (!"".equals(string)));
   }
   
   // check if there is internet connection
-  static boolean hasConnection(@NonNull @NotNull final Context context)
+  public static boolean hasConnection(@NonNull @NotNull final Context context)
   {
     // local variables
     ConnectivityManager connectivityManager;
@@ -89,7 +91,7 @@ class Pranacoin_Wallet_2_0
   }
   
   // encode string information to obtain QR-code
-  Bitmap textToImageEncode(String address, boolean isPrivate) throws WriterException
+  public Bitmap textToImageEncode(String address, boolean isPrivate) throws WriterException
   {
     BitMatrix bitMatrix;
     int qrCodeColor = (isPrivate) ? redColor : blackColor;

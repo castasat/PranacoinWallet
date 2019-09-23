@@ -1,4 +1,4 @@
-package com.openyogaland.denis.pranacoin_wallet_2_0;
+package com.openyogaland.denis.pranacoin_wallet_2_0.view;
 
 import android.app.Dialog;
 import android.content.DialogInterface;
@@ -17,6 +17,9 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
+
+import com.openyogaland.denis.pranacoin_wallet_2_0.R;
+import com.openyogaland.denis.pranacoin_wallet_2_0.listener.OnPrivacyPolicyAcceptedListener;
 
 public class PolicyFragment extends AppCompatDialogFragment implements OnCheckedChangeListener,
                                                                        OnClickListener
@@ -139,7 +142,3 @@ public class PolicyFragment extends AppCompatDialogFragment implements OnChecked
   }
 }
 
-interface OnPrivacyPolicyAcceptedListener
-{
-  void onPrivacyPolicyAccepted(boolean privacyPolicyAcceptedByUser);
-}

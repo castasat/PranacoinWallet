@@ -1,4 +1,4 @@
-package com.openyogaland.denis.pranacoin_wallet_2_0;
+package com.openyogaland.denis.pranacoin_wallet_2_0.view;
 
 import android.app.AlertDialog.Builder;
 import android.content.Context;
@@ -11,6 +11,9 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.bottomnavigation.BottomNavigationView.OnNavigationItemSelectedListener;
+import com.openyogaland.denis.pranacoin_wallet_2_0.R;
+import com.openyogaland.denis.pranacoin_wallet_2_0.listener.OnPrivacyPolicyAcceptedListener;
+
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.appcompat.app.AppCompatActivity;
@@ -22,7 +25,7 @@ import org.jetbrains.annotations.Contract;
 
 public class MainActivity extends AppCompatActivity implements OnNavigationItemSelectedListener,
                                                                OnClickListener,
-                                                               OnPrivacyPolicyAcceptedListener
+        OnPrivacyPolicyAcceptedListener
 {
   // constants
   private final static String PRIVACY_POLICY_ACCEPTED = "privacy policy accepted";

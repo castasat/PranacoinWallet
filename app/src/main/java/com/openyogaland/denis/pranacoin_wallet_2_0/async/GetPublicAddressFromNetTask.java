@@ -1,4 +1,4 @@
-package com.openyogaland.denis.pranacoin_wallet_2_0;
+package com.openyogaland.denis.pranacoin_wallet_2_0.async;
 
 import android.content.Context;
 import androidx.annotation.NonNull;
@@ -12,6 +12,8 @@ import com.android.volley.Response.Listener;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.openyogaland.denis.pranacoin_wallet_2_0.application.Pranacoin_Wallet_2_0;
+import com.openyogaland.denis.pranacoin_wallet_2_0.listener.OnPublicAddressObtainedListener;
 
 class GetPublicAddressFromNetTask implements Listener<String>, ErrorListener,
                                              RequestFinishedListener<StringRequest>
@@ -89,7 +91,3 @@ class GetPublicAddressFromNetTask implements Listener<String>, ErrorListener,
   }
 }
 
-interface OnPublicAddressObtainedListener
-{
-  void onPublicAddressObtained(@NonNull String publicAddress);
-}

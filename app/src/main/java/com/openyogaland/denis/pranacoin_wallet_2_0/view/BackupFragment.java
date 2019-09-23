@@ -1,4 +1,4 @@
-package com.openyogaland.denis.pranacoin_wallet_2_0;
+package com.openyogaland.denis.pranacoin_wallet_2_0.view;
 
 import android.app.Activity;
 import android.content.Context;
@@ -21,6 +21,9 @@ import android.widget.TextView;
 
 //import com.crashlytics.android.Crashlytics;
 import com.google.zxing.WriterException;
+import com.openyogaland.denis.pranacoin_wallet_2_0.R;
+import com.openyogaland.denis.pranacoin_wallet_2_0.application.Pranacoin_Wallet_2_0;
+import com.openyogaland.denis.pranacoin_wallet_2_0.listener.OnPrivateAddressObtainedListener;
 
 public class BackupFragment extends Fragment implements OnPrivateAddressObtainedListener,
                                                         OnClickListener
