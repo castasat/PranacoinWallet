@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:id="@+id/navigation"
+  app:startDestination="@+id/homeFragment">
+  
+  <fragment
+    android:id="@+id/homeFragment"
+    android:name="com.openyogaland.denis.pranacoin_wallet_2_0.view.HomeFragment"
+    tools:layout="@layout/fragment_home"
+    android:label="@string/title_home"/>
+  
+  <fragment
+    android:id="@+id/sendFragment"
+    android:name="com.openyogaland.denis.pranacoin_wallet_2_0.view.SendFragment"
+    tools:layout="@layout/fragment_send"
+    android:label="@string/title_send"/>
+  
+  <fragment
+    android:id="@+id/backupFragment"
+    android:name="com.openyogaland.denis.pranacoin_wallet_2_0.view.BackupFragment"
+    tools:layout="@layout/fragment_backup"
+    android:label="@string/title_backup"/>
+  
+</navigation>
