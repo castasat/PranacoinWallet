@@ -14,10 +14,7 @@ import com.android.volley.RequestQueue;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.openyogaland.denis.pranacoin_wallet_2_0.application.PranacoinWallet2;
 import com.openyogaland.denis.pranacoin_wallet_2_0.listener.OnSendResponseObtainedListener;
-
-import static com.openyogaland.denis.pranacoin_wallet_2_0.application.PranacoinWallet2.stringNotEmpty;
 
 public class
 SendSumTask implements
@@ -54,7 +51,7 @@ SendSumTask implements
      */
     @Override
     public void onResponse(String response) {
-        if (stringNotEmpty(response) && (onSendResponseObtainedListener != null)) {
+        if (!response.isEmpty() && (onSendResponseObtainedListener != null)) {
             onSendResponseObtainedListener.onSendResponseObtained(response);
         }
     }

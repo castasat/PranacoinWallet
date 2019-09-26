@@ -24,9 +24,6 @@ import com.openyogaland.denis.pranacoin_wallet_2_0.async.GetBalanceFromNetTask;
 import com.openyogaland.denis.pranacoin_wallet_2_0.listener.OnBalanceObtainedListener;
 import com.openyogaland.denis.pranacoin_wallet_2_0.listener.OnPublicAddressObtainedListener;
 import com.openyogaland.denis.pranacoin_wallet_2_0.R;
-import com.openyogaland.denis.pranacoin_wallet_2_0.application.PranacoinWallet2;
-
-import static com.openyogaland.denis.pranacoin_wallet_2_0.application.PranacoinWallet2.stringNotEmpty;
 import static com.openyogaland.denis.pranacoin_wallet_2_0.domain.QRCodeDomain.textToImageEncode;
 
 public
@@ -161,7 +158,7 @@ implements OnPublicAddressObtainedListener,
   private
   void showPublicAddress(String publicAddress)
   {
-    if(stringNotEmpty(publicAddress))
+    if(!publicAddress.isEmpty())
     {
       publicAddressTextView.setText(publicAddress);
       publicAddressProgressBar.setVisibility(View.GONE);
@@ -171,7 +168,7 @@ implements OnPublicAddressObtainedListener,
   private
   void showBalance(String balance)
   {
-    if(stringNotEmpty(balance))
+    if(!balance.isEmpty())
     {
       balanceAmountTextView.setText(balance);
       privateAddressQRCodeProgressBar.setVisibility(View.GONE);
@@ -181,7 +178,7 @@ implements OnPublicAddressObtainedListener,
   private
   void showQRCode(String publicAddress)
   {
-    if(stringNotEmpty(publicAddress))
+    if(!publicAddress.isEmpty())
     {
       try
       {

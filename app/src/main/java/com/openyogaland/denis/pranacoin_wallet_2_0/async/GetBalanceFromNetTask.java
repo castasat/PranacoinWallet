@@ -12,10 +12,7 @@ import com.android.volley.Response.Listener;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.openyogaland.denis.pranacoin_wallet_2_0.application.PranacoinWallet2;
 import com.openyogaland.denis.pranacoin_wallet_2_0.listener.OnBalanceObtainedListener;
-
-import static com.openyogaland.denis.pranacoin_wallet_2_0.application.PranacoinWallet2.stringNotEmpty;
 
 public class GetBalanceFromNetTask implements Listener<String>, ErrorListener,
                                        RequestFinishedListener<StringRequest>
@@ -32,7 +29,7 @@ public class GetBalanceFromNetTask implements Listener<String>, ErrorListener,
    */
   GetBalanceFromNetTask(@NonNull Context context, @NonNull String idOfUser)
   {
-    if(stringNotEmpty(idOfUser))
+    if(!idOfUser.isEmpty())
     {
       String balanceUrl = GET_BALANCE_API + idOfUser;
       DefaultRetryPolicy retryPolicy = new DefaultRetryPolicy(DefaultRetryPolicy.DEFAULT_TIMEOUT_MS,
@@ -57,7 +54,7 @@ public class GetBalanceFromNetTask implements Listener<String>, ErrorListener,
   @Override
   public void onResponse(String response)
   {
-    if(stringNotEmpty(response) && (onBalanceObtainedListener != null))
+    if(!response.isEmpty() && (onBalanceObtainedListener != null))
     {
       onBalanceObtainedListener.onBalanceObtained(response);
     }

@@ -19,13 +19,10 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-//import com.crashlytics.android.Crashlytics;
 import com.google.zxing.WriterException;
 import com.openyogaland.denis.pranacoin_wallet_2_0.R;
-import com.openyogaland.denis.pranacoin_wallet_2_0.application.PranacoinWallet2;
 import com.openyogaland.denis.pranacoin_wallet_2_0.listener.OnPrivateAddressObtainedListener;
 
-import static com.openyogaland.denis.pranacoin_wallet_2_0.application.PranacoinWallet2.stringNotEmpty;
 import static com.openyogaland.denis.pranacoin_wallet_2_0.domain.QRCodeDomain.textToImageEncode;
 
 public class BackupFragment extends Fragment implements OnPrivateAddressObtainedListener,
@@ -129,7 +126,7 @@ public class BackupFragment extends Fragment implements OnPrivateAddressObtained
   
   private void showPrivateAddressGroup(String privateAddress)
   {
-    if(stringNotEmpty(privateAddress))
+    if(!privateAddress.isEmpty())
     {
       privateAddressTextView.setText(privateAddress);
       try

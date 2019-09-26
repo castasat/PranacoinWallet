@@ -2,11 +2,11 @@ package com.openyogaland.denis.pranacoin_wallet_2_0.application
 
 import android.content.Context
 import android.net.ConnectivityManager
+import android.net.NetworkInfo
 import android.util.Log
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.multidex.MultiDexApplication
-import com.openyogaland.denis.pranacoin_wallet_2_0.BuildConfig
-import org.jetbrains.annotations.NonNls
+import com.openyogaland.denis.pranacoin_wallet_2_0.BuildConfig.DEBUG
 
 class
 PranacoinWallet2 : MultiDexApplication()
@@ -23,27 +23,19 @@ PranacoinWallet2 : MultiDexApplication()
   PranacoinWallet2
   {
     @JvmStatic
-    @NonNls
     val APP_ID = "PranacoinWallet2.0"
     
     @JvmStatic
     fun
-    log(@NonNls text : String?)
+    log(text : String)
     {
-      if(BuildConfig.DEBUG)
+      if(DEBUG)
       {
         when
         {
-          text == null   ->
-          {
-            @NonNls val nullPointer = "NULL POINTER: text in log"
-            
-            Log.d(APP_ID, nullPointer)
-          }
           text.isEmpty() ->
           {
-            @NonNls val isEmpty = "IS EMPTY: text in log"
-            
+            val isEmpty = "IS EMPTY: text in log"
             Log.d(APP_ID, isEmpty)
           }
           else           -> Log.d(APP_ID, text)
@@ -54,19 +46,14 @@ PranacoinWallet2 : MultiDexApplication()
     // TODO String getIdOfUser()
     
     @JvmStatic
-    fun stringNotEmpty(string : String?) : Boolean
-    {
-      return string != null && "" != string
-    }
-    
-    @JvmStatic
     fun hasConnection(context : Context) : Boolean
     {
-      val connectivityManager = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
-      
-      val networkInfo = connectivityManager.activeNetworkInfo
-      
-      return networkInfo != null && networkInfo.isConnected
+      var result = false
+      (context.getSystemService(CONNECTIVITY_SERVICE) as ConnectivityManager)
+      .activeNetworkInfo?.let {networkInfo : NetworkInfo ->
+        result = networkInfo.isConnected
+      }
+      return result
     }
   }
 }
