@@ -45,6 +45,8 @@ PranacoinWallet2 : MultiDexApplication()
     
     // TODO String getIdOfUser()
     
+    // TODO remove deprecated connectivity API
+    
     @JvmStatic
     fun hasConnection(context : Context) : Boolean
     {

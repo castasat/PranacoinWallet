@@ -3,13 +3,14 @@ package com.openyogaland.denis.pranacoin_wallet_2_0.domain
 import android.content.Context
 import android.graphics.Bitmap
 import androidx.core.content.ContextCompat
-import com.google.zxing.BarcodeFormat
+import com.google.zxing.BarcodeFormat.QR_CODE
 import com.google.zxing.MultiFormatWriter
 import com.google.zxing.WriterException
 import com.google.zxing.common.BitMatrix
 import com.openyogaland.denis.pranacoin_wallet_2_0.R
 
-class QRCodeDomain
+class
+QRCodeDomain
 {
   companion object
   {
@@ -36,7 +37,7 @@ class QRCodeDomain
       {
         bitMatrix = MultiFormatWriter()
         .encode(address,
-                BarcodeFormat.QR_CODE,
+                QR_CODE,
                 QR_CODE_DIMENSION,
                 QR_CODE_DIMENSION,
                 null)
