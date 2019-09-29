@@ -6,8 +6,10 @@
       <w>appinvite</w>
       <w>appspot</w>
       <w>barcodescanner</w>
+      <w>constraintlayout</w>
       <w>crashlytics</w>
       <w>firebase</w>
+      <w>googleusercontent</w>
       <w>journeyapps</w>
       <w>kapt</w>
       <w>leakcanary</w>

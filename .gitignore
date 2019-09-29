@@ -7,5 +7,9 @@
 /.idea/workspace.xml
 .DS_Store
 /build
+/signing
+/signing/*
 /captures
 .externalNativeBuild
+keystore.properties
+keystore.jks
