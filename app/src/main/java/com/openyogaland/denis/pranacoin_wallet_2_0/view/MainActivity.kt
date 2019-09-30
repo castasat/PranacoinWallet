@@ -19,10 +19,12 @@ import android.view.KeyEvent
 import android.view.MenuItem
 import androidx.fragment.app.DialogFragment.STYLE_NO_TITLE
 
-class MainActivity : AppCompatActivity(),
-                     OnNavigationItemSelectedListener,
-                     OnClickListener,
-                     OnPrivacyPolicyAcceptedListener
+class
+MainActivity
+  : AppCompatActivity(),
+    OnNavigationItemSelectedListener,
+    OnClickListener,
+    OnPrivacyPolicyAcceptedListener
 {
   // fields
   private var privacyPolicyAcceptedByUser = false
