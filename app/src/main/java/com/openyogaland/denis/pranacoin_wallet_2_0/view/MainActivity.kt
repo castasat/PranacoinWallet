@@ -1,12 +1,11 @@
 package com.openyogaland.denis.pranacoin_wallet_2_0.view
 
 import android.app.AlertDialog.Builder
-import android.content.Context
 import android.content.DialogInterface
 import android.content.DialogInterface.BUTTON_NEGATIVE
 import android.content.DialogInterface.BUTTON_POSITIVE
 import android.content.DialogInterface.OnClickListener
-import android.content.SharedPreferences
+import android.content.SharedPreferences.Editor
 import android.os.Bundle
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.bottomnavigation.BottomNavigationView.OnNavigationItemSelectedListener
@@ -18,6 +17,8 @@ import androidx.appcompat.app.AppCompatDialogFragment
 import android.view.KeyEvent
 import android.view.MenuItem
 import androidx.fragment.app.DialogFragment.STYLE_NO_TITLE
+import com.openyogaland.denis.pranacoin_wallet_2_0.application.PranacoinWallet2.PranacoinWallet2.log
+import com.openyogaland.denis.pranacoin_wallet_2_0.view.GoogleSignInActivity.Companion.GOOGLE_ACCOUNT_ID
 
 class
 MainActivity
@@ -28,7 +29,6 @@ MainActivity
 {
   // fields
   private var privacyPolicyAcceptedByUser = false
-  private var sharedPreferences : SharedPreferences? = null
   
   private var policyFragment : PolicyFragment? = null
   private var homeFragment : HomeFragment? = null
@@ -40,6 +40,8 @@ MainActivity
   {
     super.onCreate(savedInstanceState)
     setContentView(R.layout.activity_main)
+    
+    updateGoogleAccountId()
     
     privacyPolicyAcceptedByUser = loadPrivacyPolicyAcceptedState()
     
@@ -72,6 +74,15 @@ MainActivity
     val appLinkIntent = intent
     appLinkIntent.action
     appLinkIntent.data
+  }
+  
+  private fun
+  updateGoogleAccountId()
+  {
+    intent.extras?.getString(GOOGLE_ACCOUNT_ID)
+    ?.let {googleAccountId : String ->
+      log("MainActivity.updateGoogleAccountId(): id = $googleAccountId")
+    }
   }
   
   override fun
@@ -167,18 +178,20 @@ MainActivity
     savePrivacyPolicyAcceptedState(privacyPolicyAcceptedByUser)
   }
   
-  private fun savePrivacyPolicyAcceptedState(privacyPolicyAcceptedByUser : Boolean)
+  private fun
+  savePrivacyPolicyAcceptedState(privacyPolicyAcceptedByUser : Boolean)
   {
-    sharedPreferences = getPreferences(Context.MODE_PRIVATE)
-    val editor = sharedPreferences!!.edit()
-    editor.putBoolean(PRIVACY_POLICY_ACCEPTED, privacyPolicyAcceptedByUser)
-    editor.apply()
+    getPreferences(MODE_PRIVATE).edit()
+    ?.let {editor : Editor ->
+      editor.putBoolean(PRIVACY_POLICY_ACCEPTED, privacyPolicyAcceptedByUser)
+      editor.apply()
+    }
   }
   
-  private fun loadPrivacyPolicyAcceptedState() : Boolean
+  private fun
+  loadPrivacyPolicyAcceptedState() : Boolean
   {
-    sharedPreferences = getPreferences(Context.MODE_PRIVATE)
-    return sharedPreferences!!.getBoolean(PRIVACY_POLICY_ACCEPTED, false)
+    return getPreferences(MODE_PRIVATE).getBoolean(PRIVACY_POLICY_ACCEPTED, false)
   }
   
   companion object

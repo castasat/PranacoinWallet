@@ -8,7 +8,6 @@ import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions.DEFAULT_SIGN_IN
-import com.google.android.gms.auth.api.signin.GoogleSignInStatusCodes
 import com.google.android.gms.common.SignInButton
 import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.tasks.Task
@@ -73,7 +72,11 @@ GoogleSignInActivity
   updateUI(googleSignInAccount : GoogleSignInAccount)
   {
     log("GoogleSignInActivity.updateUI")
+    
     val mainActivityIntent = Intent(this, MainActivity::class.java)
+    val googleAccountId = googleSignInAccount.id
+    
+    mainActivityIntent.putExtra(GOOGLE_ACCOUNT_ID, googleAccountId)
     startActivity(mainActivityIntent)
   }
   
@@ -128,7 +131,7 @@ GoogleSignInActivity
   
   companion object
   {
-    @JvmStatic
-    val RC_SIGN_IN = 108
+    @JvmStatic val RC_SIGN_IN = 108
+    @JvmStatic val GOOGLE_ACCOUNT_ID = "google_account_id"
   }
 }
