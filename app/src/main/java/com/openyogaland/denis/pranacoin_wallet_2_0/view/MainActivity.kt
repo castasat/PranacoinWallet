@@ -17,8 +17,10 @@ import androidx.appcompat.app.AppCompatDialogFragment
 import android.view.KeyEvent
 import android.view.MenuItem
 import androidx.fragment.app.DialogFragment.STYLE_NO_TITLE
+import androidx.lifecycle.ViewModelProvider
 import com.openyogaland.denis.pranacoin_wallet_2_0.application.PranacoinWallet2.PranacoinWallet2.log
 import com.openyogaland.denis.pranacoin_wallet_2_0.view.GoogleSignInActivity.Companion.GOOGLE_ACCOUNT_ID
+import com.openyogaland.denis.pranacoin_wallet_2_0.viewmodel.MainViewModel
 
 class
 MainActivity
@@ -30,10 +32,14 @@ MainActivity
   // fields
   private var privacyPolicyAcceptedByUser = false
   
+  // fragments
   private var policyFragment : PolicyFragment? = null
   private var homeFragment : HomeFragment? = null
   private var sendFragment : SendFragment? = null
   private var backupFragment : BackupFragment? = null
+  
+  // architecture fields
+  private lateinit var mainViewModel : MainViewModel
   
   override fun
   onCreate(savedInstanceState : Bundle?)
@@ -41,7 +47,10 @@ MainActivity
     super.onCreate(savedInstanceState)
     setContentView(R.layout.activity_main)
     
-    updateGoogleAccountId()
+    mainViewModel = ViewModelProvider(this)
+    .get(MainViewModel::class.java)
+    
+    updateViewModelGoogleAccountId()
     
     privacyPolicyAcceptedByUser = loadPrivacyPolicyAcceptedState()
     
@@ -77,11 +86,12 @@ MainActivity
   }
   
   private fun
-  updateGoogleAccountId()
+  updateViewModelGoogleAccountId()
   {
     intent.extras?.getString(GOOGLE_ACCOUNT_ID)
     ?.let {googleAccountId : String ->
-      log("MainActivity.updateGoogleAccountId(): id = $googleAccountId")
+      mainViewModel.googleAccountId = googleAccountId
+      log("MainActivity.updateViewModelGoogleAccountId(): id = $googleAccountId")
     }
   }
   

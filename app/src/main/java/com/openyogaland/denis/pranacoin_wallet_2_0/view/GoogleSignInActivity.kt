@@ -2,6 +2,8 @@ package com.openyogaland.denis.pranacoin_wallet_2_0.view
 
 import android.content.Intent
 import android.os.Bundle
+import android.widget.Toast
+import android.widget.Toast.LENGTH_LONG
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
@@ -52,13 +54,6 @@ GoogleSignInActivity
   onStart()
   {
     super.onStart()
-    
-    
-    if(GoogleSignIn
-      .getLastSignedInAccount(this) == null)
-    {
-      // TODO sign in
-    }
     
     GoogleSignIn
     .getLastSignedInAccount(this)
@@ -125,7 +120,8 @@ GoogleSignInActivity
     {
       log("GoogleSignInActivity.handleSignInResult(): $e")
       e.printStackTrace()
-      // TODO sign in
+      
+      Toast.makeText(this, "$e", LENGTH_LONG).show()
     }
   }
   
