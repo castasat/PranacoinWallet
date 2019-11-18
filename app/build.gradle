@@ -4,6 +4,7 @@ apply plugin: 'kotlin-kapt'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: "androidx.navigation.safeargs.kotlin"
 
+/* TODO
 // Create a variable called keystorePropertiesFile, and initialize it to your
 // keystore.properties file, in the rootProject folder.
 def keystorePropertiesFile = rootProject.file("keystore.properties")
@@ -13,10 +14,11 @@ def keystoreProperties = new Properties()
 
 // Load your keystore.properties file into the keystoreProperties object.
 keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
+*/
 
 android
 {
-  signingConfigs
+  /* TODO signingConfigs
   {
     config
     {
@@ -25,7 +27,7 @@ android
       storeFile file(keystoreProperties['storeFile'])
       storePassword keystoreProperties['storePassword']
     }
-  }
+  }*/
   compileSdkVersion 29
   
   defaultConfig
@@ -41,7 +43,9 @@ android
       useSupportLibrary = true
     }
     multiDexEnabled true
+    /* TODO
     signingConfig signingConfigs.config
+    */
     javaCompileOptions {
       annotationProcessorOptions {
         arguments = ["room.schemaLocation": "$projectDir/schemas".toString()]
@@ -60,7 +64,9 @@ android
   {
     release
     {
+      /* TODO
       signingConfig signingConfigs.config
+      */
       debuggable false
       zipAlignEnabled true
       minifyEnabled true
@@ -69,7 +75,9 @@ android
     }
     debug
     {
+      /* TODO
       signingConfig signingConfigs.config
+      */
       debuggable true
       zipAlignEnabled true
       minifyEnabled false
@@ -128,7 +136,7 @@ dependencies
   implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
   
   // support material design
-  implementation 'com.google.android.material:material:1.1.0-alpha10'
+  implementation 'com.google.android.material:material:1.2.0-alpha01'
   
   // androidx support library
   implementation 'androidx.legacy:legacy-support-v4:1.0.0'
@@ -137,34 +145,34 @@ dependencies
   implementation 'androidx.legacy:legacy-support-v4:1.0.0'
   implementation 'androidx.legacy:legacy-preference-v14:1.0.0'
   implementation 'androidx.appcompat:appcompat:1.1.0'
-  implementation 'androidx.core:core-ktx:1.2.0-alpha04'
-  implementation 'androidx.constraintlayout:constraintlayout:2.0.0-beta2'
-  implementation 'androidx.constraintlayout:constraintlayout-solver:2.0.0-beta2'
+  implementation 'androidx.core:core-ktx:1.2.0-beta02'
+  implementation 'androidx.constraintlayout:constraintlayout:2.0.0-beta3'
+  implementation 'androidx.constraintlayout:constraintlayout-solver:2.0.0-beta3'
   implementation 'androidx.vectordrawable:vectordrawable:1.1.0'
-  implementation 'androidx.recyclerview:recyclerview:1.1.0-beta04'
+  implementation 'androidx.recyclerview:recyclerview:1.1.0-rc01'
   implementation 'androidx.recyclerview:recyclerview-selection:1.1.0-alpha06'
-  implementation 'androidx.coordinatorlayout:coordinatorlayout:1.1.0-beta01'
+  implementation 'androidx.coordinatorlayout:coordinatorlayout:1.1.0-rc01'
   implementation 'androidx.multidex:multidex:2.0.1'
   implementation 'androidx.cardview:cardview:1.0.0'
   implementation 'androidx.palette:palette:1.0.0'
-  implementation 'androidx.exifinterface:exifinterface:1.1.0-beta01'
+  implementation 'androidx.exifinterface:exifinterface:1.1.0-rc01'
   
   // navigation library
-  implementation 'androidx.navigation:navigation-fragment-ktx:2.2.0-alpha03'
-  implementation 'androidx.navigation:navigation-ui-ktx:2.2.0-alpha03'
+  implementation 'androidx.navigation:navigation-fragment-ktx:2.2.0-rc02'
+  implementation 'androidx.navigation:navigation-ui-ktx:2.2.0-rc02'
   
   // google architecture components
-  implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0-alpha05'
-  implementation 'androidx.lifecycle:lifecycle-common-java8:2.2.0-alpha05'
-  implementation 'androidx.lifecycle:lifecycle-reactivestreams:2.2.0-alpha05'
-  implementation 'androidx.lifecycle:lifecycle-common-java8:2.2.0-alpha05'
-  implementation 'androidx.room:room-runtime:2.2.0-rc01'
-  implementation 'androidx.room:room-guava:2.2.0-rc01'
-  implementation 'androidx.room:room-ktx:2.2.0-rc01'
-  implementation 'androidx.room:room-rxjava2:2.2.0-rc01'
+  implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0-rc02'
+  implementation 'androidx.lifecycle:lifecycle-common-java8:2.2.0-rc02'
+  implementation 'androidx.lifecycle:lifecycle-reactivestreams:2.2.0-rc02'
+  implementation 'androidx.lifecycle:lifecycle-common-java8:2.2.0-rc02'
+  implementation 'androidx.room:room-runtime:2.2.1'
+  implementation 'androidx.room:room-guava:2.2.1'
+  implementation 'androidx.room:room-ktx:2.2.1'
+  implementation 'androidx.room:room-rxjava2:2.2.1'
   implementation "android.arch.paging:runtime:1.0.1"
   
-  implementation 'com.squareup.okhttp3:okhttp:4.2.1'
+  implementation 'com.squareup.okhttp3:okhttp:4.2.2'
   
   // retrofit2 REST API connection library
   implementation 'com.squareup.retrofit2:retrofit:2.6.2'
@@ -188,7 +196,7 @@ dependencies
   implementation 'com.journeyapps:zxing-android-embedded:3.6.0'
   
   // add the Firebase SDK for Google Analytics
-  implementation 'com.google.firebase:firebase-analytics:17.2.0'
+  implementation 'com.google.firebase:firebase-analytics:17.2.1'
   // add SDKs for any other desired Firebase products
   implementation 'com.google.firebase:firebase-auth:19.1.0'
   // https://firebase.google.com/docs/android/setup#available-libraries
@@ -196,7 +204,7 @@ dependencies
   implementation 'com.google.android.gms:play-services-auth:17.0.0'
   
   // additional annotation processors
-  kapt 'androidx.room:room-compiler:2.2.0-rc01'
+  kapt 'androidx.room:room-compiler:2.2.1'
   //kapt 'com.google.dagger:dagger-compiler:2.22.1'
   //kapt 'com.google.dagger:dagger-android-processor:2.22.1'
   
@@ -211,11 +219,13 @@ dependencies
   // instrumental test libraries
   //androidTestImplementation 'androidx.test:runner:1.3.0-alpha01'
   //androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0-alpha01'
-  androidTestImplementation "androidx.room:room-testing:2.2.0-rc01"
+  androidTestImplementation "androidx.room:room-testing:2.2.1"
   
   // leak detection
   //debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.0-alpha-2'
 }
 
 // Add to the bottom of the file
+/* TODO
 apply plugin: 'com.google.gms.google-services'
+*/
