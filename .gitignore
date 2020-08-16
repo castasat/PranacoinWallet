@@ -13,3 +13,4 @@
 .externalNativeBuild
 keystore.properties
 keystore.jks
+/.idea/
