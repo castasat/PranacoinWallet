@@ -23,14 +23,15 @@
       android:name="search-engine"
       android:resource="@xml/noindex" />
     
-    <!-- TODO <activity android:name=".view.GoogleSignInActivity">
+     <activity android:name=".view.GoogleSignInActivity">
       
       <intent-filter>
         <action android:name="android.intent.action.MAIN" />
         <category android:name="android.intent.category.LAUNCHER" />
+        <category android:name="android.intent.category.DEFAULT" />
       </intent-filter>
     
-    </activity>-->
+    </activity>
     
     <activity
       android:name=".view.MainActivity"
@@ -41,11 +42,8 @@
       
       <intent-filter>
         <action android:name="android.intent.action.VIEW" />
-
         <action android:name="android.intent.action.MAIN" />
         <category android:name="android.intent.category.LAUNCHER" />
-
-        <category android:name="android.intent.category.DEFAULT" />
         <category android:name="android.intent.category.BROWSABLE" />
         
         <data
