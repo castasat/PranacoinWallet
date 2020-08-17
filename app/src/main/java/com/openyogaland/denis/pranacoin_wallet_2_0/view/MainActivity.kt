@@ -22,28 +22,19 @@ import com.openyogaland.denis.pranacoin_wallet_2_0.view.GoogleSignInActivity.Com
 import com.openyogaland.denis.pranacoin_wallet_2_0.viewmodel.MainViewModel
 
 class
-MainActivity : AppCompatActivity(),
-    OnNavigationItemSelectedListener,
-    OnClickListener,
-    OnPrivacyPolicyAcceptedListener {
-    // fields
+MainActivity : AppCompatActivity(), OnNavigationItemSelectedListener,
+    OnClickListener, OnPrivacyPolicyAcceptedListener {
     private var privacyPolicyAcceptedByUser = false
-
-    // fragments
     private var policyFragment: PolicyFragment? = null
     private var homeFragment: HomeFragment? = null
     private var sendFragment: SendFragment? = null
     private var backupFragment: BackupFragment? = null
-
-    // architecture fields
     private lateinit var mainViewModel: MainViewModel
 
-    override fun
-            onCreate(savedInstanceState: Bundle?) {
+    override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        mainViewModel = ViewModelProvider(this)
-            .get(MainViewModel::class.java)
+        mainViewModel = ViewModelProvider(this).get(MainViewModel::class.java)
         updateViewModelGoogleAccountId()
         privacyPolicyAcceptedByUser = loadPrivacyPolicyAcceptedState()
 
@@ -68,8 +59,7 @@ MainActivity : AppCompatActivity(),
         appLinkIntent.data
     }
 
-    private fun
-            updateViewModelGoogleAccountId() {
+    private fun updateViewModelGoogleAccountId() {
         intent.extras?.getString(GOOGLE_ACCOUNT_ID)
             ?.let { googleAccountId: String ->
                 mainViewModel.googleAccountId = googleAccountId
@@ -137,8 +127,7 @@ MainActivity : AppCompatActivity(),
         savePrivacyPolicyAcceptedState(privacyPolicyAcceptedByUser)
     }
 
-    private fun
-            savePrivacyPolicyAcceptedState(privacyPolicyAcceptedByUser: Boolean) {
+    private fun savePrivacyPolicyAcceptedState(privacyPolicyAcceptedByUser: Boolean) {
         getPreferences(MODE_PRIVATE).edit()
             ?.let { editor: Editor ->
                 editor.putBoolean(PRIVACY_POLICY_ACCEPTED, privacyPolicyAcceptedByUser)
@@ -146,8 +135,7 @@ MainActivity : AppCompatActivity(),
             }
     }
 
-    private fun
-            loadPrivacyPolicyAcceptedState(): Boolean {
+    private fun loadPrivacyPolicyAcceptedState(): Boolean {
         return getPreferences(MODE_PRIVATE).getBoolean(PRIVACY_POLICY_ACCEPTED, false)
     }
 
