@@ -12,9 +12,9 @@ import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.lifecycle.ViewModelProvider
 import com.google.zxing.WriterException
 import com.openyogaland.denis.pranacoin_wallet_2_0.R
+import com.openyogaland.denis.pranacoin_wallet_2_0.application.PranacoinWallet2
 import com.openyogaland.denis.pranacoin_wallet_2_0.application.PranacoinWallet2.PranacoinWallet2.log
 import com.openyogaland.denis.pranacoin_wallet_2_0.async.GetBalanceFromNetTask
 import com.openyogaland.denis.pranacoin_wallet_2_0.async.GetPublicAddressFromNetTask
@@ -56,20 +56,20 @@ class HomeFragment : Fragment(), OnPublicAddressObtainedListener, OnBalanceObtai
 
         // show public address and balance
         context?.let { context: Context ->
-            mainViewModel.googleAccountId?.let{idOfUser ->
+            mainViewModel.googleAccountId?.let { idOfUser ->
                 log("HomeFragment.onCreateView(): idOfUser = $idOfUser")
-                // TODO if (PranacoinWallet2.hasConnection(context)) {
+                if (PranacoinWallet2.hasConnection(context)) {
                     val getPublicAddressFromNetTask = GetPublicAddressFromNetTask(context, idOfUser)
                     getPublicAddressFromNetTask.setOnPublicAddressObtainedListener(this)
                     getBalanceFromNetTask = GetBalanceFromNetTask(context, idOfUser)
                     getBalanceFromNetTask.setOnBalanceObtainedListener(this)
-                /* TODO } else if (!PranacoinWallet2.hasConnection(context)) {
+                } else if (!PranacoinWallet2.hasConnection(context)) {
                     balance = loadBalance()
                     showBalance(balance)
                     publicAddress = loadPublicAddress()
                     showPublicAddress(publicAddress)
                     showQRCode(publicAddress)
-                }*/
+                }
             }
         }
         return view

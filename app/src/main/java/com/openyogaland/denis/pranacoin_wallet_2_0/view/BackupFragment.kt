@@ -14,48 +14,38 @@ import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.constraintlayout.widget.Group
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import com.google.zxing.WriterException
 import com.openyogaland.denis.pranacoin_wallet_2_0.R
+import com.openyogaland.denis.pranacoin_wallet_2_0.application.PranacoinWallet2
+import com.openyogaland.denis.pranacoin_wallet_2_0.async.GetPrivateAddressFromNetTask
 import com.openyogaland.denis.pranacoin_wallet_2_0.domain.QRCodeDomain.Companion.textToImageEncode
 import com.openyogaland.denis.pranacoin_wallet_2_0.listener.OnPrivateAddressObtainedListener
+import com.openyogaland.denis.pranacoin_wallet_2_0.viewmodel.MainViewModel
 
 class
-BackupFragment
-    : Fragment(),
-    OnPrivateAddressObtainedListener,
-    OnClickListener {
-    // fields
+BackupFragment : Fragment(), OnPrivateAddressObtainedListener, OnClickListener {
     private var privateAddressTextView: TextView? = null
     private var privateAddressQRCodeImageView: ImageView? = null
     private var privateAddressGroup: Group? = null
     private var privateAddressQRCodeProgressBar: ProgressBar? = null
+    private val mainViewModel: MainViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    )
-            : View {
-        // local variables
+    ): View {
         val getPrivateAddressButton: Button
-
-        // inflate fragment layout
         val view = inflater.inflate(R.layout.fragment_backup, container, false)
-
-        // find views by ids
         getPrivateAddressButton = view.findViewById(R.id.getPrivateAddressButton)
         privateAddressTextView = view.findViewById(R.id.privateAddressTextView)
         privateAddressQRCodeImageView = view.findViewById(R.id.privateAddressQRCodeImageView)
         privateAddressGroup = view.findViewById(R.id.privateAddress)
         privateAddressQRCodeProgressBar = view.findViewById(R.id.privateAddressQRCodeProgressBar)
-
-        // setting visibility
         privateAddressGroup?.visibility = Group.GONE
         privateAddressQRCodeProgressBar?.visibility = View.GONE
-
-        // set button OnClickListener
         getPrivateAddressButton.setOnClickListener(this)
-
         return view
     }
 
@@ -88,22 +78,18 @@ BackupFragment
     override fun onClick(view: View) {
         // show public address and balance
         context?.let { context: Context ->
-
             privateAddressQRCodeProgressBar?.visibility = View.VISIBLE
-
-            /*TODO String idOfUser = PranacoinWallet2.getInstance(context).getIdOfUser();
-
-            if(PranacoinWallet2.hasConnection(context))
-            {
-              GetPrivateAddressFromNetTask getPrivateAddressFromNetTask =
-                  new GetPrivateAddressFromNetTask(context, idOfUser);
-              getPrivateAddressFromNetTask.setOnPrivateAddressObtainedListener(this);
+            mainViewModel.googleAccountId?.let { idOfUser ->
+                PranacoinWallet2.log("BackupFragment.onCreateView(): idOfUser = $idOfUser")
+                if (PranacoinWallet2.hasConnection(context)) {
+                    val getPrivateAddressFromNetTask =
+                        GetPrivateAddressFromNetTask(context, idOfUser)
+                    getPrivateAddressFromNetTask.setOnPrivateAddressObtainedListener(this)
+                } else if (!PranacoinWallet2.hasConnection(context)) {
+                    val privateAddress = loadPrivateAddress()
+                    showPrivateAddressGroup(privateAddress)
+                }
             }
-            else if(!PranacoinWallet2.hasConnection(context))
-            {
-              String privateAddress = loadPrivateAddress();
-              showPrivateAddressGroup(privateAddress);
-            }*/
         }
     }
 

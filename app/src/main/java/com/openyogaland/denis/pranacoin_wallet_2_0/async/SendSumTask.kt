@@ -70,4 +70,3 @@ SendSumTask(
         const val SUM_API = "&sum="
     }
 }
-
