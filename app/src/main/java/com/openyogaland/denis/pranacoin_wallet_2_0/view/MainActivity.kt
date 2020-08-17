@@ -8,6 +8,7 @@ import android.os.Bundle
 import android.view.KeyEvent
 import android.view.KeyEvent.KEYCODE_BACK
 import android.view.MenuItem
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDialogFragment
 import androidx.fragment.app.DialogFragment.STYLE_NO_TITLE
@@ -29,13 +30,12 @@ MainActivity : AppCompatActivity(), OnNavigationItemSelectedListener,
     private var homeFragment: HomeFragment? = null
     private var sendFragment: SendFragment? = null
     private var backupFragment: BackupFragment? = null
-    private lateinit var mainViewModel: MainViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        mainViewModel = ViewModelProvider(this).get(MainViewModel::class.java)
-        updateViewModelGoogleAccountId()
+        val mainViewModel : MainViewModel by viewModels()
+        updateViewModelGoogleAccountId(mainViewModel)
         privacyPolicyAcceptedByUser = loadPrivacyPolicyAcceptedState()
 
         // during the first program start or until user has not accepted Privacy Policy
@@ -59,7 +59,7 @@ MainActivity : AppCompatActivity(), OnNavigationItemSelectedListener,
         appLinkIntent.data
     }
 
-    private fun updateViewModelGoogleAccountId() {
+    private fun updateViewModelGoogleAccountId(mainViewModel : MainViewModel) {
         intent.extras?.getString(GOOGLE_ACCOUNT_ID)
             ?.let { googleAccountId: String ->
                 mainViewModel.googleAccountId = googleAccountId
