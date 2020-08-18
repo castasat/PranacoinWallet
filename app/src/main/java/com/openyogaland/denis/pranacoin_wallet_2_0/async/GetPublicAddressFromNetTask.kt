@@ -4,7 +4,7 @@ import android.content.Context
 import com.android.volley.DefaultRetryPolicy
 import com.android.volley.DefaultRetryPolicy.*
 import com.android.volley.Request
-import com.android.volley.Request.Method
+import com.android.volley.Request.Method.GET
 import com.android.volley.RequestQueue
 import com.android.volley.RequestQueue.RequestFinishedListener
 import com.android.volley.Response.ErrorListener
@@ -16,12 +16,9 @@ import com.openyogaland.denis.pranacoin_wallet_2_0.listener.OnPublicAddressObtai
 
 class
 GetPublicAddressFromNetTask(
-    context: Context,
-    idOfUser: String
-) : Listener<String>,
-    ErrorListener,
-    RequestFinishedListener<StringRequest> {
-    // fields
+    context: Context, idOfUser: String
+) : Listener<String>, ErrorListener, RequestFinishedListener<StringRequest> {
+
     private var requestQueue: RequestQueue? = null
     private var onPublicAddressObtainedListener: OnPublicAddressObtainedListener? = null
 
@@ -30,9 +27,10 @@ GetPublicAddressFromNetTask(
             requestQueue = Volley.newRequestQueue(context)
             // try to get publicAddress from net
             val publicAddressRequest = StringRequest(
-                Method.GET,
+                GET,
                 GET_ADDRESS_API + idOfUser,
-                this, this
+                this,
+                this
             )
 
             if (requestQueue != null) {
@@ -61,7 +59,9 @@ GetPublicAddressFromNetTask(
         requestQueue?.stop()
     }
 
-    fun setOnPublicAddressObtainedListener(onPublicAddressObtainedListener: OnPublicAddressObtainedListener) {
+    fun setOnPublicAddressObtainedListener(
+        onPublicAddressObtainedListener: OnPublicAddressObtainedListener
+    ) {
         this.onPublicAddressObtainedListener = onPublicAddressObtainedListener
     }
 

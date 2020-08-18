@@ -16,12 +16,9 @@ import com.openyogaland.denis.pranacoin_wallet_2_0.listener.OnPrivateAddressObta
 
 class
 GetPrivateAddressFromNetTask(
-    context: Context,
-    idOfUser: String
-) : Listener<String>,
-    ErrorListener,
-    RequestFinishedListener<StringRequest> {
-    // fields
+    context: Context, idOfUser: String
+) : Listener<String>, ErrorListener, RequestFinishedListener<StringRequest> {
+
     private var requestQueue: RequestQueue? = null
     private var onPrivateAddressObtainedListener: OnPrivateAddressObtainedListener? = null
 
@@ -32,7 +29,8 @@ GetPrivateAddressFromNetTask(
             requestQueue = Volley.newRequestQueue(context)
 
             // try to get publicAddress from net
-            val privateAddressRequest = StringRequest(GET, privateAddressUrl, this, this)
+            val privateAddressRequest =
+                StringRequest(GET, privateAddressUrl, this, this)
 
             if (requestQueue != null) {
                 privateAddressRequest.retryPolicy = DefaultRetryPolicy(

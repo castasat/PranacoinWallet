@@ -1,4 +1,4 @@
-package com.openyogaland.denis.pranacoin_wallet_2_0.view
+package com.openyogaland.denis.pranacoin_wallet_2_0.view.fragment
 
 import android.content.Context
 import android.content.Context.MODE_PRIVATE

@@ -1,4 +1,4 @@
-package com.openyogaland.denis.pranacoin_wallet_2_0.view
+package com.openyogaland.denis.pranacoin_wallet_2_0.view.fragment
 
 import android.app.NotificationManager
 import android.content.Context
@@ -19,8 +19,8 @@ import com.google.zxing.integration.android.IntentIntegrator
 import com.google.zxing.integration.android.IntentIntegrator.forSupportFragment
 import com.google.zxing.integration.android.IntentResult
 import com.openyogaland.denis.pranacoin_wallet_2_0.R
-import com.openyogaland.denis.pranacoin_wallet_2_0.application.PranacoinWallet2
 import com.openyogaland.denis.pranacoin_wallet_2_0.application.PranacoinWallet2.PranacoinWallet2.hasConnection
+import com.openyogaland.denis.pranacoin_wallet_2_0.application.PranacoinWallet2.PranacoinWallet2.log
 import com.openyogaland.denis.pranacoin_wallet_2_0.async.SendSumTask
 import com.openyogaland.denis.pranacoin_wallet_2_0.listener.OnSendResponseObtainedListener
 import com.openyogaland.denis.pranacoin_wallet_2_0.viewmodel.MainViewModel
@@ -43,11 +43,9 @@ SendFragment : Fragment(), OnClickListener, OnSendResponseObtainedListener {
         sumEditText = view.findViewById(R.id.sumEditText)
         val scanButton = view.findViewById<Button>(R.id.scanButton)
         val sendButton = view.findViewById<Button>(R.id.sendButton)
-        context?.let { context: Context ->
-            mainViewModel.googleAccountId?.let { idOfUser ->
-                PranacoinWallet2.log("SendFragment.onCreateView(): idOfUser = $idOfUser")
-                this.idOfUser = idOfUser
-            }
+        mainViewModel.googleAccountId?.let { idOfUser ->
+            log("SendFragment.onCreateView(): idOfUser = $idOfUser")
+            this.idOfUser = idOfUser
         }
         sendButton.setOnClickListener(this)
         scanButton.setOnClickListener(this)
@@ -95,7 +93,7 @@ SendFragment : Fragment(), OnClickListener, OnSendResponseObtainedListener {
                         makeText(
                             context,
                             R.string.check_internet_connection,
-                            LENGTH_SHORT
+                            LENGTH_LONG
                         ).show()
                     }
                     R.id.scanButton -> forSupportFragment(this).initiateScan()

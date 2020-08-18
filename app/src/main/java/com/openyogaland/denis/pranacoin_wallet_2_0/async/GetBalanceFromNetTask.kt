@@ -14,14 +14,9 @@ import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
 import com.openyogaland.denis.pranacoin_wallet_2_0.listener.OnBalanceObtainedListener
 
-class
-GetBalanceFromNetTask(
-    context: Context,
-    idOfUser: String
-) : Listener<String>,
-    ErrorListener,
+class GetBalanceFromNetTask(context: Context, idOfUser: String) : Listener<String>, ErrorListener,
     RequestFinishedListener<StringRequest> {
-    // fields
+
     private var requestQueue: RequestQueue? = null
     private var onBalanceObtainedListener: OnBalanceObtainedListener? = null
 
@@ -56,7 +51,7 @@ GetBalanceFromNetTask(
     }
 
     override fun onRequestFinished(request: Request<StringRequest>) {
-        requestQueue!!.stop()
+        requestQueue?.stop()
     }
 
     fun setOnBalanceObtainedListener(onBalanceObtainedListener: OnBalanceObtainedListener) {

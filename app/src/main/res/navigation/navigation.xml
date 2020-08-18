@@ -8,19 +8,19 @@
   
   <fragment
     android:id="@+id/homeFragment"
-    android:name="com.openyogaland.denis.pranacoin_wallet_2_0.view.HomeFragment"
+    android:name="com.openyogaland.denis.pranacoin_wallet_2_0.view.fragment.HomeFragment"
     tools:layout="@layout/fragment_home"
     android:label="@string/title_home"/>
   
   <fragment
     android:id="@+id/sendFragment"
-    android:name="com.openyogaland.denis.pranacoin_wallet_2_0.view.SendFragment"
+    android:name="com.openyogaland.denis.pranacoin_wallet_2_0.view.fragment.SendFragment"
     tools:layout="@layout/fragment_send"
     android:label="@string/title_send"/>
   
   <fragment
     android:id="@+id/backupFragment"
-    android:name="com.openyogaland.denis.pranacoin_wallet_2_0.view.BackupFragment"
+    android:name="com.openyogaland.denis.pranacoin_wallet_2_0.view.fragment.BackupFragment"
     tools:layout="@layout/fragment_backup"
     android:label="@string/title_backup"/>
   

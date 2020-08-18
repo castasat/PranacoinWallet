@@ -1,4 +1,4 @@
-package com.openyogaland.denis.pranacoin_wallet_2_0.view
+package com.openyogaland.denis.pranacoin_wallet_2_0.view.activity
 
 import android.app.AlertDialog.Builder
 import android.content.DialogInterface
@@ -13,13 +13,16 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDialogFragment
 import androidx.fragment.app.DialogFragment.STYLE_NO_TITLE
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.bottomnavigation.BottomNavigationView.OnNavigationItemSelectedListener
 import com.openyogaland.denis.pranacoin_wallet_2_0.R
 import com.openyogaland.denis.pranacoin_wallet_2_0.application.PranacoinWallet2.PranacoinWallet2.log
 import com.openyogaland.denis.pranacoin_wallet_2_0.listener.OnPrivacyPolicyAcceptedListener
-import com.openyogaland.denis.pranacoin_wallet_2_0.view.GoogleSignInActivity.Companion.GOOGLE_ACCOUNT_ID
+import com.openyogaland.denis.pranacoin_wallet_2_0.view.fragment.BackupFragment
+import com.openyogaland.denis.pranacoin_wallet_2_0.view.fragment.HomeFragment
+import com.openyogaland.denis.pranacoin_wallet_2_0.view.fragment.PolicyFragment
+import com.openyogaland.denis.pranacoin_wallet_2_0.view.fragment.SendFragment
+import com.openyogaland.denis.pranacoin_wallet_2_0.view.activity.GoogleSignInActivity.Companion.GOOGLE_ACCOUNT_ID
 import com.openyogaland.denis.pranacoin_wallet_2_0.viewmodel.MainViewModel
 
 class

@@ -1,4 +1,4 @@
-package com.openyogaland.denis.pranacoin_wallet_2_0.view
+package com.openyogaland.denis.pranacoin_wallet_2_0.view.fragment
 
 import android.content.Context
 import android.content.Context.MODE_PRIVATE
@@ -23,8 +23,7 @@ import com.openyogaland.denis.pranacoin_wallet_2_0.domain.QRCodeDomain.Companion
 import com.openyogaland.denis.pranacoin_wallet_2_0.listener.OnPrivateAddressObtainedListener
 import com.openyogaland.denis.pranacoin_wallet_2_0.viewmodel.MainViewModel
 
-class
-BackupFragment : Fragment(), OnPrivateAddressObtainedListener, OnClickListener {
+class BackupFragment : Fragment(), OnPrivateAddressObtainedListener, OnClickListener {
     private var privateAddressTextView: TextView? = null
     private var privateAddressQRCodeImageView: ImageView? = null
     private var privateAddressGroup: Group? = null

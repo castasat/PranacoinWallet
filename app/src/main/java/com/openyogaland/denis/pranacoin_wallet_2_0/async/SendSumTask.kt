@@ -2,8 +2,9 @@ package com.openyogaland.denis.pranacoin_wallet_2_0.async
 
 import android.content.Context
 import com.android.volley.DefaultRetryPolicy
+import com.android.volley.DefaultRetryPolicy.*
 import com.android.volley.Request
-import com.android.volley.Request.Method
+import com.android.volley.Request.Method.GET
 import com.android.volley.RequestQueue
 import com.android.volley.RequestQueue.RequestFinishedListener
 import com.android.volley.Response.ErrorListener
@@ -15,27 +16,22 @@ import com.openyogaland.denis.pranacoin_wallet_2_0.listener.OnSendResponseObtain
 
 class
 SendSumTask(
-    context: Context,
-    idOfUser: String,
-    recipientAddress: String,
-    amount: String
-) : Listener<String>,
-    ErrorListener,
-    RequestFinishedListener<StringRequest> {
-    // fields
+    context: Context, idOfUser: String, recipientAddress: String, amount: String
+) : Listener<String>, ErrorListener, RequestFinishedListener<StringRequest> {
+
     private val requestQueue: RequestQueue?
     private var onSendResponseObtainedListener: OnSendResponseObtainedListener? = null
 
     init {
         val sendURL = SEND_API + idOfUser + RECIPIENT_API + recipientAddress + SUM_API + amount
         val retryPolicy = DefaultRetryPolicy(
-            DefaultRetryPolicy.DEFAULT_TIMEOUT_MS,
-            DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
-            DefaultRetryPolicy.DEFAULT_BACKOFF_MULT
+            DEFAULT_TIMEOUT_MS,
+            DEFAULT_MAX_RETRIES,
+            DEFAULT_BACKOFF_MULT
         )
         requestQueue = Volley.newRequestQueue(context)
         // try to send pranacoins to recipient
-        val sendRequest = StringRequest(Method.GET, sendURL, this, this)
+        val sendRequest = StringRequest(GET, sendURL, this, this)
 
         if (requestQueue != null) {
             sendRequest.retryPolicy = retryPolicy
@@ -46,7 +42,7 @@ SendSumTask(
 
     override fun onResponse(response: String) {
         if (response.isNotEmpty() && onSendResponseObtainedListener != null) {
-            onSendResponseObtainedListener!!.onSendResponseObtained(response)
+            onSendResponseObtainedListener?.onSendResponseObtained(response)
         }
     }
 
@@ -55,7 +51,7 @@ SendSumTask(
     }
 
     override fun onRequestFinished(request: Request<StringRequest>) {
-        requestQueue!!.stop()
+        requestQueue?.stop()
     }
 
     fun setOnSendResponseObtainedListener(
