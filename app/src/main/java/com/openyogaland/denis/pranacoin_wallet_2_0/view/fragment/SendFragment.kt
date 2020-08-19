@@ -19,8 +19,8 @@ import com.google.zxing.integration.android.IntentIntegrator
 import com.google.zxing.integration.android.IntentIntegrator.forSupportFragment
 import com.google.zxing.integration.android.IntentResult
 import com.openyogaland.denis.pranacoin_wallet_2_0.R
-import com.openyogaland.denis.pranacoin_wallet_2_0.application.PranacoinWallet2.PranacoinWallet2.hasConnection
-import com.openyogaland.denis.pranacoin_wallet_2_0.application.PranacoinWallet2.PranacoinWallet2.log
+import com.openyogaland.denis.pranacoin_wallet_2_0.application.PranacoinWallet2.Companion.hasConnection
+import com.openyogaland.denis.pranacoin_wallet_2_0.application.PranacoinWallet2.Companion.log
 import com.openyogaland.denis.pranacoin_wallet_2_0.async.SendSumTask
 import com.openyogaland.denis.pranacoin_wallet_2_0.listener.OnSendResponseObtainedListener
 import com.openyogaland.denis.pranacoin_wallet_2_0.viewmodel.MainViewModel

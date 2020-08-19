@@ -16,7 +16,7 @@ import com.google.android.gms.common.SignInButton.SIZE_WIDE
 import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.tasks.Task
 import com.openyogaland.denis.pranacoin_wallet_2_0.R
-import com.openyogaland.denis.pranacoin_wallet_2_0.application.PranacoinWallet2.PranacoinWallet2.log
+import com.openyogaland.denis.pranacoin_wallet_2_0.application.PranacoinWallet2.Companion.log
 
 class GoogleSignInActivity : AppCompatActivity() {
     private lateinit var googleSignInButton: SignInButton

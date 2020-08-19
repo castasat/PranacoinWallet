@@ -15,19 +15,20 @@ import okhttp3.logging.HttpLoggingInterceptor.Level.BODY
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava3.RxJava3CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
+import java.util.concurrent.TimeUnit.SECONDS
 
-class
-PranacoinWallet2 : Application() {
+class PranacoinWallet2 : Application() {
     override fun onCreate() {
         super.onCreate()
         // for use of vector drawables on pre-lollipop
         setCompatVectorFromResourcesEnabled(true)
     }
 
-    companion object
-    PranacoinWallet2 {
+    companion object {
         private const val APP_ID = "PranacoinWallet2.0"
         private const val PRANACOIN_SERVER_URL = "http://95.213.191.196/"
+        private const val CONNECT_TIMEOUT_SECONDS = 15L
+        private const val READ_TIMEOUT_SECONDS = 20L
 
         fun log(text: String) {
             if (DEBUG) {
@@ -51,13 +52,15 @@ PranacoinWallet2 : Application() {
             return result
         }
 
-        fun getPranacoinServerApi() =
+        val pranacoinServerApi: PranacoinServerApi by lazy {
             Retrofit
                 .Builder()
                 .baseUrl(PRANACOIN_SERVER_URL)
                 .client(
                     OkHttpClient()
                         .newBuilder()
+                        .connectTimeout(CONNECT_TIMEOUT_SECONDS, SECONDS)
+                        .readTimeout(READ_TIMEOUT_SECONDS, SECONDS)
                         .addInterceptor(
                             HttpLoggingInterceptor().setLevel(BODY)
                         )
@@ -69,10 +72,12 @@ PranacoinWallet2 : Application() {
                         .create(
                             GsonBuilder()
                                 .setLenient()
+                                .disableHtmlEscaping()
                                 .create()
                         )
                 )
                 .build()
                 .create(PranacoinServerApi::class.java)
+        }
     }
 }

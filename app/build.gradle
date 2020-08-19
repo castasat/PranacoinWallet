@@ -152,6 +152,7 @@ dependencies {
     implementation 'com.squareup.retrofit2:converter-scalars:2.9.0'
     implementation 'com.squareup.retrofit2:adapter-rxjava3:2.9.0'
     implementation 'io.reactivex.rxjava3:rxjava:3.0.5'
+    implementation 'io.reactivex.rxjava3:rxandroid:3.0.0'
     implementation "com.github.akarnokd:rxjava3-extensions:3.0.0"
     implementation 'com.journeyapps:zxing-android-embedded:3.6.0'
     implementation 'com.google.firebase:firebase-analytics:17.4.4'

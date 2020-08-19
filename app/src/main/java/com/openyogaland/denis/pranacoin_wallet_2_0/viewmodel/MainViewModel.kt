@@ -1,31 +1,55 @@
 package com.openyogaland.denis.pranacoin_wallet_2_0.viewmodel
 
 import android.app.Application
-import android.content.Context
 import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.ViewModel
+import com.openyogaland.denis.pranacoin_wallet_2_0.application.PranacoinWallet2
+import com.openyogaland.denis.pranacoin_wallet_2_0.application.PranacoinWallet2.Companion.log
+import com.openyogaland.denis.pranacoin_wallet_2_0.application.PranacoinWallet2.Companion.pranacoinServerApi
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers.mainThread
 import io.reactivex.rxjava3.disposables.CompositeDisposable
-import io.reactivex.rxjava3.disposables.Disposable
-import java.lang.ref.WeakReference
+import io.reactivex.rxjava3.schedulers.Schedulers.io
 
 class MainViewModel(application: Application) : AndroidViewModel(application) {
-    private lateinit var contextWeakReference: WeakReference<Context>
-    private val applicationContext: Context?
-        get() = contextWeakReference.get()
-    private val compositeDisposable = CompositeDisposable()
+    private val pranacoinWallet2: PranacoinWallet2 = application as PranacoinWallet2
     var googleAccountId: String? = null
+    private val compositeDisposable = CompositeDisposable()
 
-    init {
-        initializeApplicationContext(application)
+    override fun onCleared() {
+        compositeDisposable.clear()
+        super.onCleared()
     }
 
-    private fun initializeApplicationContext(application: Application): Context {
-        contextWeakReference = WeakReference(application.applicationContext)
-        return application.applicationContext
+    fun getBalance() {
+        googleAccountId?.let { walletId ->
+            compositeDisposable.add(
+                pranacoinServerApi
+                    .getBalance(walletId = walletId)
+                    .subscribeOn(io())
+                    .observeOn(mainThread())
+                    .doOnSuccess { balance ->
+                        log("MainViewModel.getBalance(): balance = $balance")
+                    }
+                    .subscribe(
+                        // TODO
+                    )
+            )
+        }
     }
 
-    // TODO call from Activity.onTerminate()
-    fun utilizeDisposable(disposableToUtilize: Disposable) {
-        compositeDisposable.add(disposableToUtilize)
+    fun getPublicAddress() {
+        googleAccountId?.let { walletId ->
+            compositeDisposable.add(
+                pranacoinServerApi
+                    .getPublicAddress(walletId = walletId)
+                    .subscribeOn(io())
+                    .observeOn(mainThread())
+                    .doOnSuccess { publicAddress ->
+                        log("MainViewModel.getBPublicAddress(): publicAddress = $publicAddress")
+                    }
+                    .subscribe(
+                        // TODO
+                    )
+            )
+        }
     }
 }

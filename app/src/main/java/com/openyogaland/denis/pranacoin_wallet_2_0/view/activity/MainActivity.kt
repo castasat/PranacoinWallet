@@ -16,28 +16,27 @@ import androidx.fragment.app.Fragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.bottomnavigation.BottomNavigationView.OnNavigationItemSelectedListener
 import com.openyogaland.denis.pranacoin_wallet_2_0.R
-import com.openyogaland.denis.pranacoin_wallet_2_0.application.PranacoinWallet2.PranacoinWallet2.log
+import com.openyogaland.denis.pranacoin_wallet_2_0.application.PranacoinWallet2.Companion.log
 import com.openyogaland.denis.pranacoin_wallet_2_0.listener.OnPrivacyPolicyAcceptedListener
+import com.openyogaland.denis.pranacoin_wallet_2_0.view.activity.GoogleSignInActivity.Companion.GOOGLE_ACCOUNT_ID
 import com.openyogaland.denis.pranacoin_wallet_2_0.view.fragment.BackupFragment
 import com.openyogaland.denis.pranacoin_wallet_2_0.view.fragment.HomeFragment
 import com.openyogaland.denis.pranacoin_wallet_2_0.view.fragment.PolicyFragment
 import com.openyogaland.denis.pranacoin_wallet_2_0.view.fragment.SendFragment
-import com.openyogaland.denis.pranacoin_wallet_2_0.view.activity.GoogleSignInActivity.Companion.GOOGLE_ACCOUNT_ID
 import com.openyogaland.denis.pranacoin_wallet_2_0.viewmodel.MainViewModel
 
-class
-MainActivity : AppCompatActivity(), OnNavigationItemSelectedListener,
+class MainActivity : AppCompatActivity(), OnNavigationItemSelectedListener,
     OnClickListener, OnPrivacyPolicyAcceptedListener {
     private var privacyPolicyAcceptedByUser = false
     private var policyFragment: PolicyFragment? = null
     private var homeFragment: HomeFragment? = null
     private var sendFragment: SendFragment? = null
     private var backupFragment: BackupFragment? = null
+    private val mainViewModel: MainViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        val mainViewModel : MainViewModel by viewModels()
         updateViewModelGoogleAccountId(mainViewModel)
         privacyPolicyAcceptedByUser = loadPrivacyPolicyAcceptedState()
 
@@ -62,7 +61,7 @@ MainActivity : AppCompatActivity(), OnNavigationItemSelectedListener,
         appLinkIntent.data
     }
 
-    private fun updateViewModelGoogleAccountId(mainViewModel : MainViewModel) {
+    private fun updateViewModelGoogleAccountId(mainViewModel: MainViewModel) {
         intent.extras?.getString(GOOGLE_ACCOUNT_ID)
             ?.let { googleAccountId: String ->
                 mainViewModel.googleAccountId = googleAccountId

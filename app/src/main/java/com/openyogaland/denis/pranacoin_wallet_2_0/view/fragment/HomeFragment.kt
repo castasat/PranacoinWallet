@@ -15,7 +15,7 @@ import androidx.fragment.app.activityViewModels
 import com.google.zxing.WriterException
 import com.openyogaland.denis.pranacoin_wallet_2_0.R
 import com.openyogaland.denis.pranacoin_wallet_2_0.application.PranacoinWallet2
-import com.openyogaland.denis.pranacoin_wallet_2_0.application.PranacoinWallet2.PranacoinWallet2.log
+import com.openyogaland.denis.pranacoin_wallet_2_0.application.PranacoinWallet2.Companion.log
 import com.openyogaland.denis.pranacoin_wallet_2_0.async.GetBalanceFromNetTask
 import com.openyogaland.denis.pranacoin_wallet_2_0.async.GetPublicAddressFromNetTask
 import com.openyogaland.denis.pranacoin_wallet_2_0.domain.QRCodeDomain.Companion.textToImageEncode
@@ -54,6 +54,7 @@ class HomeFragment : Fragment(), OnPublicAddressObtainedListener, OnBalanceObtai
         publicAddressQRCodeImageView?.visibility = View.GONE
         publicAddressQRCodeProgressBar?.visibility = View.VISIBLE
 
+        // TODO replace with MVVM
         // show public address and balance
         context?.let { context: Context ->
             mainViewModel.googleAccountId?.let { idOfUser ->
@@ -72,6 +73,8 @@ class HomeFragment : Fragment(), OnPublicAddressObtainedListener, OnBalanceObtai
                 }
             }
         }
+        mainViewModel.getBalance()
+        mainViewModel.getPublicAddress()
         return view
     }
 
