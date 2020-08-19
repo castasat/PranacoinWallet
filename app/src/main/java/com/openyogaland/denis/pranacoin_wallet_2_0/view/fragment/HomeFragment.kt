@@ -15,13 +15,10 @@ import androidx.fragment.app.activityViewModels
 import com.google.zxing.WriterException
 import com.openyogaland.denis.pranacoin_wallet_2_0.R
 import com.openyogaland.denis.pranacoin_wallet_2_0.application.PranacoinWallet2.Companion.log
-import com.openyogaland.denis.pranacoin_wallet_2_0.async.GetBalanceFromNetTask
 import com.openyogaland.denis.pranacoin_wallet_2_0.domain.QRCodeDomain.Companion.textToImageEncode
-import com.openyogaland.denis.pranacoin_wallet_2_0.listener.OnBalanceObtainedListener
-import com.openyogaland.denis.pranacoin_wallet_2_0.listener.OnPublicAddressObtainedListener
 import com.openyogaland.denis.pranacoin_wallet_2_0.viewmodel.MainViewModel
 
-class HomeFragment : Fragment(), OnPublicAddressObtainedListener, OnBalanceObtainedListener {
+class HomeFragment : Fragment(){
     private var publicAddress = ""
     private var balance = ""
     private var publicAddressTextView: TextView? = null
@@ -37,7 +34,6 @@ class HomeFragment : Fragment(), OnPublicAddressObtainedListener, OnBalanceObtai
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val getBalanceFromNetTask: GetBalanceFromNetTask
         val view = inflater.inflate(R.layout.fragment_home, container, false)
         publicAddressTextView = view.findViewById(R.id.publicAddressTextView)
         balanceAmountTextView = view.findViewById(R.id.balanceAmountTextView)
@@ -73,27 +69,15 @@ class HomeFragment : Fragment(), OnPublicAddressObtainedListener, OnBalanceObtai
             }
         )
 
-        // TODO replace with MVVM
-        // show public address and balance
-        /*context?.let { context: Context ->
-            mainViewModel.googleAccountId?.let { idOfUser ->
-                log("HomeFragment.onCreateView(): idOfUser = $idOfUser")
-                if (PranacoinWallet2.hasConnection(context)) {
-                    val getPublicAddressFromNetTask = GetPublicAddressFromNetTask(context, idOfUser)
-                    getPublicAddressFromNetTask.setOnPublicAddressObtainedListener(this)
-                    getBalanceFromNetTask = GetBalanceFromNetTask(context, idOfUser)
-                    getBalanceFromNetTask.setOnBalanceObtainedListener(this)
-                } else if (!PranacoinWallet2.hasConnection(context)) {
-                    balance = loadBalance()
-                    showBalance(balance)
-                    publicAddress = loadPublicAddress()
-                    showPublicAddress(publicAddress)
-                    showQRCode(publicAddress)
-                }
-            }
-        }*/
+        // TODO check internet connectivity
         mainViewModel.getBalance()
         mainViewModel.getPublicAddress()
+        // TODO if not connected load from repository
+        /*balance = loadBalance()
+        showBalance(balance)
+        publicAddress = loadPublicAddress()
+        showPublicAddress(publicAddress)
+        showQRCode(publicAddress)*/
         return view
     }
 
@@ -167,19 +151,6 @@ class HomeFragment : Fragment(), OnPublicAddressObtainedListener, OnBalanceObtai
             }
 
         }
-    }
-
-    override fun onBalanceObtained(balance: String) {
-        this.balance = balance
-        showBalance(balance)
-        saveBalance(balance)
-    }
-
-    override fun onPublicAddressObtained(publicAddress: String) {
-        this.publicAddress = publicAddress
-        showPublicAddress(publicAddress)
-        showQRCode(publicAddress)
-        savePublicAddress(publicAddress)
     }
 
     companion object {
