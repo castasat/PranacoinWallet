@@ -14,10 +14,8 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import com.google.zxing.WriterException
 import com.openyogaland.denis.pranacoin_wallet_2_0.R
-import com.openyogaland.denis.pranacoin_wallet_2_0.application.PranacoinWallet2
 import com.openyogaland.denis.pranacoin_wallet_2_0.application.PranacoinWallet2.Companion.log
 import com.openyogaland.denis.pranacoin_wallet_2_0.async.GetBalanceFromNetTask
-import com.openyogaland.denis.pranacoin_wallet_2_0.async.GetPublicAddressFromNetTask
 import com.openyogaland.denis.pranacoin_wallet_2_0.domain.QRCodeDomain.Companion.textToImageEncode
 import com.openyogaland.denis.pranacoin_wallet_2_0.listener.OnBalanceObtainedListener
 import com.openyogaland.denis.pranacoin_wallet_2_0.listener.OnPublicAddressObtainedListener
@@ -54,9 +52,30 @@ class HomeFragment : Fragment(), OnPublicAddressObtainedListener, OnBalanceObtai
         publicAddressQRCodeImageView?.visibility = View.GONE
         publicAddressQRCodeProgressBar?.visibility = View.VISIBLE
 
+        mainViewModel.balanceLiveData.observe(
+            viewLifecycleOwner,
+            { balance ->
+                this.balance = balance
+                saveBalance(balance)
+                showBalance(balance)
+                log("HomeFragment.onCreateView(): balance = $balance")
+            }
+        )
+
+        mainViewModel.publicAddressLiveData.observe(
+            viewLifecycleOwner,
+            { publicAddress ->
+                this.publicAddress = publicAddress
+                savePublicAddress(publicAddress)
+                showPublicAddress(publicAddress)
+                showQRCode(publicAddress)
+                log("HomeFragment.onCreateView(): publicAddress = $publicAddress")
+            }
+        )
+
         // TODO replace with MVVM
         // show public address and balance
-        context?.let { context: Context ->
+        /*context?.let { context: Context ->
             mainViewModel.googleAccountId?.let { idOfUser ->
                 log("HomeFragment.onCreateView(): idOfUser = $idOfUser")
                 if (PranacoinWallet2.hasConnection(context)) {
@@ -72,7 +91,7 @@ class HomeFragment : Fragment(), OnPublicAddressObtainedListener, OnBalanceObtai
                     showQRCode(publicAddress)
                 }
             }
-        }
+        }*/
         mainViewModel.getBalance()
         mainViewModel.getPublicAddress()
         return view
