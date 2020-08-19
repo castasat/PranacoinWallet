@@ -25,6 +25,7 @@ import com.openyogaland.denis.pranacoin_wallet_2_0.view.fragment.PolicyFragment
 import com.openyogaland.denis.pranacoin_wallet_2_0.view.fragment.SendFragment
 import com.openyogaland.denis.pranacoin_wallet_2_0.viewmodel.MainViewModel
 
+// TODO 0007 navigate across fragments with swipe to the left and to the right
 class MainActivity : AppCompatActivity(), OnNavigationItemSelectedListener,
     OnClickListener, OnPrivacyPolicyAcceptedListener {
     private var privacyPolicyAcceptedByUser = false
@@ -55,7 +56,8 @@ class MainActivity : AppCompatActivity(), OnNavigationItemSelectedListener,
         }
         val navigationView = findViewById<BottomNavigationView>(R.id.navigation)
         navigationView.setOnNavigationItemSelectedListener(this)
-        // TODO handle app links and application indexing
+        // TODO 0015 handle app links
+        // TODO 0016 handle application indexing
         val appLinkIntent = intent
         appLinkIntent.action
         appLinkIntent.data

@@ -69,10 +69,10 @@ class HomeFragment : Fragment(){
             }
         )
 
-        // TODO check internet connectivity
+        // TODO 0009 check internet connectivity and load values from local database
+        //  if not connected
         mainViewModel.getBalance()
         mainViewModel.getPublicAddress()
-        // TODO if not connected load from repository
         /*balance = loadBalance()
         showBalance(balance)
         publicAddress = loadPublicAddress()
@@ -137,6 +137,7 @@ class HomeFragment : Fragment(){
         }
     }
 
+    // TODO 0008 make QR-codes selectable
     private fun showQRCode(publicAddress: String) {
         if (publicAddress.isNotEmpty()) {
             try {

@@ -24,13 +24,13 @@ class GoogleSignInActivity : AppCompatActivity() {
     private lateinit var googleSignInClient: GoogleSignInClient
     private lateinit var googleSignInAccount: GoogleSignInAccount
 
+    // TODO 0013 add sign-in possibilities
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.google_sign_in)
         log("GoogleSignInActivity.onCreate()")
         googleSignInOptions = Builder(DEFAULT_SIGN_IN)
                 .requestEmail()
-                // TODO ????
                 .requestIdToken(getString(R.string.server_client_id))
                 .requestId()
                 .build()

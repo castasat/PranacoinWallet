@@ -19,6 +19,7 @@ import androidx.appcompat.app.AppCompatDialogFragment
 import com.openyogaland.denis.pranacoin_wallet_2_0.R
 import com.openyogaland.denis.pranacoin_wallet_2_0.listener.OnPrivacyPolicyAcceptedListener
 
+// TODO 0006 update policy
 class PolicyFragment : AppCompatDialogFragment(), OnCheckedChangeListener, OnClickListener {
     // fields
     private var nextButton: Button? = null

@@ -26,8 +26,8 @@ import com.openyogaland.denis.pranacoin_wallet_2_0.listener.OnSendResponseObtain
 import com.openyogaland.denis.pranacoin_wallet_2_0.viewmodel.MainViewModel
 import java.lang.Double.parseDouble
 
-class
-SendFragment : Fragment(), OnClickListener, OnSendResponseObtainedListener {
+// TODO 0002 replace volley with retrofit
+class SendFragment : Fragment(), OnClickListener, OnSendResponseObtainedListener {
     private var idOfUser: String? = null
     private var recipientAddressEditText: EditText? = null
     private var sumEditText: EditText? = null
@@ -52,6 +52,9 @@ SendFragment : Fragment(), OnClickListener, OnSendResponseObtainedListener {
         return view
     }
 
+    // TODO 0003 add explicit UI message to usr after sending pranacoins
+    // TODO 0011 write transaction to local database
+    // TODO 0012 show transaction history in HistoryFragment
     override fun onClick(view: View) {
         context?.let { context: Context ->
             idOfUser?.let { idOfUser: String ->

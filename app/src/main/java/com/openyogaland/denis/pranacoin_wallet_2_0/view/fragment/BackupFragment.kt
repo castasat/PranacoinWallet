@@ -23,6 +23,7 @@ import com.openyogaland.denis.pranacoin_wallet_2_0.domain.QRCodeDomain.Companion
 import com.openyogaland.denis.pranacoin_wallet_2_0.listener.OnPrivateAddressObtainedListener
 import com.openyogaland.denis.pranacoin_wallet_2_0.viewmodel.MainViewModel
 
+// TODO 0001 replace volley with retrofit
 class BackupFragment : Fragment(), OnPrivateAddressObtainedListener, OnClickListener {
     private var privateAddressTextView: TextView? = null
     private var privateAddressQRCodeImageView: ImageView? = null
@@ -92,6 +93,7 @@ class BackupFragment : Fragment(), OnPrivateAddressObtainedListener, OnClickList
         }
     }
 
+    // TODO 0008 make QR-codes selectable
     private fun showPrivateAddressGroup(privateAddress: String) {
         if (privateAddress.isNotEmpty()) {
             privateAddressTextView?.text = privateAddress

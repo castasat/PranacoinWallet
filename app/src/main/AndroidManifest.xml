@@ -7,7 +7,7 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
 
-    <!-- TODO fix network security config and cleartext traffic -->
+    <!-- TODO 0005 fix cleartext network traffic -->
     <application
         android:name=".application.PranacoinWallet2"
         android:allowBackup="true"
