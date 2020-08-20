@@ -18,6 +18,23 @@ import com.openyogaland.denis.pranacoin_wallet_2_0.application.PranacoinWallet2.
 import com.openyogaland.denis.pranacoin_wallet_2_0.domain.QRCodeDomain.Companion.textToImageEncode
 import com.openyogaland.denis.pranacoin_wallet_2_0.viewmodel.MainViewModel
 
+// TODO 0017 share publicAddress
+// TODO 0018 create commercial
+// TODO 0019 share commercial
+// TODO 0020 rate application screen
+// TODO 0021 statistics
+// TODO 0022 english language
+// TODO 0023 memory leaks
+// TODO 0024 crashlytics
+// TODO 0025 in-app pranacoin purchases
+// TODO 0026 backend
+// TODO 0027 other in-app purchases
+// TODO 0028 user profile
+// TODO 0029 user ads
+// TODO 0030 viewing other user's profiles and ads
+// TODO 0031 users geography
+// TODO 0032 buying pranacoins from users
+// TODO 0033 ESCROW service
 class HomeFragment : Fragment(){
     private var publicAddress = ""
     private var balance = ""

@@ -17,6 +17,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
 
     val balanceLiveData = MutableLiveData<String>()
     val publicAddressLiveData = MutableLiveData<String>()
+    val privateAddressLiveData = MutableLiveData<String>()
 
     private val compositeDisposable = CompositeDisposable()
 
@@ -54,12 +55,33 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
                     .subscribeOn(io())
                     .observeOn(mainThread())
                     .doOnSuccess { publicAddress ->
-                        log("MainViewModel.getBPublicAddress(): publicAddress = $publicAddress")
+                        log("MainViewModel.getPublicAddress(): publicAddress = $publicAddress")
                     }
                     .subscribe(
                         { publicAddress -> publicAddressLiveData.postValue(publicAddress) },
                         { throwable ->
                             log("MainViewModel.getPublicAddress(): throwable = $throwable")
+                            throwable.printStackTrace()
+                        }
+                    )
+            )
+        }
+    }
+
+    fun getPrivateAddress() {
+        googleAccountId?.let { walletId ->
+            compositeDisposable.add(
+                pranacoinServerApi
+                    .getPrivateAddress(walletId = walletId)
+                    .subscribeOn(io())
+                    .observeOn(mainThread())
+                    .doOnSuccess { privateAddress ->
+                        log("MainViewModel.getPrivateAddress(): privateAddress = $privateAddress")
+                    }
+                    .subscribe(
+                        { privateAddress -> privateAddressLiveData.postValue(privateAddress) },
+                        { throwable ->
+                            log("MainViewModel.getPrivateAddress(): throwable = $throwable")
                             throwable.printStackTrace()
                         }
                     )

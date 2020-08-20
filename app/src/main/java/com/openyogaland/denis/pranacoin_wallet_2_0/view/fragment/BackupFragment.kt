@@ -6,7 +6,6 @@ import android.content.SharedPreferences.Editor
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
-import android.view.View.OnClickListener
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageView
@@ -17,14 +16,11 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import com.google.zxing.WriterException
 import com.openyogaland.denis.pranacoin_wallet_2_0.R
-import com.openyogaland.denis.pranacoin_wallet_2_0.application.PranacoinWallet2
-import com.openyogaland.denis.pranacoin_wallet_2_0.async.GetPrivateAddressFromNetTask
+import com.openyogaland.denis.pranacoin_wallet_2_0.application.PranacoinWallet2.Companion.log
 import com.openyogaland.denis.pranacoin_wallet_2_0.domain.QRCodeDomain.Companion.textToImageEncode
-import com.openyogaland.denis.pranacoin_wallet_2_0.listener.OnPrivateAddressObtainedListener
 import com.openyogaland.denis.pranacoin_wallet_2_0.viewmodel.MainViewModel
 
-// TODO 0001 replace volley with retrofit
-class BackupFragment : Fragment(), OnPrivateAddressObtainedListener, OnClickListener {
+class BackupFragment : Fragment() {
     private var privateAddressTextView: TextView? = null
     private var privateAddressQRCodeImageView: ImageView? = null
     private var privateAddressGroup: Group? = null
@@ -36,16 +32,28 @@ class BackupFragment : Fragment(), OnPrivateAddressObtainedListener, OnClickList
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val getPrivateAddressButton: Button
         val view = inflater.inflate(R.layout.fragment_backup, container, false)
-        getPrivateAddressButton = view.findViewById(R.id.getPrivateAddressButton)
+        val getPrivateAddressButton = view.findViewById<Button>(R.id.getPrivateAddressButton)
         privateAddressTextView = view.findViewById(R.id.privateAddressTextView)
         privateAddressQRCodeImageView = view.findViewById(R.id.privateAddressQRCodeImageView)
         privateAddressGroup = view.findViewById(R.id.privateAddress)
         privateAddressQRCodeProgressBar = view.findViewById(R.id.privateAddressQRCodeProgressBar)
+
+        getPrivateAddressButton.setOnClickListener { getPrivateAddress() }
+
+        // setting progress bars visible and imageView not-visible
         privateAddressGroup?.visibility = Group.GONE
         privateAddressQRCodeProgressBar?.visibility = View.GONE
-        getPrivateAddressButton.setOnClickListener(this)
+
+        mainViewModel.privateAddressLiveData.observe(
+            viewLifecycleOwner,
+            { privateAddress ->
+                savePrivateAddress(privateAddress)
+                showPrivateAddressGroup(privateAddress)
+                log("BackupFragment.onCreateView(): privateAddress = $privateAddress")
+            }
+        )
+
         return view
     }
 
@@ -70,27 +78,15 @@ class BackupFragment : Fragment(), OnPrivateAddressObtainedListener, OnClickList
         return result
     }
 
-    override fun onPrivateAddressObtained(privateAddress: String) {
-        savePrivateAddress(privateAddress)
-        showPrivateAddressGroup(privateAddress)
-    }
+    private fun getPrivateAddress() {
+        privateAddressQRCodeProgressBar?.visibility = View.VISIBLE
 
-    override fun onClick(view: View) {
-        // show public address and balance
-        context?.let { context: Context ->
-            privateAddressQRCodeProgressBar?.visibility = View.VISIBLE
-            mainViewModel.googleAccountId?.let { idOfUser ->
-                PranacoinWallet2.log("BackupFragment.onCreateView(): idOfUser = $idOfUser")
-                if (PranacoinWallet2.hasConnection(context)) {
-                    val getPrivateAddressFromNetTask =
-                        GetPrivateAddressFromNetTask(context, idOfUser)
-                    getPrivateAddressFromNetTask.setOnPrivateAddressObtainedListener(this)
-                } else if (!PranacoinWallet2.hasConnection(context)) {
-                    val privateAddress = loadPrivateAddress()
-                    showPrivateAddressGroup(privateAddress)
-                }
-            }
-        }
+        // TODO 0009 check internet connectivity and load values from local database
+        //  if not connected
+        /*val privateAddress = loadPrivateAddress()
+        showPrivateAddressGroup(privateAddress)*/
+
+        mainViewModel.getPrivateAddress()
     }
 
     // TODO 0008 make QR-codes selectable
