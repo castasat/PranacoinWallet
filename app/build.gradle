@@ -139,12 +139,10 @@ dependencies {
     implementation "androidx.lifecycle:lifecycle-livedata-ktx:2.2.0"
     implementation "androidx.lifecycle:lifecycle-viewmodel-savedstate:2.2.0"
     implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0'
-    implementation 'androidx.lifecycle:lifecycle-common-java8:2.3.0-alpha06'
-    implementation 'androidx.lifecycle:lifecycle-reactivestreams:2.3.0-alpha06'
+    implementation 'androidx.lifecycle:lifecycle-common-java8:2.3.0-alpha07'
+    implementation 'androidx.lifecycle:lifecycle-reactivestreams:2.3.0-alpha07'
     //implementation 'androidx.room:room-runtime:2.2.5'
     //implementation 'androidx.room:room-ktx:2.2.5'
-    // TODO 0004 remove volley after full migration to retrofit
-    implementation 'com.android.volley:volley:1.1.0'
     implementation 'com.squareup.okhttp3:okhttp:4.8.1'
     implementation 'com.squareup.okhttp3:logging-interceptor:4.7.2'
     implementation 'com.squareup.retrofit2:retrofit:2.9.0'
@@ -155,7 +153,7 @@ dependencies {
     implementation 'io.reactivex.rxjava3:rxandroid:3.0.0'
     implementation "com.github.akarnokd:rxjava3-extensions:3.0.0"
     implementation 'com.journeyapps:zxing-android-embedded:3.6.0'
-    implementation 'com.google.firebase:firebase-analytics:17.4.4'
+    implementation 'com.google.firebase:firebase-analytics:17.5.0'
     // add SDKs for any other desired Firebase products
     // https://firebase.google.com/docs/android/setup#available-libraries
     implementation 'com.google.firebase:firebase-auth:19.3.2'
