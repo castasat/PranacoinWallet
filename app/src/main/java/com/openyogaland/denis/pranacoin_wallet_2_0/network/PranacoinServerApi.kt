@@ -15,7 +15,7 @@ interface PranacoinServerApi {
     fun getPrivateAddress(@Query(WALLET_ID) walletId: String): Single<String>
 
     @GET("api.php?action=sendprana")
-    fun sendSum(
+    fun sendPranacoins(
         @Query(WALLET_ID) walletId: String,
         @Query(RECIPIENT_ADDRESS) recipientAddress: String,
         @Query(AMOUNT) amount: String

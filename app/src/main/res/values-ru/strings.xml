@@ -23,7 +23,8 @@
     <string name="accept_privacy_policy">Я ПРИНИМАЮ Политику Конфиденциальности</string>
     <string name="locale_asset_path">/ru/</string>
     <string name="commission_message">Комиссия: до 0.1 PNC</string>
-    <string name="not_enough_funds">На вашем балансе недостаточно средств, чтобы перевести указанную сумму и заплатить комиссию</string>
+    <string name="not_enough_funds_or_empty">На вашем балансе недостаточно средств, чтобы перевести
+        указанную сумму и заплатить комиссию, или некоторые поля оставлены пустыми</string>
     <string name="check_internet_connection">Проверьте интернет-соединение</string>
     <string name="scanning_cancelled">Сканирование отменено пользователем</string>
     <string name="transfer_executed_successfully">Ваш перевод успешно завершён</string>

@@ -18,6 +18,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     val balanceLiveData = MutableLiveData<String>()
     val publicAddressLiveData = MutableLiveData<String>()
     val privateAddressLiveData = MutableLiveData<String>()
+    val sendPranacoinsTransactionLiveData = MutableLiveData<String>()
 
     private val compositeDisposable = CompositeDisposable()
 
@@ -41,6 +42,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
                         { throwable ->
                             log("MainViewModel.getBalance(): throwable = $throwable")
                             throwable.printStackTrace()
+                            // TODO 0003-1 AlertDialog-based error handling
                         }
                     )
             )
@@ -62,6 +64,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
                         { throwable ->
                             log("MainViewModel.getPublicAddress(): throwable = $throwable")
                             throwable.printStackTrace()
+                            // TODO 0003-1 AlertDialog-based error handling
                         }
                     )
             )
@@ -83,6 +86,35 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
                         { throwable ->
                             log("MainViewModel.getPrivateAddress(): throwable = $throwable")
                             throwable.printStackTrace()
+                            // TODO 0003-1 AlertDialog-based error handling
+                        }
+                    )
+            )
+        }
+    }
+
+    fun sendPranacoins(recipientAddress: String, amount: String) {
+        googleAccountId?.let { walletId ->
+            compositeDisposable.add(
+                pranacoinServerApi
+                    .sendPranacoins(
+                        walletId,
+                        recipientAddress,
+                        amount
+                    )
+                    .subscribeOn(io())
+                    .observeOn(mainThread())
+                    .doOnSuccess { transaction ->
+                        log("MainViewModel.sendPranacoins(): transaction = $transaction")
+                    }
+                    .subscribe(
+                        { transaction ->
+                            sendPranacoinsTransactionLiveData.postValue(transaction)
+                        },
+                        { throwable ->
+                            log("MainViewModel.sendPranacoins(): throwable = $throwable")
+                            throwable.printStackTrace()
+                            // TODO 0003-1 AlertDialog-based error handling
                         }
                     )
             )

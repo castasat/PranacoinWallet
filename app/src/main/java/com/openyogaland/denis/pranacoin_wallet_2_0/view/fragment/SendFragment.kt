@@ -7,7 +7,6 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
-import android.view.View.OnClickListener
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
@@ -21,13 +20,11 @@ import com.google.zxing.integration.android.IntentResult
 import com.openyogaland.denis.pranacoin_wallet_2_0.R
 import com.openyogaland.denis.pranacoin_wallet_2_0.application.PranacoinWallet2.Companion.hasConnection
 import com.openyogaland.denis.pranacoin_wallet_2_0.application.PranacoinWallet2.Companion.log
-import com.openyogaland.denis.pranacoin_wallet_2_0.async.SendSumTask
-import com.openyogaland.denis.pranacoin_wallet_2_0.listener.OnSendResponseObtainedListener
 import com.openyogaland.denis.pranacoin_wallet_2_0.viewmodel.MainViewModel
 import java.lang.Double.parseDouble
 
 // TODO 0002 replace volley with retrofit
-class SendFragment : Fragment(), OnClickListener, OnSendResponseObtainedListener {
+class SendFragment : Fragment() {
     private var idOfUser: String? = null
     private var recipientAddressEditText: EditText? = null
     private var sumEditText: EditText? = null
@@ -47,100 +44,69 @@ class SendFragment : Fragment(), OnClickListener, OnSendResponseObtainedListener
             log("SendFragment.onCreateView(): idOfUser = $idOfUser")
             this.idOfUser = idOfUser
         }
-        sendButton.setOnClickListener(this)
-        scanButton.setOnClickListener(this)
+        scanButton.setOnClickListener { scanRecipientQRCode() }
+        sendButton.setOnClickListener { sendPranacoins() }
+
+        mainViewModel.sendPranacoinsTransactionLiveData.observe(
+            viewLifecycleOwner,
+            { transaction ->
+                log("SendFragment.onCreateView(): transaction = $transaction")
+                showSendPranacoinsTransaction(transaction)
+            }
+        )
+
         return view
     }
 
-    // TODO 0003 add explicit UI message to usr after sending pranacoins
     // TODO 0011 write transaction to local database
     // TODO 0012 show transaction history in HistoryFragment
-    override fun onClick(view: View) {
-        context?.let { context: Context ->
-            idOfUser?.let { idOfUser: String ->
-                when (view.id) {
-                    R.id.sendButton -> if (hasConnection(context)) {
-                        // get address and amount to send
-                        val recipientAddress = recipientAddressEditText?.text.toString()
-                        val amount = sumEditText?.text.toString()
-                        if (recipientAddress.isNotEmpty() && amount.isNotEmpty()) {
-                            val balanceAmount = parseDouble(loadBalance())
-                            val amountValue = parseDouble(amount)
-                            val myCommissionAmountValue =
-                                TOTAL_COMMISSION_MAX - 2 * API_COMMISSION_AMOUNT
-                            // check if user has enough balance for transfer
-                            if (amountValue + TOTAL_COMMISSION_MAX > balanceAmount) {
-                                // show message that transfer wasn't performed
-                                makeText(
-                                    context, getString(R.string.not_enough_funds),
-                                    LENGTH_LONG
-                                ).show()
-                            } else {
-                                // execute users's transfer
-                                val sendSumTask =
-                                    SendSumTask(context, idOfUser, recipientAddress, amount)
-                                sendSumTask.setOnSendResponseObtainedListener(this)
-                                // execute my commission transfer
-                                val myCommissionAmount = myCommissionAmountValue.toString()
-                                SendSumTask(
-                                    context,
-                                    idOfUser,
-                                    MY_COMMISSION_ADDRESS,
-                                    myCommissionAmount
-                                )
-                                // show notification message if transfer has been successfully executed
-                                showSuccessTransferNotification()
-                            }
-                        }
-                    } else {
-                        makeText(
-                            context,
-                            R.string.check_internet_connection,
-                            LENGTH_LONG
-                        ).show()
-                    }
-                    R.id.scanButton -> forSupportFragment(this).initiateScan()
-                    else -> if (hasConnection(context)) {
-                        val recipientAddress = recipientAddressEditText?.text.toString()
-                        val amount = sumEditText?.text.toString()
-                        if (recipientAddress.isNotEmpty() && amount.isNotEmpty()) {
-                            val balanceAmount = parseDouble(loadBalance())
-                            val amountValue = parseDouble(amount)
-                            val myCommissionAmountValue =
-                                TOTAL_COMMISSION_MAX - 2 * API_COMMISSION_AMOUNT
-                            if (amountValue + TOTAL_COMMISSION_MAX > balanceAmount) {
-                                makeText(
-                                    context,
-                                    getString(R.string.not_enough_funds),
-                                    LENGTH_LONG
-                                ).show()
-                            } else {
-                                val sendSumTask =
-                                    SendSumTask(context, idOfUser, recipientAddress, amount)
-                                sendSumTask.setOnSendResponseObtainedListener(this)
-                                val myCommissionAmount = myCommissionAmountValue.toString()
-                                SendSumTask(
-                                    context,
-                                    idOfUser,
-                                    MY_COMMISSION_ADDRESS,
-                                    myCommissionAmount
-                                )
-                                showSuccessTransferNotification()
-                            }
-                        }
-                    } else {
-                        makeText(
-                            context,
-                            R.string.check_internet_connection,
-                            LENGTH_SHORT
-                        ).show()
-                    }
+    private fun sendPranacoins() {
+        val myCommissionAmountValue = TOTAL_COMMISSION_MAX - 2 * API_COMMISSION_AMOUNT
+        val recipientAddress = recipientAddressEditText?.text.toString()
+        val amount = sumEditText?.text.toString()
+        if (userHasEnoughBalanceForTransfer(recipientAddress, amount)) {
+            context?.let { context: Context ->
+                // TODO 0009 check internet connectivity
+                if (hasConnection(context)) {
+                    mainViewModel.sendPranacoins(recipientAddress, amount)
+                    mainViewModel.sendPranacoins(
+                        MY_COMMISSION_ADDRESS, myCommissionAmountValue.toString()
+                    )
+                } else {
+                    // TODO 0009-1 rewrite using AlertDialog
+                    makeText(
+                        context,
+                        R.string.check_internet_connection,
+                        LENGTH_LONG
+                    ).show()
                 }
             }
+        } else {
+            // TODO-0002-1 rewrite using AlertDialog
+            makeText(
+                context, getString(R.string.not_enough_funds_or_empty),
+                LENGTH_LONG
+            ).show()
         }
     }
 
-    private fun showSuccessTransferNotification() {
+    private fun userHasEnoughBalanceForTransfer(recipientAddress: String, amount: String): Boolean {
+        var result = false
+        if (recipientAddress.isNotEmpty() && amount.isNotEmpty()) {
+            val balanceAmount = parseDouble(loadBalance())
+            val amountValue = parseDouble(amount)
+            if (amountValue + TOTAL_COMMISSION_MAX <= balanceAmount) {
+                result = true
+            }
+        }
+        return result
+    }
+
+    private fun scanRecipientQRCode() = forSupportFragment(this).initiateScan()
+
+    private fun showSendPranacoinsTransaction(transaction : String) {
+        log("SendFragment.showSendPranacoinsTransaction(): transaction = $transaction")
+        // TODO 0003 show AlertDialog with transaction
         context?.let { context: Context ->
             idOfUser?.let { idOfUser: String ->
                 // using idOfUser as channelId
@@ -175,10 +141,6 @@ class SendFragment : Fragment(), OnClickListener, OnSendResponseObtainedListener
                     makeText(context, contents, LENGTH_SHORT).show()
                 }
             }
-    }
-
-    override fun onSendResponseObtained(response: String) {
-        makeText(context, response, LENGTH_SHORT).show()
     }
 
     private fun loadBalance(): String {
