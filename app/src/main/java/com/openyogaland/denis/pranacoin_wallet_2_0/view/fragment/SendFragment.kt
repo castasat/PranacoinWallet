@@ -1,6 +1,5 @@
 package com.openyogaland.denis.pranacoin_wallet_2_0.view.fragment
 
-import android.app.NotificationManager
 import android.content.Context
 import android.content.Context.MODE_PRIVATE
 import android.content.Intent
@@ -10,8 +9,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
-import android.widget.Toast.*
-import androidx.core.app.NotificationCompat.Builder
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import com.google.zxing.integration.android.IntentIntegrator
@@ -20,10 +17,10 @@ import com.google.zxing.integration.android.IntentResult
 import com.openyogaland.denis.pranacoin_wallet_2_0.R
 import com.openyogaland.denis.pranacoin_wallet_2_0.application.PranacoinWallet2.Companion.hasConnection
 import com.openyogaland.denis.pranacoin_wallet_2_0.application.PranacoinWallet2.Companion.log
+import com.openyogaland.denis.pranacoin_wallet_2_0.view.dialog.AlertDialogUtil.showAlertDialog
 import com.openyogaland.denis.pranacoin_wallet_2_0.viewmodel.MainViewModel
 import java.lang.Double.parseDouble
 
-// TODO 0002 replace volley with retrofit
 class SendFragment : Fragment() {
     private var idOfUser: String? = null
     private var recipientAddressEditText: EditText? = null
@@ -51,15 +48,27 @@ class SendFragment : Fragment() {
             viewLifecycleOwner,
             { transaction ->
                 log("SendFragment.onCreateView(): transaction = $transaction")
-                showSendPranacoinsTransaction(transaction)
+
+                // TODO 0008-3 check ProgressDialog
+                /*activity?.supportFragmentManager?.let { fragmentManager ->
+                    hideProgressDialog(fragmentManager)
+                }*/
+
+                context?.let { context: Context ->
+                    showAlertDialog(
+                        context,
+                        getString(R.string.transfer_status),
+                        getString(R.string.transfer_executed_successfully) +
+                                " transaction = $transaction"
+                    )
+                }
+
+                // TODO 0012 show transaction history in HistoryFragment
             }
         )
-
         return view
     }
 
-    // TODO 0011 write transaction to local database
-    // TODO 0012 show transaction history in HistoryFragment
     private fun sendPranacoins() {
         val myCommissionAmountValue = TOTAL_COMMISSION_MAX - 2 * API_COMMISSION_AMOUNT
         val recipientAddress = recipientAddressEditText?.text.toString()
@@ -68,25 +77,32 @@ class SendFragment : Fragment() {
             context?.let { context: Context ->
                 // TODO 0009 check internet connectivity
                 if (hasConnection(context)) {
+
+                    // TODO 0008-3 check ProgressDialog
+                    /*activity?.supportFragmentManager?.let { fragmentManager ->
+                        newProgressDialogInstance()
+                            .setMessage("Дождитесь подтверждения сервера об отправке пранакоинов")
+                            .show(fragmentManager)
+                    }*/
+
                     mainViewModel.sendPranacoins(recipientAddress, amount)
                     mainViewModel.sendPranacoins(
                         MY_COMMISSION_ADDRESS, myCommissionAmountValue.toString()
                     )
-                } else {
-                    // TODO 0009-1 rewrite using AlertDialog
-                    makeText(
-                        context,
-                        R.string.check_internet_connection,
-                        LENGTH_LONG
-                    ).show()
+                } else { // no internet connection
+                    showAlertDialog(
+                        requireContext(),
+                        getString(R.string.error),
+                        getString(R.string.check_internet_connection)
+                    )
                 }
             }
-        } else {
-            // TODO-0002-1 rewrite using AlertDialog
-            makeText(
-                context, getString(R.string.not_enough_funds_or_empty),
-                LENGTH_LONG
-            ).show()
+        } else { // not enough funds or empty field
+            showAlertDialog(
+                requireContext(),
+                getString(R.string.error),
+                getString(R.string.not_enough_funds_or_empty)
+            )
         }
     }
 
@@ -104,24 +120,6 @@ class SendFragment : Fragment() {
 
     private fun scanRecipientQRCode() = forSupportFragment(this).initiateScan()
 
-    private fun showSendPranacoinsTransaction(transaction : String) {
-        log("SendFragment.showSendPranacoinsTransaction(): transaction = $transaction")
-        // TODO 0003 show AlertDialog with transaction
-        context?.let { context: Context ->
-            idOfUser?.let { idOfUser: String ->
-                // using idOfUser as channelId
-                val notificationBuilder = Builder(context, idOfUser)
-                    .setSmallIcon(R.mipmap.ic_launcher_round)
-                    .setContentTitle(getString(R.string.transfer_status))
-                    .setContentText(getString(R.string.transfer_executed_successfully))
-                    .setAutoCancel(true)
-                val notificationManager =
-                    context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-                notificationManager.notify(NOTIFICATION_ID, notificationBuilder.build())
-            }
-        }
-    }
-
     override fun onActivityResult(
         requestCode: Int,
         resultCode: Int,
@@ -130,15 +128,22 @@ class SendFragment : Fragment() {
         IntentIntegrator.parseActivityResult(requestCode, resultCode, data)
             ?.let { result: IntentResult ->
                 if (result.contents == null) {
-                    makeText(context, R.string.scanning_cancelled, LENGTH_SHORT).show()
+                    showAlertDialog(
+                        requireContext(),
+                        getString(R.string.error),
+                        getString(R.string.scanning_cancelled)
+                    )
                 }
                 result.contents?.let { contents: String ->
                     view?.let { view: View ->
-                        recipientAddressEditText =
-                            view.findViewById(R.id.recipientAddressEditText)
+                        recipientAddressEditText = view.findViewById(R.id.recipientAddressEditText)
                         recipientAddressEditText?.setText(contents)
                     }
-                    makeText(context, contents, LENGTH_SHORT).show()
+                    showAlertDialog(
+                        requireContext(),
+                        getString(R.string.success),
+                        getString(R.string.scanResult) + contents
+                    )
                 }
             }
     }
@@ -159,6 +164,5 @@ class SendFragment : Fragment() {
         const val MY_COMMISSION_ADDRESS = "PBA8J5vGK4G8brcRehTiyxrw9JAHodCj65"
         const val TOTAL_COMMISSION_MAX = 0.1
         const val API_COMMISSION_AMOUNT = 0.001
-        const val NOTIFICATION_ID = 0
     }
 }

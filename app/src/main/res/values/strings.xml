@@ -28,5 +28,9 @@
     <string name="scanning_cancelled">Scanning cancelled by user</string>
     <string name="transfer_executed_successfully">Your transfer has been successfully executed</string>
     <string name="transfer_status">Transfer Status</string>
-  <string name="server_client_id" translatable="false">501302853560-hh47bs4n80lb3lr4agr3v7svis66kiav.apps.googleusercontent.com</string>
+    <string name="server_client_id" translatable="false">501302853560-hh47bs4n80lb3lr4agr3v7svis66kiav.apps.googleusercontent.com</string>
+    <string name="defaultProgressBarText">Operation in progress. Please wait…</string>
+    <string name="error">Error</string>
+    <string name="success">Success</string>
+    <string name="scanResult">"Scan result: "</string>
 </resources>

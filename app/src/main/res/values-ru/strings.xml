@@ -29,4 +29,8 @@
     <string name="scanning_cancelled">Сканирование отменено пользователем</string>
     <string name="transfer_executed_successfully">Ваш перевод успешно завершён</string>
     <string name="transfer_status">Статус Операции</string>
+    <string name="defaultProgressBarText">Пожалуйста, подождите. Операция выполняется…</string>
+    <string name="error">Ошибка</string>
+    <string name="success">Успешно</string>
+    <string name="scanResult">"Результат сканирования: "</string>
 </resources>

@@ -1,11 +1,10 @@
-package com.openyogaland.denis.pranacoin_wallet_2_0.view.fragment
+package com.openyogaland.denis.pranacoin_wallet_2_0.view.dialog
 
 import android.app.Dialog
 import android.content.DialogInterface
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
-import android.view.View.OnClickListener
 import android.view.ViewGroup
 import android.view.ViewGroup.LayoutParams.MATCH_PARENT
 import android.view.Window
@@ -20,7 +19,7 @@ import com.openyogaland.denis.pranacoin_wallet_2_0.R
 import com.openyogaland.denis.pranacoin_wallet_2_0.listener.OnPrivacyPolicyAcceptedListener
 
 // TODO 0006 update policy
-class PolicyFragment : AppCompatDialogFragment(), OnCheckedChangeListener, OnClickListener {
+class PolicyDialog : AppCompatDialogFragment(), OnCheckedChangeListener {
     // fields
     private var nextButton: Button? = null
     private var onPrivacyPolicyAcceptedListener: OnPrivacyPolicyAcceptedListener? = null
@@ -39,7 +38,10 @@ class PolicyFragment : AppCompatDialogFragment(), OnCheckedChangeListener, OnCli
         nextButton = view.findViewById(R.id.nextButton)
         // set listeners
         acceptPrivacyPolicyCheckBox.setOnCheckedChangeListener(this)
-        nextButton!!.setOnClickListener(this)
+        nextButton?.setOnClickListener { _ ->
+            onPrivacyPolicyAcceptedListener?.onPrivacyPolicyAccepted(true)
+            this.dismiss()
+        }
         // load localized privacy policy
         webView.loadUrl(PRIVACY_POLICY_URL + getString(R.string.locale_asset_path) + PRIVACY_POLICY_NAME)
         return view
@@ -77,15 +79,6 @@ class PolicyFragment : AppCompatDialogFragment(), OnCheckedChangeListener, OnCli
         activity?.finish()
     }
 
-    override fun onClick(view: View) {
-        if (view.id == R.id.nextButton) {
-            onPrivacyPolicyAcceptedListener
-                ?.onPrivacyPolicyAccepted(true)
-            this.dismiss()
-        }
-    }
-
-    // setter
     fun setOnPrivacyPolicyAcceptedListener(
         onPrivacyPolicyAcceptedListener
         : OnPrivacyPolicyAcceptedListener

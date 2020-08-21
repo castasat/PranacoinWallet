@@ -19,6 +19,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     val publicAddressLiveData = MutableLiveData<String>()
     val privateAddressLiveData = MutableLiveData<String>()
     val sendPranacoinsTransactionLiveData = MutableLiveData<String>()
+    val errorLiveData = MutableLiveData<String>()
 
     private val compositeDisposable = CompositeDisposable()
 
@@ -42,7 +43,9 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
                         { throwable ->
                             log("MainViewModel.getBalance(): throwable = $throwable")
                             throwable.printStackTrace()
-                            // TODO 0003-1 AlertDialog-based error handling
+                            errorLiveData.postValue(
+                                "MainViewModel.getBalance(): throwable = $throwable"
+                            )
                         }
                     )
             )
@@ -64,7 +67,9 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
                         { throwable ->
                             log("MainViewModel.getPublicAddress(): throwable = $throwable")
                             throwable.printStackTrace()
-                            // TODO 0003-1 AlertDialog-based error handling
+                            errorLiveData.postValue(
+                                "MainViewModel.getPublicAddress(): throwable = $throwable"
+                            )
                         }
                     )
             )
@@ -86,7 +91,9 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
                         { throwable ->
                             log("MainViewModel.getPrivateAddress(): throwable = $throwable")
                             throwable.printStackTrace()
-                            // TODO 0003-1 AlertDialog-based error handling
+                            errorLiveData.postValue(
+                                "MainViewModel.getPrivateAddress(): throwable = $throwable"
+                            )
                         }
                     )
             )
@@ -110,11 +117,14 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
                     .subscribe(
                         { transaction ->
                             sendPranacoinsTransactionLiveData.postValue(transaction)
+                            // TODO 0011 write transaction to local database
                         },
                         { throwable ->
                             log("MainViewModel.sendPranacoins(): throwable = $throwable")
                             throwable.printStackTrace()
-                            // TODO 0003-1 AlertDialog-based error handling
+                            errorLiveData.postValue(
+                                "MainViewModel.sendPranacoins(): throwable = $throwable"
+                            )
                         }
                     )
             )

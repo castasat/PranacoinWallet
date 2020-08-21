@@ -19,9 +19,10 @@ import com.openyogaland.denis.pranacoin_wallet_2_0.R
 import com.openyogaland.denis.pranacoin_wallet_2_0.application.PranacoinWallet2.Companion.log
 import com.openyogaland.denis.pranacoin_wallet_2_0.listener.OnPrivacyPolicyAcceptedListener
 import com.openyogaland.denis.pranacoin_wallet_2_0.view.activity.GoogleSignInActivity.Companion.GOOGLE_ACCOUNT_ID
+import com.openyogaland.denis.pranacoin_wallet_2_0.view.dialog.AlertDialogUtil.showAlertDialog
+import com.openyogaland.denis.pranacoin_wallet_2_0.view.dialog.PolicyDialog
 import com.openyogaland.denis.pranacoin_wallet_2_0.view.fragment.BackupFragment
 import com.openyogaland.denis.pranacoin_wallet_2_0.view.fragment.HomeFragment
-import com.openyogaland.denis.pranacoin_wallet_2_0.view.fragment.PolicyFragment
 import com.openyogaland.denis.pranacoin_wallet_2_0.view.fragment.SendFragment
 import com.openyogaland.denis.pranacoin_wallet_2_0.viewmodel.MainViewModel
 
@@ -29,7 +30,7 @@ import com.openyogaland.denis.pranacoin_wallet_2_0.viewmodel.MainViewModel
 class MainActivity : AppCompatActivity(), OnNavigationItemSelectedListener,
     OnClickListener, OnPrivacyPolicyAcceptedListener {
     private var privacyPolicyAcceptedByUser = false
-    private var policyFragment: PolicyFragment? = null
+    private var policyDialog: PolicyDialog? = null
     private var homeFragment: HomeFragment? = null
     private var sendFragment: SendFragment? = null
     private var backupFragment: BackupFragment? = null
@@ -43,13 +44,25 @@ class MainActivity : AppCompatActivity(), OnNavigationItemSelectedListener,
 
         // during the first program start or until user has not accepted Privacy Policy
         if (!privacyPolicyAcceptedByUser) {
-            policyFragment = policyFragment ?: PolicyFragment()
-            policyFragment?.let { policyFragment: PolicyFragment ->
-                policyFragment.setStyle(STYLE_NO_TITLE, R.style.CustomDialog)
-                policyFragment.setOnPrivacyPolicyAcceptedListener(this)
-                loadFragment(policyFragment)
+            policyDialog = policyDialog ?: PolicyDialog()
+            policyDialog?.let { policyDialog: PolicyDialog ->
+                policyDialog.setStyle(STYLE_NO_TITLE, R.style.CustomDialog)
+                policyDialog.setOnPrivacyPolicyAcceptedListener(this)
+                loadFragment(policyDialog)
             }
         }
+
+        mainViewModel.errorLiveData.observe(
+            this,
+            { message ->
+                showAlertDialog(
+                    this,
+                    getString(R.string.error),
+                    message
+                )
+            }
+        )
+
         homeFragment = homeFragment ?: HomeFragment()
         homeFragment?.let { homeFragment: HomeFragment ->
             loadFragment(homeFragment)
