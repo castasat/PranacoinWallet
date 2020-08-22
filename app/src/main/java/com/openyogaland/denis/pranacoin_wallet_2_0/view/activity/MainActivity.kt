@@ -16,9 +16,9 @@ import androidx.fragment.app.Fragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.bottomnavigation.BottomNavigationView.OnNavigationItemSelectedListener
 import com.openyogaland.denis.pranacoin_wallet_2_0.R
-import com.openyogaland.denis.pranacoin_wallet_2_0.application.PranacoinWallet2.Companion.log
 import com.openyogaland.denis.pranacoin_wallet_2_0.listener.OnPrivacyPolicyAcceptedListener
 import com.openyogaland.denis.pranacoin_wallet_2_0.view.activity.GoogleSignInActivity.Companion.GOOGLE_ACCOUNT_ID
+import com.openyogaland.denis.pranacoin_wallet_2_0.view.activity.GoogleSignInActivity.Companion.GOOGLE_EMAIL
 import com.openyogaland.denis.pranacoin_wallet_2_0.view.dialog.AlertDialogUtil.showAlertDialog
 import com.openyogaland.denis.pranacoin_wallet_2_0.view.dialog.PolicyDialog
 import com.openyogaland.denis.pranacoin_wallet_2_0.view.fragment.BackupFragment
@@ -39,7 +39,7 @@ class MainActivity : AppCompatActivity(), OnNavigationItemSelectedListener,
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        updateViewModelGoogleAccountId(mainViewModel)
+        updateViewModelGoogleAccount(mainViewModel)
         privacyPolicyAcceptedByUser = loadPrivacyPolicyAcceptedState()
 
         // during the first program start or until user has not accepted Privacy Policy
@@ -76,12 +76,15 @@ class MainActivity : AppCompatActivity(), OnNavigationItemSelectedListener,
         appLinkIntent.data
     }
 
-    private fun updateViewModelGoogleAccountId(mainViewModel: MainViewModel) {
-        intent.extras?.getString(GOOGLE_ACCOUNT_ID)
-            ?.let { googleAccountId: String ->
+    private fun updateViewModelGoogleAccount(mainViewModel: MainViewModel) {
+        intent.extras?.apply {
+            getString(GOOGLE_ACCOUNT_ID)?.let { googleAccountId: String ->
                 mainViewModel.googleAccountId = googleAccountId
-                log("MainActivity.updateViewModelGoogleAccountId(): id = $googleAccountId")
             }
+            getString(GOOGLE_EMAIL)?.let { googleEmail ->
+                mainViewModel.googleEmail = googleEmail
+            }
+        }
     }
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {

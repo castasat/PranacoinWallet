@@ -4,6 +4,7 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-kapt'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: "androidx.navigation.safeargs.kotlin"
+apply plugin: 'com.google.firebase.crashlytics'
 
 // Create a variable called keystorePropertiesFile, and initialize it to your
 // keystore.properties file, in the rootProject folder.
@@ -58,6 +59,26 @@ android {
             minifyEnabled true
             shrinkResources true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            firebaseCrashlytics {
+                // Enable processing and uploading of native symbols to Crashlytics
+                // servers. By default, this is disabled to improve build speeds.
+                // This flag must be enabled to see properly-symbolicated native
+                // stack traces in the Crashlytics dashboard.
+                //
+                //nativeSymbolUploadEnabled true
+                //
+                // For method names to appear in your stack traces,
+                // you must explicitly invoke the uploadCrashlyticsSymbolFileBUILD_VARIANT
+                // task after each build of your NDK library. For example:
+                //
+                // >./gradlew app:assembleBUILD_VARIANT\app:uploadCrashlyticsSymbolFileBUILD_VARIANT
+                //
+                // more info at:
+                // https://firebase.google.com/docs/crashlytics/ndk-reports
+                //
+                //strippedNativeLibsDir ‘path/to/stripped/parent/dir’
+                //unstrippedNativeLibsDir ‘path/to/unstripped/parent/dir’
+            }
         }
         debug {
             signingConfig signingConfigs.config
@@ -120,6 +141,7 @@ dependencies {
     implementation 'androidx.legacy:legacy-support-v13:1.0.0'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     implementation 'androidx.legacy:legacy-preference-v14:1.0.0'
+
     implementation 'androidx.appcompat:appcompat:1.2.0'
     implementation 'androidx.core:core-ktx:1.5.0-alpha01'
     implementation 'androidx.constraintlayout:constraintlayout:2.0.0-rc1'
@@ -130,10 +152,12 @@ dependencies {
     implementation 'androidx.coordinatorlayout:coordinatorlayout:1.1.0'
     implementation 'androidx.cardview:cardview:1.0.0'
     implementation 'androidx.palette:palette:1.0.0'
-    implementation 'androidx.exifinterface:exifinterface:1.3.0-alpha01'
+    implementation 'androidx.exifinterface:exifinterface:1.3.0-beta01'
+
     // navigation library
     implementation 'androidx.navigation:navigation-fragment-ktx:2.3.0'
     implementation 'androidx.navigation:navigation-ui-ktx:2.3.0'
+
     // google architecture components
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0"
     implementation "androidx.lifecycle:lifecycle-livedata-ktx:2.2.0"
@@ -141,23 +165,44 @@ dependencies {
     implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0'
     implementation 'androidx.lifecycle:lifecycle-common-java8:2.3.0-alpha07'
     implementation 'androidx.lifecycle:lifecycle-reactivestreams:2.3.0-alpha07'
+
+    // room database
     //implementation 'androidx.room:room-runtime:2.2.5'
     //implementation 'androidx.room:room-ktx:2.2.5'
+
+    // okhttp
     implementation 'com.squareup.okhttp3:okhttp:4.8.1'
     implementation 'com.squareup.okhttp3:logging-interceptor:4.8.1'
+
+    // retrofit
     implementation 'com.squareup.retrofit2:retrofit:2.9.0'
     implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
     implementation 'com.squareup.retrofit2:converter-scalars:2.9.0'
     implementation 'com.squareup.retrofit2:adapter-rxjava3:2.9.0'
+
+    // rxjava
     implementation 'io.reactivex.rxjava3:rxjava:3.0.6'
     implementation 'io.reactivex.rxjava3:rxandroid:3.0.0'
     implementation 'com.github.akarnokd:rxjava3-extensions:3.0.1'
+
+    // zxing
     implementation 'com.journeyapps:zxing-android-embedded:3.6.0'
-    implementation 'com.google.firebase:firebase-analytics:17.5.0'
+
+    // firebase
     // add SDKs for any other desired Firebase products
     // https://firebase.google.com/docs/android/setup#available-libraries
+    // analytics
+    implementation 'com.google.firebase:firebase-analytics-ktx:17.5.0'
+    // auth
     implementation 'com.google.firebase:firebase-auth:19.3.2'
     implementation 'com.google.android.gms:play-services-auth:18.1.0'
+    // crashlytics
+    implementation 'com.google.firebase:firebase-crashlytics-ktx:17.2.1'
+    // if ndk - replace with:
+    //implementation 'com.google.firebase:firebase-crashlytics-ndk:17.2.1'
+
     //kapt 'androidx.room:room-compiler:2.2.5'
+
+    // tests
     //androidTestImplementation "androidx.room:room-testing:2.2.5"
 }

@@ -14,6 +14,7 @@ import android.widget.TextView
 import androidx.fragment.app.FragmentManager
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.openyogaland.denis.pranacoin_wallet_2_0.R
+import com.openyogaland.denis.pranacoin_wallet_2_0.application.PranacoinWallet2.Companion.crashlytics
 import com.openyogaland.denis.pranacoin_wallet_2_0.application.PranacoinWallet2.Companion.log
 
 class ProgressDialog private constructor() : BottomSheetDialogFragment() {
@@ -85,6 +86,7 @@ class ProgressDialog private constructor() : BottomSheetDialogFragment() {
             } catch (error: IllegalStateException) {
                 log("ProgressDialog.show(): error = $error")
                 error.printStackTrace()
+                crashlytics(error)
                 beginTransaction()
                     .add(this@ProgressDialog, TAG)
                     .commitAllowingStateLoss()
@@ -119,6 +121,7 @@ class ProgressDialog private constructor() : BottomSheetDialogFragment() {
                         } catch (error: IllegalStateException) {
                             log("ProgressDialog.hide(): error = $error")
                             error.printStackTrace()
+                            crashlytics(error)
                             beginTransaction()
                                 .remove(fragment)
                                 .commitAllowingStateLoss()

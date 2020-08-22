@@ -6,6 +6,7 @@ import android.net.ConnectivityManager
 import android.net.NetworkInfo
 import android.util.Log
 import androidx.appcompat.app.AppCompatDelegate.setCompatVectorFromResourcesEnabled
+import com.google.firebase.crashlytics.FirebaseCrashlytics
 import com.google.gson.GsonBuilder
 import com.openyogaland.denis.pranacoin_wallet_2_0.BuildConfig.DEBUG
 import com.openyogaland.denis.pranacoin_wallet_2_0.network.PranacoinServerApi
@@ -26,7 +27,7 @@ class PranacoinWallet2 : Application() {
 
     companion object {
         private const val APP_ID = "PranacoinWallet2.0"
-        private const val PRANACOIN_SERVER_URL = "http://95.213.191.196/"
+        private const val PRANACOIN_SERVER_URL = "http://95.213.191.196/" // port 80 for http
         private const val CONNECT_TIMEOUT_SECONDS = 15L
         private const val READ_TIMEOUT_SECONDS = 20L
 
@@ -37,9 +38,20 @@ class PranacoinWallet2 : Application() {
                         val isEmpty = "IS EMPTY: text in log"
                         Log.d(APP_ID, isEmpty)
                     }
-                    else -> Log.d(APP_ID, text)
+                    else -> {
+                        Log.d(APP_ID, text)
+                        crashlytics(text)
+                    }
                 }
             }
+        }
+
+        fun crashlytics(exception: Throwable) {
+            FirebaseCrashlytics.getInstance().recordException(exception)
+        }
+
+        private fun crashlytics(text: String) {
+            FirebaseCrashlytics.getInstance().log(text)
         }
 
         @Deprecated("remove deprecated connectivity API")

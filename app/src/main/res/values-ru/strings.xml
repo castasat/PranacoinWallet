@@ -9,7 +9,7 @@
     <string name="title_restore">Восстановить</string>
     <string name="title_balance">Баланс</string>
     <string name="title_my_address">Мой адрес:</string>
-    <string name="private_address_qr_code">QR-код приватного ключа</string>
+    <string name="private_key_qr_code">QR-код приватного ключа</string>
     <string name="receive_private_key_message">
         Чтобы получить приватный ключ, нажмите на кнопку. Сохраните ключ в безопасном месте.
     </string>
@@ -33,4 +33,6 @@
     <string name="error">Ошибка</string>
     <string name="success">Успешно</string>
     <string name="scanResult">"Результат сканирования: "</string>
+    <string name="private_key_qr_generation_failed">Не удалось создать QR-код для приватного ключа</string>
+    <string name="public_address_qr_generation_failed">Не удалось создать QR-код для публичного адреса</string>
 </resources>

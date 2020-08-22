@@ -28,9 +28,9 @@ class PolicyDialog : AppCompatDialogFragment(), OnCheckedChangeListener {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    )
-            : View {
-        val view = inflater.inflate(R.layout.dialog_fragment_privacy_policy, container, false)
+    ): View {
+        val view =
+            inflater.inflate(R.layout.dialog_fragment_privacy_policy, container, false)
         // find views by ids
         val webView = view.findViewById<WebView>(R.id.webView)
         val acceptPrivacyPolicyCheckBox =
@@ -43,7 +43,9 @@ class PolicyDialog : AppCompatDialogFragment(), OnCheckedChangeListener {
             this.dismiss()
         }
         // load localized privacy policy
-        webView.loadUrl(PRIVACY_POLICY_URL + getString(R.string.locale_asset_path) + PRIVACY_POLICY_NAME)
+        webView.loadUrl(
+            PRIVACY_POLICY_URL + getString(R.string.locale_asset_path) + PRIVACY_POLICY_NAME
+        )
         return view
     }
 

@@ -6,16 +6,21 @@ import android.content.SharedPreferences.Editor
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
+import android.view.View.GONE
+import android.view.View.VISIBLE
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import com.google.firebase.crashlytics.FirebaseCrashlytics
 import com.google.zxing.WriterException
 import com.openyogaland.denis.pranacoin_wallet_2_0.R
+import com.openyogaland.denis.pranacoin_wallet_2_0.application.PranacoinWallet2.Companion.crashlytics
 import com.openyogaland.denis.pranacoin_wallet_2_0.application.PranacoinWallet2.Companion.log
-import com.openyogaland.denis.pranacoin_wallet_2_0.domain.QRCodeDomain.Companion.textToImageEncode
+import com.openyogaland.denis.pranacoin_wallet_2_0.domain.QRCodeUtil.textToImageEncode
+import com.openyogaland.denis.pranacoin_wallet_2_0.view.dialog.AlertDialogUtil.showAlertDialog
 import com.openyogaland.denis.pranacoin_wallet_2_0.viewmodel.MainViewModel
 
 // TODO 0017 share publicAddress
@@ -35,15 +40,13 @@ import com.openyogaland.denis.pranacoin_wallet_2_0.viewmodel.MainViewModel
 // TODO 0031 users geography
 // TODO 0032 buying pranacoins from users
 // TODO 0033 ESCROW service
-class HomeFragment : Fragment(){
-    private var publicAddress = ""
-    private var balance = ""
-    private var publicAddressTextView: TextView? = null
-    private var balanceAmountTextView: TextView? = null
-    private var privateAddressQRCodeProgressBar: ProgressBar? = null
-    private var publicAddressProgressBar: ProgressBar? = null
-    private var publicAddressQRCodeImageView: ImageView? = null
-    private var publicAddressQRCodeProgressBar: ProgressBar? = null
+class HomeFragment : Fragment() {
+    private lateinit var publicAddressTextView: TextView
+    private lateinit var balanceAmountTextView: TextView
+    private lateinit var balanceProgressBar: ProgressBar
+    private lateinit var publicAddressProgressBar: ProgressBar
+    private lateinit var publicAddressQRCodeImageView: ImageView
+    private lateinit var publicAddressQRCodeProgressBar: ProgressBar
     private val mainViewModel: MainViewModel by activityViewModels()
 
     override fun onCreateView(
@@ -54,35 +57,35 @@ class HomeFragment : Fragment(){
         val view = inflater.inflate(R.layout.fragment_home, container, false)
         publicAddressTextView = view.findViewById(R.id.publicAddressTextView)
         balanceAmountTextView = view.findViewById(R.id.balanceAmountTextView)
-        privateAddressQRCodeProgressBar = view.findViewById(R.id.balanceProgressBar)
+        balanceProgressBar = view.findViewById(R.id.balanceProgressBar)
         publicAddressProgressBar = view.findViewById(R.id.publicAddressProgressBar)
         publicAddressQRCodeImageView = view.findViewById(R.id.publicAddressQRCodeImageView)
         publicAddressQRCodeProgressBar = view.findViewById(R.id.publicAddressQRCodeProgressBar)
 
         // setting progress bars visible and imageView not-visible
-        publicAddressProgressBar?.visibility = View.VISIBLE
-        privateAddressQRCodeProgressBar?.visibility = View.VISIBLE
-        publicAddressQRCodeImageView?.visibility = View.GONE
-        publicAddressQRCodeProgressBar?.visibility = View.VISIBLE
+        publicAddressProgressBar.visibility = VISIBLE
+        balanceProgressBar.visibility = VISIBLE
+        publicAddressQRCodeImageView.visibility = GONE
+        publicAddressQRCodeProgressBar.visibility = VISIBLE
 
         mainViewModel.balanceLiveData.observe(
             viewLifecycleOwner,
             { balance ->
-                this.balance = balance
                 saveBalance(balance)
                 showBalance(balance)
                 log("HomeFragment.onCreateView(): balance = $balance")
+                FirebaseCrashlytics.getInstance().setCustomKey(BALANCE, balance)
             }
         )
 
         mainViewModel.publicAddressLiveData.observe(
             viewLifecycleOwner,
             { publicAddress ->
-                this.publicAddress = publicAddress
                 savePublicAddress(publicAddress)
                 showPublicAddress(publicAddress)
                 showQRCode(publicAddress)
                 log("HomeFragment.onCreateView(): publicAddress = $publicAddress")
+                FirebaseCrashlytics.getInstance().setCustomKey(PUBLIC_ADDRESS, publicAddress)
             }
         )
 
@@ -105,6 +108,7 @@ class HomeFragment : Fragment(){
             ?.getString(PUBLIC_ADDRESS, "")
             ?.let { publicAddress: String ->
                 result = publicAddress
+                FirebaseCrashlytics.getInstance().setCustomKey(PUBLIC_ADDRESS, publicAddress)
             }
         return result
     }
@@ -116,6 +120,7 @@ class HomeFragment : Fragment(){
             ?.getString(BALANCE, "")
             ?.let { balance: String ->
                 result = balance
+                FirebaseCrashlytics.getInstance().setCustomKey(BALANCE, balance)
             }
         return result
     }
@@ -142,15 +147,15 @@ class HomeFragment : Fragment(){
 
     private fun showPublicAddress(publicAddress: String) {
         if (publicAddress.isNotEmpty()) {
-            publicAddressTextView?.text = publicAddress
-            publicAddressProgressBar?.visibility = View.GONE
+            publicAddressTextView.text = publicAddress
+            publicAddressProgressBar.visibility = GONE
         }
     }
 
     private fun showBalance(balance: String) {
         if (balance.isNotEmpty()) {
-            balanceAmountTextView?.text = balance
-            privateAddressQRCodeProgressBar?.visibility = View.GONE
+            balanceAmountTextView.text = balance
+            balanceProgressBar.visibility = GONE
         }
     }
 
@@ -160,19 +165,26 @@ class HomeFragment : Fragment(){
             try {
                 context?.let { context: Context ->
                     val bitmap = textToImageEncode(context, publicAddress, false)
-                    publicAddressQRCodeImageView?.setImageBitmap(bitmap)
-                    publicAddressQRCodeImageView?.visibility = View.VISIBLE
-                    publicAddressQRCodeProgressBar?.visibility = View.GONE
+                    publicAddressQRCodeImageView.setImageBitmap(bitmap)
+                    publicAddressQRCodeImageView.visibility = VISIBLE
+                    publicAddressQRCodeProgressBar.visibility = GONE
                 }
-            } catch (e: WriterException) {
-                e.printStackTrace()
+            } catch (exception: WriterException) {
+                log("HomeFragment.showQRCode(): Could not create QR code for public address")
+                exception.printStackTrace()
+                crashlytics(exception)
+                showAlertDialog(
+                    requireContext(),
+                    ERROR,
+                    getString(R.string.public_address_qr_generation_failed)
+                )
             }
-
         }
     }
 
     companion object {
         const val PUBLIC_ADDRESS = "public address"
         const val BALANCE = "balance"
+        private const val ERROR = "error"
     }
 }

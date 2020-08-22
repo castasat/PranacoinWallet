@@ -4,6 +4,7 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import com.openyogaland.denis.pranacoin_wallet_2_0.application.PranacoinWallet2
+import com.openyogaland.denis.pranacoin_wallet_2_0.application.PranacoinWallet2.Companion.crashlytics
 import com.openyogaland.denis.pranacoin_wallet_2_0.application.PranacoinWallet2.Companion.log
 import com.openyogaland.denis.pranacoin_wallet_2_0.application.PranacoinWallet2.Companion.pranacoinServerApi
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers.mainThread
@@ -13,11 +14,12 @@ import io.reactivex.rxjava3.schedulers.Schedulers.io
 class MainViewModel(application: Application) : AndroidViewModel(application) {
 
     var googleAccountId: String? = null
+    var googleEmail: String? = null
     private val pranacoinWallet2: PranacoinWallet2 = application as PranacoinWallet2
 
     val balanceLiveData = MutableLiveData<String>()
     val publicAddressLiveData = MutableLiveData<String>()
-    val privateAddressLiveData = MutableLiveData<String>()
+    val privateKeyLiveData = MutableLiveData<String>()
     val sendPranacoinsTransactionLiveData = MutableLiveData<String>()
     val errorLiveData = MutableLiveData<String>()
 
@@ -43,6 +45,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
                         { throwable ->
                             log("MainViewModel.getBalance(): throwable = $throwable")
                             throwable.printStackTrace()
+                            crashlytics(throwable)
                             errorLiveData.postValue(
                                 "MainViewModel.getBalance(): throwable = $throwable"
                             )
@@ -67,6 +70,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
                         { throwable ->
                             log("MainViewModel.getPublicAddress(): throwable = $throwable")
                             throwable.printStackTrace()
+                            crashlytics(throwable)
                             errorLiveData.postValue(
                                 "MainViewModel.getPublicAddress(): throwable = $throwable"
                             )
@@ -76,23 +80,24 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         }
     }
 
-    fun getPrivateAddress() {
+    fun getPrivateKey() {
         googleAccountId?.let { walletId ->
             compositeDisposable.add(
                 pranacoinServerApi
-                    .getPrivateAddress(walletId = walletId)
+                    .getPrivateKey(walletId = walletId)
                     .subscribeOn(io())
                     .observeOn(mainThread())
-                    .doOnSuccess { privateAddress ->
-                        log("MainViewModel.getPrivateAddress(): privateAddress = $privateAddress")
+                    .doOnSuccess { privateKey ->
+                        log("MainViewModel.getPrivateKey(): privateKey = $privateKey")
                     }
                     .subscribe(
-                        { privateAddress -> privateAddressLiveData.postValue(privateAddress) },
+                        { privateKey -> privateKeyLiveData.postValue(privateKey) },
                         { throwable ->
-                            log("MainViewModel.getPrivateAddress(): throwable = $throwable")
+                            log("MainViewModel.getPrivateKey(): throwable = $throwable")
                             throwable.printStackTrace()
+                            crashlytics(throwable)
                             errorLiveData.postValue(
-                                "MainViewModel.getPrivateAddress(): throwable = $throwable"
+                                "MainViewModel.getPrivateKey(): throwable = $throwable"
                             )
                         }
                     )
@@ -122,6 +127,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
                         { throwable ->
                             log("MainViewModel.sendPranacoins(): throwable = $throwable")
                             throwable.printStackTrace()
+                            crashlytics(throwable)
                             errorLiveData.postValue(
                                 "MainViewModel.sendPranacoins(): throwable = $throwable"
                             )

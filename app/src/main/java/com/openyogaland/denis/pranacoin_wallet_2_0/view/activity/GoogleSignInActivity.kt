@@ -1,3 +1,5 @@
+@file:Suppress("NAME_SHADOWING")
+
 package com.openyogaland.denis.pranacoin_wallet_2_0.view.activity
 
 import android.content.Intent
@@ -15,6 +17,7 @@ import com.google.android.gms.common.SignInButton
 import com.google.android.gms.common.SignInButton.SIZE_WIDE
 import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.tasks.Task
+import com.google.firebase.crashlytics.FirebaseCrashlytics
 import com.openyogaland.denis.pranacoin_wallet_2_0.R
 import com.openyogaland.denis.pranacoin_wallet_2_0.application.PranacoinWallet2.Companion.log
 
@@ -28,15 +31,15 @@ class GoogleSignInActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.google_sign_in)
+
         log("GoogleSignInActivity.onCreate()")
         googleSignInOptions = Builder(DEFAULT_SIGN_IN)
-                .requestEmail()
-                .requestIdToken(getString(R.string.server_client_id))
-                .requestId()
-                .build()
-        log("GoogleSignInActivity.onCreate(): googleSignInOptions = $googleSignInOptions")
+            .requestEmail()
+            .requestIdToken(getString(R.string.server_client_id))
+            .requestId()
+            .build()
+
         googleSignInClient = getClient(this, googleSignInOptions)
-        log("GoogleSignInActivity.onCreate(): googleSignInClient = $googleSignInClient")
         googleSignInButton = findViewById(R.id.googleSignInButton)
         googleSignInButton.setSize(SIZE_WIDE)
         googleSignInButton.setOnClickListener { signIn() }
@@ -48,6 +51,7 @@ class GoogleSignInActivity : AppCompatActivity() {
         getLastSignedInAccount(this)
             ?.let { googleSignInAccount: GoogleSignInAccount ->
                 log("GoogleSignInActivity.onStart(): googleSignInAccount = $googleSignInAccount")
+                FirebaseCrashlytics.getInstance().setUserId("$googleSignInAccount")
                 this.googleSignInAccount = googleSignInAccount
                 updateUI(googleSignInAccount)
             }
@@ -56,9 +60,27 @@ class GoogleSignInActivity : AppCompatActivity() {
     private fun updateUI(googleSignInAccount: GoogleSignInAccount) {
         log("GoogleSignInActivity.updateUI")
         val mainActivityIntent = Intent(this, MainActivity::class.java)
+
         val googleAccountId = googleSignInAccount.id
-        log("GoogleSignInActivity.updateUI(): googleAccountId = $googleAccountId")
+        val googleEmail = googleSignInAccount.email
+        // TODO 00034 possibility to switch accounts
+        /*googleSignInAccount.id
+        googleSignInAccount.displayName
+        googleSignInAccount.email
+        googleSignInAccount.givenName
+        googleSignInAccount.familyName
+        googleSignInAccount.photoUrl*/
+
+        googleAccountId?.let { googleAccountId ->
+            googleEmail?.let { googleEmail ->
+                FirebaseCrashlytics.getInstance().apply {
+                    setCustomKey(GOOGLE_ACCOUNT_ID, googleAccountId)
+                    setCustomKey(GOOGLE_EMAIL, googleEmail)
+                }
+            }
+        }
         mainActivityIntent.putExtra(GOOGLE_ACCOUNT_ID, googleAccountId)
+        mainActivityIntent.putExtra(GOOGLE_EMAIL, googleEmail)
         startActivity(mainActivityIntent)
     }
 
@@ -102,10 +124,8 @@ class GoogleSignInActivity : AppCompatActivity() {
     }
 
     companion object {
-        @JvmStatic
-        val RC_SIGN_IN = 108
-
-        @JvmStatic
-        val GOOGLE_ACCOUNT_ID = "google_account_id"
+        private const val RC_SIGN_IN = 108
+        const val GOOGLE_EMAIL = "google email"
+        const val GOOGLE_ACCOUNT_ID = "google account id"
     }
 }

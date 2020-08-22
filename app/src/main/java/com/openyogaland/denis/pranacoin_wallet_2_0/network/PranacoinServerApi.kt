@@ -12,7 +12,7 @@ interface PranacoinServerApi {
     fun getPublicAddress(@Query(WALLET_ID) walletId: String): Single<String>
 
     @GET("api.php?action=getprivaddr")
-    fun getPrivateAddress(@Query(WALLET_ID) walletId: String): Single<String>
+    fun getPrivateKey(@Query(WALLET_ID) walletId: String): Single<String>
 
     @GET("api.php?action=sendprana")
     fun sendPranacoins(

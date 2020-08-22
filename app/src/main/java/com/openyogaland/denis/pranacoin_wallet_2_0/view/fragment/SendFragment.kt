@@ -11,8 +11,9 @@ import android.widget.Button
 import android.widget.EditText
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import com.google.zxing.integration.android.IntentIntegrator
+import com.google.firebase.crashlytics.FirebaseCrashlytics
 import com.google.zxing.integration.android.IntentIntegrator.forSupportFragment
+import com.google.zxing.integration.android.IntentIntegrator.parseActivityResult
 import com.google.zxing.integration.android.IntentResult
 import com.openyogaland.denis.pranacoin_wallet_2_0.R
 import com.openyogaland.denis.pranacoin_wallet_2_0.application.PranacoinWallet2.Companion.hasConnection
@@ -22,7 +23,6 @@ import com.openyogaland.denis.pranacoin_wallet_2_0.viewmodel.MainViewModel
 import java.lang.Double.parseDouble
 
 class SendFragment : Fragment() {
-    private var idOfUser: String? = null
     private var recipientAddressEditText: EditText? = null
     private var sumEditText: EditText? = null
     private val mainViewModel: MainViewModel by activityViewModels()
@@ -37,10 +37,6 @@ class SendFragment : Fragment() {
         sumEditText = view.findViewById(R.id.sumEditText)
         val scanButton = view.findViewById<Button>(R.id.scanButton)
         val sendButton = view.findViewById<Button>(R.id.sendButton)
-        mainViewModel.googleAccountId?.let { idOfUser ->
-            log("SendFragment.onCreateView(): idOfUser = $idOfUser")
-            this.idOfUser = idOfUser
-        }
         scanButton.setOnClickListener { scanRecipientQRCode() }
         sendButton.setOnClickListener { sendPranacoins() }
 
@@ -48,6 +44,7 @@ class SendFragment : Fragment() {
             viewLifecycleOwner,
             { transaction ->
                 log("SendFragment.onCreateView(): transaction = $transaction")
+                FirebaseCrashlytics.getInstance().setCustomKey(TRANSACTION, transaction)
 
                 // TODO 0008-3 check ProgressDialog
                 /*activity?.supportFragmentManager?.let { fragmentManager ->
@@ -73,6 +70,10 @@ class SendFragment : Fragment() {
         val myCommissionAmountValue = TOTAL_COMMISSION_MAX - 2 * API_COMMISSION_AMOUNT
         val recipientAddress = recipientAddressEditText?.text.toString()
         val amount = sumEditText?.text.toString()
+        FirebaseCrashlytics.getInstance().apply {
+            setCustomKey(RECIPIENT_ADDRESS, recipientAddress)
+            setCustomKey(AMOUNT, amount)
+        }
         if (userHasEnoughBalanceForTransfer(recipientAddress, amount)) {
             context?.let { context: Context ->
                 // TODO 0009 check internet connectivity
@@ -90,6 +91,10 @@ class SendFragment : Fragment() {
                         MY_COMMISSION_ADDRESS, myCommissionAmountValue.toString()
                     )
                 } else { // no internet connection
+                    log(
+                        "SendFragment.sendPranacoins(): " +
+                                getString(R.string.check_internet_connection)
+                    )
                     showAlertDialog(
                         requireContext(),
                         getString(R.string.error),
@@ -98,6 +103,10 @@ class SendFragment : Fragment() {
                 }
             }
         } else { // not enough funds or empty field
+            log(
+                "SendFragment.sendPranacoins(): " +
+                        getString(R.string.not_enough_funds_or_empty)
+            )
             showAlertDialog(
                 requireContext(),
                 getString(R.string.error),
@@ -109,9 +118,10 @@ class SendFragment : Fragment() {
     private fun userHasEnoughBalanceForTransfer(recipientAddress: String, amount: String): Boolean {
         var result = false
         if (recipientAddress.isNotEmpty() && amount.isNotEmpty()) {
-            val balanceAmount = parseDouble(loadBalance())
+            val balance = parseDouble(loadBalance())
+            log("SendFragment.onCreateView(): balance = $balance")
             val amountValue = parseDouble(amount)
-            if (amountValue + TOTAL_COMMISSION_MAX <= balanceAmount) {
+            if (amountValue + TOTAL_COMMISSION_MAX <= balance) {
                 result = true
             }
         }
@@ -125,9 +135,13 @@ class SendFragment : Fragment() {
         resultCode: Int,
         data: Intent?
     ) {
-        IntentIntegrator.parseActivityResult(requestCode, resultCode, data)
+        parseActivityResult(requestCode, resultCode, data)
             ?.let { result: IntentResult ->
                 if (result.contents == null) {
+                    log(
+                        "SendFragment.onActivityResult(): " +
+                                getString(R.string.scanning_cancelled)
+                    )
                     showAlertDialog(
                         requireContext(),
                         getString(R.string.error),
@@ -139,6 +153,11 @@ class SendFragment : Fragment() {
                         recipientAddressEditText = view.findViewById(R.id.recipientAddressEditText)
                         recipientAddressEditText?.setText(contents)
                     }
+                    log(
+                        "SendFragment.onActivityResult(): " +
+                                getString(R.string.scanResult) +
+                                contents
+                    )
                     showAlertDialog(
                         requireContext(),
                         getString(R.string.success),
@@ -164,5 +183,8 @@ class SendFragment : Fragment() {
         const val MY_COMMISSION_ADDRESS = "PBA8J5vGK4G8brcRehTiyxrw9JAHodCj65"
         const val TOTAL_COMMISSION_MAX = 0.1
         const val API_COMMISSION_AMOUNT = 0.001
+        private const val RECIPIENT_ADDRESS = "recipient address"
+        private const val AMOUNT = "amount"
+        private const val TRANSACTION = "transaction"
     }
 }
