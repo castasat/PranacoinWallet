@@ -32,8 +32,8 @@ android {
         archivesBaseName = "com.openyogaland.denis.pranacoin_wallet_2_0"
         minSdkVersion 16
         targetSdkVersion 29
-        versionCode 2_01_02
-        versionName "2.01.02"
+        versionCode 2_01_03
+        versionName "2.01.03"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables { useSupportLibrary = true }
         multiDexEnabled true

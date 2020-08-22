@@ -13,7 +13,6 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.ProgressBar
 import android.widget.TextView
-import androidx.constraintlayout.widget.Group
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import com.google.firebase.crashlytics.FirebaseCrashlytics
