@@ -8,6 +8,7 @@ object AlertDialogUtil {
     fun showAlertDialog(context: Context, title: String, message: String) {
         AlertDialog
             .Builder(context)
+            // TODO 0008-1 update app icons
             .setIcon(R.mipmap.ic_launcher_round)
             .setTitle(title)
             .setMessage(message)

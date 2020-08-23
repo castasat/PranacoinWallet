@@ -25,7 +25,7 @@ import com.openyogaland.denis.pranacoin_wallet_2_0.view.dialog.AlertDialogUtil.s
 import com.openyogaland.denis.pranacoin_wallet_2_0.viewmodel.MainViewModel
 
 class BackupFragment : Fragment() {
-    private lateinit var privateKeyTextView : TextView
+    private lateinit var privateKeyTextView: TextView
     private lateinit var privateKeyQRCodeImageView: ImageView
     private lateinit var privateKeyQRCodeProgressBar: ProgressBar
     private val mainViewModel: MainViewModel by activityViewModels()
@@ -38,9 +38,16 @@ class BackupFragment : Fragment() {
         val view = inflater.inflate(R.layout.fragment_backup, container, false)
         val getPrivateKeyButton = view.findViewById<Button>(R.id.getPrivateKeyButton)
         privateKeyTextView = view.findViewById(R.id.privateKeyTextView)
+
         privateKeyQRCodeImageView = view.findViewById(R.id.privateKeyQRCodeImageView)
         privateKeyQRCodeProgressBar = view.findViewById(R.id.privateKeyQRCodeProgressBar)
         getPrivateKeyButton.setOnClickListener { getPrivateKey() }
+
+        privateKeyQRCodeImageView.setOnLongClickListener { _ ->
+            // TODO 0008-2 create context menu for QR-code
+            log("BackupFragment.onCreateView(): Private key QR-code long-clicked")
+            true
+        }
 
         // setting progress bars visible and imageView not-visible
         privateKeyTextView.visibility = GONE
@@ -109,7 +116,7 @@ class BackupFragment : Fragment() {
                     requireContext(),
                     ERROR,
                     getString(R.string.private_key_qr_generation_failed)
-                    )
+                )
             } finally {
                 privateKeyQRCodeProgressBar.visibility = GONE
                 privateKeyTextView.visibility = VISIBLE
