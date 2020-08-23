@@ -54,12 +54,16 @@ class MainActivity : AppCompatActivity(), OnNavigationItemSelectedListener,
 
         mainViewModel.errorLiveData.observe(
             this,
-            { message ->
-                showAlertDialog(
-                    this,
-                    getString(R.string.error),
-                    message
-                )
+            { errorEventWrapper ->
+                errorEventWrapper
+                    .getEventIfNotHandled()
+                    ?.let { errorMessage ->
+                        showAlertDialog(
+                            this,
+                            getString(R.string.error),
+                            errorMessage
+                        )
+                    }
             }
         )
 

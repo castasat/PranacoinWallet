@@ -27,7 +27,14 @@ class GoogleSignInActivity : AppCompatActivity() {
     private lateinit var googleSignInClient: GoogleSignInClient
     private lateinit var googleSignInAccount: GoogleSignInAccount
 
-    // TODO 0013 add sign-in possibilities
+    // TODO 0013-1 add email sign-in possibility
+    // TODO 0013-3 add phone sign-in possibility
+    // TODO 0013-4 add facebook sign-in possibility
+    // TODO 0013-7 add Apple sign-in possibility
+    // TODO 0013-8 add Anonymous sign-in possibility
+    // TODO 0013-6 add github sign-in possibility
+    // TODO 0013-5 add twitter sign-in possibility
+    // TODO 0013-2 add email link sign-in possibility (no password)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.google_sign_in)
@@ -63,7 +70,7 @@ class GoogleSignInActivity : AppCompatActivity() {
 
         val googleAccountId = googleSignInAccount.id
         val googleEmail = googleSignInAccount.email
-        // TODO 00034 possibility to switch accounts
+        // TODO 0034 possibility to switch accounts
         /*googleSignInAccount.id
         googleSignInAccount.displayName
         googleSignInAccount.email

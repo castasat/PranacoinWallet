@@ -7,6 +7,7 @@ import com.openyogaland.denis.pranacoin_wallet_2_0.application.PranacoinWallet2
 import com.openyogaland.denis.pranacoin_wallet_2_0.application.PranacoinWallet2.Companion.crashlytics
 import com.openyogaland.denis.pranacoin_wallet_2_0.application.PranacoinWallet2.Companion.log
 import com.openyogaland.denis.pranacoin_wallet_2_0.application.PranacoinWallet2.Companion.pranacoinServerApi
+import com.openyogaland.denis.pranacoin_wallet_2_0.architecture.EventWrapper
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers.mainThread
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import io.reactivex.rxjava3.schedulers.Schedulers.io
@@ -20,8 +21,8 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     val balanceLiveData = MutableLiveData<String>()
     val publicAddressLiveData = MutableLiveData<String>()
     val privateKeyLiveData = MutableLiveData<String>()
-    val sendPranacoinsTransactionLiveData = MutableLiveData<String>()
-    val errorLiveData = MutableLiveData<String>()
+    val sendPranacoinsTransactionLiveData = MutableLiveData<EventWrapper<String>>()
+    val errorLiveData = MutableLiveData<EventWrapper<String>>()
 
     private val compositeDisposable = CompositeDisposable()
 
@@ -47,7 +48,9 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
                             throwable.printStackTrace()
                             crashlytics(throwable)
                             errorLiveData.postValue(
-                                "MainViewModel.getBalance(): throwable = $throwable"
+                                EventWrapper(
+                                    "MainViewModel.getBalance(): throwable = $throwable"
+                                )
                             )
                         }
                     )
@@ -72,7 +75,9 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
                             throwable.printStackTrace()
                             crashlytics(throwable)
                             errorLiveData.postValue(
-                                "MainViewModel.getPublicAddress(): throwable = $throwable"
+                                EventWrapper(
+                                    "MainViewModel.getPublicAddress(): throwable = $throwable"
+                                )
                             )
                         }
                     )
@@ -97,7 +102,9 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
                             throwable.printStackTrace()
                             crashlytics(throwable)
                             errorLiveData.postValue(
-                                "MainViewModel.getPrivateKey(): throwable = $throwable"
+                                EventWrapper(
+                                    "MainViewModel.getPrivateKey(): throwable = $throwable"
+                                )
                             )
                         }
                     )
@@ -121,7 +128,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
                     }
                     .subscribe(
                         { transaction ->
-                            sendPranacoinsTransactionLiveData.postValue(transaction)
+                            sendPranacoinsTransactionLiveData.postValue(EventWrapper(transaction))
                             // TODO 0011 write transaction to local database
                         },
                         { throwable ->
@@ -129,7 +136,9 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
                             throwable.printStackTrace()
                             crashlytics(throwable)
                             errorLiveData.postValue(
-                                "MainViewModel.sendPranacoins(): throwable = $throwable"
+                                EventWrapper(
+                                    "MainViewModel.sendPranacoins(): throwable = $throwable"
+                                )
                             )
                         }
                     )

@@ -42,25 +42,29 @@ class SendFragment : Fragment() {
 
         mainViewModel.sendPranacoinsTransactionLiveData.observe(
             viewLifecycleOwner,
-            { transaction ->
-                log("SendFragment.onCreateView(): transaction = $transaction")
-                FirebaseCrashlytics.getInstance().setCustomKey(TRANSACTION, transaction)
+            { transactionEventWrapper ->
+                transactionEventWrapper
+                    .getEventIfNotHandled()
+                    ?.let { transaction ->
+                        log("SendFragment.onCreateView(): transaction = $transaction")
+                        FirebaseCrashlytics.getInstance().setCustomKey(TRANSACTION, transaction)
 
-                // TODO 0008-3 check ProgressDialog
-                /*activity?.supportFragmentManager?.let { fragmentManager ->
-                    hideProgressDialog(fragmentManager)
-                }*/
+                        // TODO 0008-3 check ProgressDialog
+                        /*activity?.supportFragmentManager?.let { fragmentManager ->
+                            hideProgressDialog(fragmentManager)
+                        }*/
 
-                context?.let { context: Context ->
-                    showAlertDialog(
-                        context,
-                        getString(R.string.transfer_status),
-                        getString(R.string.transfer_executed_successfully) +
-                                " transaction = $transaction"
-                    )
-                }
+                        context?.let { context: Context ->
+                            showAlertDialog(
+                                context,
+                                getString(R.string.transfer_status),
+                                getString(R.string.transfer_executed_successfully) +
+                                        " transaction = $transaction"
+                            )
+                        }
 
-                // TODO 0012 show transaction history in HistoryFragment
+                        // TODO 0012 show transaction history in HistoryFragment
+                    }
             }
         )
         return view
