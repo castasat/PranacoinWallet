@@ -44,7 +44,7 @@ class BackupFragment : Fragment() {
         getPrivateKeyButton.setOnClickListener { getPrivateKey() }
 
         privateKeyQRCodeImageView.setOnLongClickListener { _ ->
-            // TODO 0008-2 create context menu for QR-code
+            // TODO 0008-4 create context menu for QR-code
             log("BackupFragment.onCreateView(): Private key QR-code long-clicked")
             true
         }

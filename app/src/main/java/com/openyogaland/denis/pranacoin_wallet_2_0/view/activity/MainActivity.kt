@@ -27,6 +27,8 @@ import com.openyogaland.denis.pranacoin_wallet_2_0.view.fragment.SendFragment
 import com.openyogaland.denis.pranacoin_wallet_2_0.viewmodel.MainViewModel
 
 // TODO 0007 navigate across fragments with swipe to the left and to the right
+// TODO 0007-1 update balance with swipe down
+// TODO 0007-2 schedule balance update with AlarmManager / WorkManager
 class MainActivity : AppCompatActivity(), OnNavigationItemSelectedListener,
     OnClickListener, OnPrivacyPolicyAcceptedListener {
     private var privacyPolicyAcceptedByUser = false

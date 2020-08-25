@@ -8,7 +8,6 @@
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
 
     <!-- TODO 0005 fix cleartext network traffic -->
-    <!-- TODO 0008-1 update app icons -->
     <application
         android:name=".application.PranacoinWallet2"
         android:allowBackup="true"

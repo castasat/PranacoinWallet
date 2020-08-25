@@ -69,7 +69,7 @@ class HomeFragment : Fragment() {
         publicAddressQRCodeProgressBar.visibility = VISIBLE
 
         publicAddressQRCodeImageView.setOnLongClickListener { _ ->
-            // TODO 0008-2 create context menu for QR-code
+            // TODO 0008-4 create context menu for QR-code
             log("BackupFragment.onCreateView(): Public address QR-code long-clicked")
             true
         }
