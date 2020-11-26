@@ -17,15 +17,24 @@ import com.google.android.gms.common.SignInButton
 import com.google.android.gms.common.SignInButton.SIZE_WIDE
 import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.tasks.Task
+import com.google.firebase.analytics.FirebaseAnalytics
+import com.google.firebase.analytics.ktx.analytics
 import com.google.firebase.crashlytics.FirebaseCrashlytics
+import com.google.firebase.ktx.Firebase
 import com.openyogaland.denis.pranacoin_wallet_2_0.R
+import com.openyogaland.denis.pranacoin_wallet_2_0.application.PranacoinWallet2.Companion.crashlytics
 import com.openyogaland.denis.pranacoin_wallet_2_0.application.PranacoinWallet2.Companion.log
 
 class GoogleSignInActivity : AppCompatActivity() {
+
+    // Google Auth
     private lateinit var googleSignInButton: SignInButton
     private lateinit var googleSignInOptions: GoogleSignInOptions
     private lateinit var googleSignInClient: GoogleSignInClient
     private lateinit var googleSignInAccount: GoogleSignInAccount
+
+    // Google Analytics
+    private lateinit var analytics: FirebaseAnalytics
 
     // TODO 0013-1 add email sign-in possibility
     // TODO 0013-3 add phone sign-in possibility
@@ -40,6 +49,11 @@ class GoogleSignInActivity : AppCompatActivity() {
         setContentView(R.layout.google_sign_in)
 
         log("GoogleSignInActivity.onCreate()")
+
+        // Google Analytics initialization
+        analytics = Firebase.analytics
+
+        // Google Auth initialization
         googleSignInOptions = Builder(DEFAULT_SIGN_IN)
             .requestEmail()
             .requestIdToken(getString(R.string.server_client_id))
@@ -49,7 +63,9 @@ class GoogleSignInActivity : AppCompatActivity() {
         googleSignInClient = getClient(this, googleSignInOptions)
         googleSignInButton = findViewById(R.id.googleSignInButton)
         googleSignInButton.setSize(SIZE_WIDE)
-        googleSignInButton.setOnClickListener { signIn() }
+        googleSignInButton.setOnClickListener {
+            signIn()
+        }
     }
 
     override fun onStart() {
@@ -125,6 +141,7 @@ class GoogleSignInActivity : AppCompatActivity() {
                 }
         } catch (e: ApiException) {
             log("GoogleSignInActivity.handleSignInResult(): $e")
+            crashlytics(e)
             e.printStackTrace()
             Toast.makeText(this, "$e", LENGTH_LONG).show()
         }

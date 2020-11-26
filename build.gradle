@@ -1,5 +1,4 @@
 buildscript {
-  ext.kotlin_version = '1.4.0'
   repositories {
     google()
     jcenter()
@@ -7,11 +6,11 @@ buildscript {
     maven { url "https://www.jitpack.io" }
   }
   dependencies {
-    classpath 'com.android.tools.build:gradle:4.0.1'
-    classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
-    classpath 'androidx.navigation:navigation-safe-args-gradle-plugin:2.3.0'
-    classpath 'com.google.gms:google-services:4.3.3'
-    classpath 'com.google.firebase:firebase-crashlytics-gradle:2.2.0'
+    classpath 'com.android.tools.build:gradle:4.1.1'
+    classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:1.4.20"
+    classpath 'androidx.navigation:navigation-safe-args-gradle-plugin:2.3.1'
+    classpath 'com.google.gms:google-services:4.3.4'
+    classpath 'com.google.firebase:firebase-crashlytics-gradle:2.4.1'
   }
 }
 allprojects {
@@ -20,7 +19,6 @@ allprojects {
     jcenter()
     mavenCentral()
     maven { url "https://www.jitpack.io" }
-    maven { url 'https://maven.google.com/' }
   }
 }
 tasks.withType(JavaCompile) {

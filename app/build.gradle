@@ -1,9 +1,10 @@
 apply plugin: 'com.android.application'
-apply plugin: 'com.google.gms.google-services'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-kapt'
-apply plugin: 'kotlin-android-extensions'
+// to use @Parcelize annotation
+apply plugin: 'kotlin-parcelize'
 apply plugin: "androidx.navigation.safeargs.kotlin"
+apply plugin: 'com.google.gms.google-services'
 apply plugin: 'com.google.firebase.crashlytics'
 
 // Create a variable called keystorePropertiesFile, and initialize it to your
@@ -32,8 +33,8 @@ android {
         archivesBaseName = "com.openyogaland.denis.pranacoin_wallet_2_0"
         minSdkVersion 16
         targetSdkVersion 29
-        versionCode 2_01_04
-        versionName "2.01.04"
+        versionCode 2_01_05
+        versionName "2.01.05"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables { useSupportLibrary = true }
         multiDexEnabled true
@@ -59,26 +60,6 @@ android {
             minifyEnabled true
             shrinkResources true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-            firebaseCrashlytics {
-                // Enable processing and uploading of native symbols to Crashlytics
-                // servers. By default, this is disabled to improve build speeds.
-                // This flag must be enabled to see properly-symbolicated native
-                // stack traces in the Crashlytics dashboard.
-                //
-                //nativeSymbolUploadEnabled true
-                //
-                // For method names to appear in your stack traces,
-                // you must explicitly invoke the uploadCrashlyticsSymbolFileBUILD_VARIANT
-                // task after each build of your NDK library. For example:
-                //
-                // >./gradlew app:assembleBUILD_VARIANT\app:uploadCrashlyticsSymbolFileBUILD_VARIANT
-                //
-                // more info at:
-                // https://firebase.google.com/docs/crashlytics/ndk-reports
-                //
-                //strippedNativeLibsDir ‘path/to/stripped/parent/dir’
-                //unstrippedNativeLibsDir ‘path/to/unstripped/parent/dir’
-            }
         }
         debug {
             signingConfig signingConfigs.config
@@ -101,12 +82,15 @@ android {
         checkReleaseBuilds true
     }
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility "1.8"
+        targetCompatibility "1.8"
     }
     dependenciesInfo {
         includeInApk true
         includeInBundle true
+    }
+    kotlinOptions {
+        jvmTarget = '1.8'
     }
 }
 repositories {
@@ -128,13 +112,9 @@ configurations {
         }
     }
 }
-androidExtensions {
-    experimental = true
-}
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
-    implementation "org.jetbrains.kotlin:kotlin-stdlib:1.4.0"
-    implementation 'com.google.android.material:material:1.3.0-alpha02'
+    implementation 'com.google.android.material:material:1.3.0-alpha04'
     // androidx support library
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     implementation 'androidx.legacy:legacy-support-core-ui:1.0.0'
@@ -143,36 +123,36 @@ dependencies {
     implementation 'androidx.legacy:legacy-preference-v14:1.0.0'
 
     implementation 'androidx.appcompat:appcompat:1.2.0'
-    implementation 'androidx.core:core-ktx:1.5.0-alpha02'
-    implementation 'androidx.constraintlayout:constraintlayout:2.0.0-rc1'
-    implementation 'androidx.constraintlayout:constraintlayout-solver:2.0.0-rc1'
+    implementation 'androidx.core:core-ktx:1.5.0-alpha05'
+    implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
+    implementation 'androidx.constraintlayout:constraintlayout-solver:2.0.4'
     implementation 'androidx.vectordrawable:vectordrawable:1.1.0'
-    implementation 'androidx.recyclerview:recyclerview:1.2.0-alpha05'
-    implementation 'androidx.recyclerview:recyclerview-selection:1.1.0-rc01'
+    implementation 'androidx.recyclerview:recyclerview:1.2.0-alpha06'
+    implementation 'androidx.recyclerview:recyclerview-selection:1.1.0-rc03'
     implementation 'androidx.coordinatorlayout:coordinatorlayout:1.1.0'
     implementation 'androidx.cardview:cardview:1.0.0'
-    implementation 'androidx.palette:palette:1.0.0'
-    implementation 'androidx.exifinterface:exifinterface:1.3.0-beta01'
+    implementation 'androidx.palette:palette-ktx:1.0.0'
+    implementation 'androidx.exifinterface:exifinterface:1.3.1'
 
     // navigation library
-    implementation 'androidx.navigation:navigation-fragment-ktx:2.3.0'
-    implementation 'androidx.navigation:navigation-ui-ktx:2.3.0'
+    implementation 'androidx.navigation:navigation-fragment-ktx:2.3.1'
+    implementation 'androidx.navigation:navigation-ui-ktx:2.3.1'
 
     // google architecture components
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0"
     implementation "androidx.lifecycle:lifecycle-livedata-ktx:2.2.0"
     implementation "androidx.lifecycle:lifecycle-viewmodel-savedstate:2.2.0"
     implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0'
-    implementation 'androidx.lifecycle:lifecycle-common-java8:2.3.0-alpha07'
-    implementation 'androidx.lifecycle:lifecycle-reactivestreams:2.3.0-alpha07'
+    implementation 'androidx.lifecycle:lifecycle-common-java8:2.3.0-beta01'
+    implementation 'androidx.lifecycle:lifecycle-reactivestreams-ktx:2.3.0-beta01'
 
     // room database
     //implementation 'androidx.room:room-runtime:2.2.5'
     //implementation 'androidx.room:room-ktx:2.2.5'
 
     // okhttp
-    implementation 'com.squareup.okhttp3:okhttp:4.8.1'
-    implementation 'com.squareup.okhttp3:logging-interceptor:4.8.1'
+    implementation 'com.squareup.okhttp3:okhttp:4.9.0'
+    implementation 'com.squareup.okhttp3:logging-interceptor:4.9.0'
 
     // retrofit
     implementation 'com.squareup.retrofit2:retrofit:2.9.0'
@@ -181,25 +161,22 @@ dependencies {
     implementation 'com.squareup.retrofit2:adapter-rxjava3:2.9.0'
 
     // rxjava
-    implementation 'io.reactivex.rxjava3:rxjava:3.0.6'
+    implementation 'io.reactivex.rxjava3:rxjava:3.0.7'
     implementation 'io.reactivex.rxjava3:rxandroid:3.0.0'
     implementation 'com.github.akarnokd:rxjava3-extensions:3.0.1'
 
     // zxing
     implementation 'com.journeyapps:zxing-android-embedded:3.6.0'
 
+    // google services
+    implementation 'com.google.android.gms:play-services-auth:19.0.0'
     // firebase
-    // add SDKs for any other desired Firebase products
-    // https://firebase.google.com/docs/android/setup#available-libraries
-    // analytics
-    implementation 'com.google.firebase:firebase-analytics-ktx:17.5.0'
     // auth
-    implementation 'com.google.firebase:firebase-auth:19.3.2'
-    implementation 'com.google.android.gms:play-services-auth:18.1.0'
+    implementation 'com.google.firebase:firebase-auth:20.0.1'
     // crashlytics
-    implementation 'com.google.firebase:firebase-crashlytics-ktx:17.2.1'
-    // if ndk - replace with:
-    //implementation 'com.google.firebase:firebase-crashlytics-ndk:17.2.1'
+    implementation 'com.google.firebase:firebase-crashlytics-ktx:17.3.0'
+    // analytics
+    implementation 'com.google.firebase:firebase-analytics-ktx:18.0.0'
 
     //kapt 'androidx.room:room-compiler:2.2.5'
 

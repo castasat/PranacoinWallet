@@ -6,6 +6,8 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <!-- Needed for Firebase Analytics -->
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
 
     <!-- TODO 0005 fix cleartext network traffic -->
     <application
