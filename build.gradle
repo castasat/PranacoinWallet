@@ -6,9 +6,12 @@ buildscript {
     maven { url "https://www.jitpack.io" }
   }
   dependencies {
-    classpath 'com.android.tools.build:gradle:4.1.1'
-    classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:1.4.20"
-    classpath 'androidx.navigation:navigation-safe-args-gradle-plugin:2.3.1'
+    // TODO noinspection GradleDependency
+    classpath 'com.android.tools.build:gradle:3.6.0'
+    // classpath 'com.android.tools.build:gradle:4.1.1'
+
+    classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:1.4.21"
+    classpath 'androidx.navigation:navigation-safe-args-gradle-plugin:2.3.2'
     classpath 'com.google.gms:google-services:4.3.4'
     classpath 'com.google.firebase:firebase-crashlytics-gradle:2.4.1'
   }

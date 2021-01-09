@@ -63,9 +63,7 @@ class GoogleSignInActivity : AppCompatActivity() {
         googleSignInClient = getClient(this, googleSignInOptions)
         googleSignInButton = findViewById(R.id.googleSignInButton)
         googleSignInButton.setSize(SIZE_WIDE)
-        googleSignInButton.setOnClickListener {
-            signIn()
-        }
+        googleSignInButton.setOnClickListener { signIn() }
     }
 
     override fun onStart() {

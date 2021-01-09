@@ -35,7 +35,9 @@
             android:name="firebase_crashlytics_collection_enabled"
             android:value="true" />
 
-        <activity android:name=".view.activity.GoogleSignInActivity">
+        <activity
+            android:name=".view.activity.GoogleSignInActivity"
+            android:noHistory="true"><!-- exclude from back stack to finish on back press -->
 
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

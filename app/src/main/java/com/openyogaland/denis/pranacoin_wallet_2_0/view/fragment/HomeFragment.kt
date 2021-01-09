@@ -30,7 +30,6 @@ import com.openyogaland.denis.pranacoin_wallet_2_0.viewmodel.MainViewModel
 // TODO 0021 statistics
 // TODO 0022 english language
 // TODO 0023 memory leaks
-// TODO 0024 crashlytics
 // TODO 0025 in-app pranacoin purchases
 // TODO 0026 backend
 // TODO 0027 other in-app purchases
@@ -99,11 +98,6 @@ class HomeFragment : Fragment() {
         //  if not connected
         mainViewModel.getBalance()
         mainViewModel.getPublicAddress()
-        /*balance = loadBalance()
-        showBalance(balance)
-        publicAddress = loadPublicAddress()
-        showPublicAddress(publicAddress)
-        showQRCode(publicAddress)*/
         return view
     }
 

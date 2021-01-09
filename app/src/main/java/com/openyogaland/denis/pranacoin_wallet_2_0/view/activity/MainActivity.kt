@@ -2,7 +2,6 @@ package com.openyogaland.denis.pranacoin_wallet_2_0.view.activity
 
 import android.app.AlertDialog.Builder
 import android.content.DialogInterface
-import android.content.DialogInterface.*
 import android.content.SharedPreferences.Editor
 import android.os.Bundle
 import android.view.KeyEvent
@@ -30,7 +29,7 @@ import com.openyogaland.denis.pranacoin_wallet_2_0.viewmodel.MainViewModel
 // TODO 0007-1 update balance with swipe down
 // TODO 0007-2 schedule balance update with AlarmManager / WorkManager
 class MainActivity : AppCompatActivity(), OnNavigationItemSelectedListener,
-    OnClickListener, OnPrivacyPolicyAcceptedListener {
+    OnPrivacyPolicyAcceptedListener {
     private var privacyPolicyAcceptedByUser = false
     private var policyDialog: PolicyDialog? = null
     private var homeFragment: HomeFragment? = null
@@ -134,17 +133,11 @@ class MainActivity : AppCompatActivity(), OnNavigationItemSelectedListener,
     private fun openQuitDialog() {
         with(Builder(this)) {
             setTitle(R.string.quit_dialog_message)
-            setPositiveButton(R.string.exit_yes, this@MainActivity)
-            setNegativeButton(R.string.exit_no, this@MainActivity)
+            setPositiveButton(R.string.exit_yes) { _, _ ->
+                finish()
+            }
+            setNegativeButton(R.string.exit_no) { dialog: DialogInterface, _ -> dialog.dismiss() }
             show()
-        }
-    }
-
-    override fun onClick(dialog: DialogInterface, which: Int) {
-        when (which) {
-            BUTTON_POSITIVE -> finish()
-            BUTTON_NEGATIVE -> dialog.dismiss()
-            else -> dialog.dismiss()
         }
     }
 
