@@ -11,7 +11,8 @@
 /signing/*
 /captures
 .externalNativeBuild
-keystore.properties
+keystore.properties_0
 keystore.jks
 /.idea/
 /app/google-services.json
+/keystore.properties
