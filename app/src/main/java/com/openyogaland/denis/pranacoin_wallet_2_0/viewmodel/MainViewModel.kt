@@ -129,7 +129,6 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
                     .subscribe(
                         { transaction ->
                             sendPranacoinsTransactionLiveData.postValue(EventWrapper(transaction))
-                            // TODO 0011 write transaction to local database
                         },
                         { throwable ->
                             log("MainViewModel.sendPranacoins(): throwable = $throwable")

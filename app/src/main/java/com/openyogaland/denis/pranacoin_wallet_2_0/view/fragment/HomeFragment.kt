@@ -27,18 +27,10 @@ import com.openyogaland.denis.pranacoin_wallet_2_0.viewmodel.MainViewModel
 // TODO 0018 create commercial
 // TODO 0019 share commercial
 // TODO 0020 rate application screen
-// TODO 0021 statistics
-// TODO 0022 english language
-// TODO 0023 memory leaks
 // TODO 0025 in-app pranacoin purchases
-// TODO 0026 backend
-// TODO 0027 other in-app purchases
 // TODO 0028 user profile
-// TODO 0029 user ads
-// TODO 0030 viewing other user's profiles and ads
 // TODO 0031 users geography
 // TODO 0032 buying pranacoins from users
-// TODO 0033 ESCROW service
 class HomeFragment : Fragment() {
     private lateinit var publicAddressTextView: TextView
     private lateinit var balanceAmountTextView: TextView
@@ -68,7 +60,6 @@ class HomeFragment : Fragment() {
         publicAddressQRCodeProgressBar.visibility = VISIBLE
 
         publicAddressQRCodeImageView.setOnLongClickListener { _ ->
-            // TODO 0008-4 create context menu for QR-code
             log("BackupFragment.onCreateView(): Public address QR-code long-clicked")
             true
         }
@@ -94,8 +85,6 @@ class HomeFragment : Fragment() {
             }
         )
 
-        // TODO 0009 check internet connectivity and load values from local database
-        //  if not connected
         mainViewModel.getBalance()
         mainViewModel.getPublicAddress()
         return view
@@ -159,7 +148,6 @@ class HomeFragment : Fragment() {
         }
     }
 
-    // TODO 0008 make QR-codes selectable
     private fun showQRCode(publicAddress: String) {
         if (publicAddress.isNotEmpty()) {
             try {

@@ -21,14 +21,12 @@ class ProgressDialog private constructor() : BottomSheetDialogFragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        // TODO 0008-2 apply style before progress dialog is created
         //setStyle(STYLE_NORMAL, R.style.BottomSheetDialogFragment)
     }
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog =
         super.onCreateDialog(savedInstanceState)
             .apply {
-                // TODO 0008-3 create custom layout for progress dialog
                 /*View.inflate(context, R.layout.progress_dialog, null)
                     .apply {
                         val messageTextView = findViewById<TextView>(R.id.messageTextView)

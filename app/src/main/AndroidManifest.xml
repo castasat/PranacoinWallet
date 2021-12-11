@@ -9,7 +9,6 @@
     <!-- Needed for Firebase Analytics -->
     <uses-permission android:name="android.permission.WAKE_LOCK" />
 
-    <!-- TODO 0005 fix cleartext network traffic -->
     <application
         android:name=".application.PranacoinWallet2"
         android:allowBackup="true"

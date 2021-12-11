@@ -25,9 +25,6 @@ import com.openyogaland.denis.pranacoin_wallet_2_0.view.fragment.HomeFragment
 import com.openyogaland.denis.pranacoin_wallet_2_0.view.fragment.SendFragment
 import com.openyogaland.denis.pranacoin_wallet_2_0.viewmodel.MainViewModel
 
-// TODO 0007 navigate across fragments with swipe to the left and to the right
-// TODO 0007-1 update balance with swipe down
-// TODO 0007-2 schedule balance update with AlarmManager / WorkManager
 class MainActivity : AppCompatActivity(), OnNavigationItemSelectedListener,
     OnPrivacyPolicyAcceptedListener {
     private var privacyPolicyAcceptedByUser = false
@@ -74,8 +71,6 @@ class MainActivity : AppCompatActivity(), OnNavigationItemSelectedListener,
         }
         val navigationView = findViewById<BottomNavigationView>(R.id.navigation)
         navigationView.setOnNavigationItemSelectedListener(this)
-        // TODO 0015 handle app links
-        // TODO 0016 handle application indexing
         val appLinkIntent = intent
         appLinkIntent.action
         appLinkIntent.data

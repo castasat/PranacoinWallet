@@ -49,7 +49,6 @@ class SendFragment : Fragment() {
                         log("SendFragment.onCreateView(): transaction = $transaction")
                         FirebaseCrashlytics.getInstance().setCustomKey(TRANSACTION, transaction)
 
-                        // TODO 0008-5 check ProgressDialog
                         /*activity?.supportFragmentManager?.let { fragmentManager ->
                             hideProgressDialog(fragmentManager)
                         }*/
@@ -63,7 +62,6 @@ class SendFragment : Fragment() {
                             )
                         }
 
-                        // TODO 0012 show transaction history in HistoryFragment
                     }
             }
         )
@@ -80,10 +78,8 @@ class SendFragment : Fragment() {
         }
         if (userHasEnoughBalanceForTransfer(recipientAddress, amount)) {
             context?.let { context: Context ->
-                // TODO 0009 check internet connectivity
                 if (hasConnection(context)) {
 
-                    // TODO 0008-5 check ProgressDialog
                     /*activity?.supportFragmentManager?.let { fragmentManager ->
                         newProgressDialogInstance()
                             .setMessage("Дождитесь подтверждения сервера об отправке пранакоинов")

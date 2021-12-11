@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <network-security-config>
     <domain-config cleartextTrafficPermitted="true">
-        <!-- TODO 0005 fix cleartext network traffic -->
         <domain includeSubdomains="true">95.213.191.196</domain>
     </domain-config>
 </network-security-config>

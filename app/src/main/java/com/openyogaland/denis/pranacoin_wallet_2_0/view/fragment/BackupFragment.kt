@@ -44,7 +44,6 @@ class BackupFragment : Fragment() {
         getPrivateKeyButton.setOnClickListener { getPrivateKey() }
 
         privateKeyQRCodeImageView.setOnLongClickListener { _ ->
-            // TODO 0008-4 create context menu for QR-code
             log("BackupFragment.onCreateView(): Private key QR-code long-clicked")
             true
         }
@@ -92,14 +91,11 @@ class BackupFragment : Fragment() {
     private fun getPrivateKey() {
         privateKeyQRCodeProgressBar.visibility = VISIBLE
 
-        // TODO 0009 check internet connectivity and load values from local database
-        //  if not connected
         /*val privateKey = loadPrivateKey()
         showPrivateKeyGroup(privateKey)*/
         mainViewModel.getPrivateKey()
     }
 
-    // TODO 0008 make QR-codes selectable
     private fun showPrivateKeyGroup(privateKey: String) {
         if (privateKey.isNotEmpty()) {
             privateKeyTextView.text = privateKey
