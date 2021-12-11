@@ -21,7 +21,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="false"
         android:theme="@style/AppTheme"
-        android:usesCleartextTraffic="true">
+        android:usesCleartextTraffic="true"
+        tools:targetApi="n">
 
         <meta-data
             android:name="search-engine"
@@ -37,7 +38,9 @@
 
         <activity
             android:name=".view.activity.GoogleSignInActivity"
-            android:noHistory="true"><!-- exclude from back stack to finish on back press -->
+            android:noHistory="true"
+            android:exported="true">
+            <!-- exclude from back stack to finish on back press -->
 
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -53,7 +56,9 @@
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:label="@string/app_name"
             android:screenOrientation="portrait"
-            android:stateNotNeeded="true">
+            android:stateNotNeeded="true"
+            android:exported="true"
+            tools:ignore="LockedOrientationActivity">
 
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
@@ -76,7 +81,8 @@
             android:name="com.journeyapps.barcodescanner.CaptureActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:screenOrientation="portrait"
-            tools:replace="android:screenOrientation" />
+            tools:replace="android:screenOrientation"
+            tools:ignore="LockedOrientationActivity" />
 
     </application>
 
