@@ -13,7 +13,7 @@ android (
     // Unit tests
     UNIT_COMMAND: './gradlew clean test',
     // Develop
-    BUILD_COMMAND_DEV: './gradlew clean assembleDevelopmentDebug assembleDevelopmentRelease getCommitMessage -PWEB_VIEW_DEBUGGING_ENABLED=true -PSCREENSHOT_DISABLED=false --no-daemon',
+    BUILD_COMMAND_DEV: 'export JAVA_HOME=/Library/Java/JavaVirtualMachines/adoptopenjdk-11.jdk/Contents/Home && ./gradlew clean assembleDevelopmentDebug assembleDevelopmentRelease getCommitMessage -PWEB_VIEW_DEBUGGING_ENABLED=true -PSCREENSHOT_DISABLED=false --no-daemon',
     // MajorCheck
     BUILD_COMMAND_MCH: './gradlew clean assembleMajorCheckDebug assembleMajorCheckRelease getCommitMessage --no-daemon',
     // MajorGo
