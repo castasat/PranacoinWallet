@@ -25,8 +25,8 @@ android (
     FIREBASE_CRED_FILE: 'app/google-services.json',
     FIREBASE_UPLOAD_COMMAND: './gradlew assembleDebug appDistributionUploadDebug',
 
-    //SIGNING_CRED: 'android-apk-sign-cred',
-    //SIGNING_KEY_ALIAS: 'ru.sberbank.sbermail',
+    SIGNING_CRED: 'android-apk-sign-cred',
+    SIGNING_KEY_ALIAS: 'ru.sberbank.sberapps',
 
     //QG_SQ_COMMAND: './gradlew clean sonarqube',
     //QG_SQ_PROJECTKEY: 'sbermail-android-mail-client',
