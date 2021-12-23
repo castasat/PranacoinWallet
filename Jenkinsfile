@@ -2,7 +2,7 @@
 
 /* Defining Shared Libraries */
 library retriever: modernSCM([$class: 'GitSCMSource', credentialsId: 'SA_CI', remote: 'https://stash.sigma.sbrf.ru/scm/sudevops/jenkins.git']),
-    identifier: 'ru.sbrf.sudevops@master', changelog: false
+    identifier: 'ru.sbrf.sudevops@fix/firebaseonbuild', changelog: false
 
 android (
     BUILD_DIRECTORY: 'app/build/outputs/apk',
@@ -21,8 +21,9 @@ android (
     // Production
     BUILD_COMMAND_PROD: './gradlew clean assembleProdDebug assembleProdRelease getCommitMessage --no-daemon',
 
-    //FIREBASE_CRED: 'ANDROID_MAIL_CLIENT_GOOGLE',
-    //FIREBASE_UPLOAD_COMMAND: './gradlew assembleProdDebug appDistributionUploadProdDebug',
+    FIREBASE_CRED: 'ANDROID_CLIENT_GOOGLE',
+    FIREBASE_CRED_FILE: 'app/google-services.json',
+    FIREBASE_UPLOAD_COMMAND: './gradlew assembleDebug appDistributionUploadDebug',
 
     //SIGNING_CRED: 'android-apk-sign-cred',
     //SIGNING_KEY_ALIAS: 'ru.sberbank.sbermail',
