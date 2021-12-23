@@ -2,7 +2,7 @@
 
 /* Defining Shared Libraries */
 library retriever: modernSCM([$class: 'GitSCMSource', credentialsId: 'SA_CI', remote: 'https://stash.sigma.sbrf.ru/scm/sudevops/jenkins.git']),
-    identifier: 'ru.sbrf.sudevops@fix/firebaseonbuild', changelog: false
+    identifier: 'ru.sbrf.sudevops@master', changelog: false
 
 android (
     BUILD_DIRECTORY: 'app/build/outputs/apk',
