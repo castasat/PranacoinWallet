@@ -27,7 +27,7 @@ android {
     //     }
     // }
     compileSdkVersion 32
-    buildToolsVersion '32.0.0'
+    buildToolsVersion '32.0.0-rc1'
     defaultConfig {
         applicationId "com.openyogaland.denis.pranacoin_wallet_2_0"
         archivesBaseName = "com.openyogaland.denis.pranacoin_wallet_2_0"
