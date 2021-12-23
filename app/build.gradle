@@ -59,6 +59,9 @@ android {
             zipAlignEnabled true
             minifyEnabled true
             shrinkResources true
+            jniDebuggable = false
+            renderscriptDebuggable = false
+            multiDexEnabled = true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
         debug {
