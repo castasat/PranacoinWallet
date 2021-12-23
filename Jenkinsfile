@@ -11,11 +11,12 @@ android (
     //INCREMENT_FILE_NAME: 'android-version-code.txt',
 
     // Unit tests
+    JAVA_HOME: '/Library/Java/JavaVirtualMachines/adoptopenjdk-11.jdk/Contents/Home',
     UNIT_COMMAND: './gradlew clean test',
     // Develop
-    BUILD_COMMAND_DEV: 'export JAVA_HOME=/Library/Java/JavaVirtualMachines/adoptopenjdk-11.jdk/Contents/Home && ./gradlew clean assembleDebug --no-daemon',
+    BUILD_COMMAND_DEV: './gradlew clean assembleDebug --no-daemon',
     // Production
-    BUILD_COMMAND_PROD: 'export JAVA_HOME=/Library/Java/JavaVirtualMachines/adoptopenjdk-11.jdk/Contents/Home && ./gradlew clean assembleRelease --no-daemon',
+    BUILD_COMMAND_PROD: './gradlew clean assembleRelease --no-daemon',
 
     FIREBASE_CRED: 'ANDROID_CLIENT_GOOGLE',
     FIREBASE_CRED_FILE: 'app/google-services.json',
