@@ -26,13 +26,13 @@ android {
     //         storePassword keystoreProperties['storePassword']
     //     }
     // }
-    compileSdkVersion 32
-    buildToolsVersion '32.0.0'
+    compileSdkVersion 31
+    buildToolsVersion '31.0.0'
     defaultConfig {
         applicationId "com.openyogaland.denis.pranacoin_wallet_2_0"
         archivesBaseName = "com.openyogaland.denis.pranacoin_wallet_2_0"
         minSdkVersion 19
-        targetSdkVersion 32
+        targetSdkVersion 31
         versionCode 20107
         versionName '2.01.07'
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
@@ -45,11 +45,11 @@ android {
             }
         }
         compileOptions {
-            sourceCompatibility '1.8'
-            targetCompatibility '1.8'
+            sourceCompatibility JavaVersion.VERSION_11
+            targetCompatibility JavaVersion.VERSION_11
         }
         kotlinOptions {
-            jvmTarget = "1.8"
+            jvmTarget = "11"
         }
     }
     buildTypes {
@@ -59,6 +59,9 @@ android {
             zipAlignEnabled true
             minifyEnabled true
             shrinkResources true
+            jniDebuggable = false
+            renderscriptDebuggable = false
+            multiDexEnabled = true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
         debug {
@@ -82,15 +85,15 @@ android {
         checkReleaseBuilds true
     }
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility JavaVersion.VERSION_11
+        targetCompatibility JavaVersion.VERSION_11
     }
     dependenciesInfo {
         includeInApk true
         includeInBundle true
     }
     kotlinOptions {
-        jvmTarget = '1.8'
+        jvmTarget = '11'
     }
 }
 repositories {
