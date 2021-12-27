@@ -17,6 +17,7 @@ buildscript {
 }
 allprojects {
   repositories {
+    maven { url "https://nexus.sigma.sbrf.ru/nexus/content/groups/public" }
     google()
     //noinspection JcenterRepositoryObsolete,GrDeprecatedAPIUsage
     jcenter()
