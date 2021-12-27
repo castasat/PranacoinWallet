@@ -26,14 +26,13 @@ android {
     //         storePassword keystoreProperties['storePassword']
     //     }
     // }
-    compileSdkVersion 32
-    compileSdkPreview = "Tv1"
-    buildToolsVersion '32.0.0'
+    compileSdkVersion 31
+    buildToolsVersion '31.0.0'
     defaultConfig {
         applicationId "com.openyogaland.denis.pranacoin_wallet_2_0"
         archivesBaseName = "com.openyogaland.denis.pranacoin_wallet_2_0"
         minSdkVersion 19
-        targetSdkVersion 32
+        targetSdkVersion 31
         versionCode 20107
         versionName '2.01.07'
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
