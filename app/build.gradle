@@ -97,6 +97,12 @@ android {
     }
 }
 repositories {
+    maven { url "https://nexus.sigma.sbrf.ru/nexus/content/groups/public" 
+	 metadataSources {
+	    gradleMetadata()
+            mavenPom()
+        }
+    }
     google()
     //noinspection JcenterRepositoryObsolete,GrDeprecatedAPIUsage
     jcenter()
