@@ -1,29 +1,24 @@
-package com.openyogaland.denis.pranacoin_wallet_2_0.viewmodel
+package io.github.castasat.pranacoin_wallet.viewmodel
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
-import com.openyogaland.denis.pranacoin_wallet_2_0.application.PranacoinWallet2
-import com.openyogaland.denis.pranacoin_wallet_2_0.application.PranacoinWallet2.Companion.crashlytics
-import com.openyogaland.denis.pranacoin_wallet_2_0.application.PranacoinWallet2.Companion.log
-import com.openyogaland.denis.pranacoin_wallet_2_0.application.PranacoinWallet2.Companion.pranacoinServerApi
-import com.openyogaland.denis.pranacoin_wallet_2_0.architecture.EventWrapper
+import io.github.castasat.pranacoin_wallet.application.PranacoinWallet2.Companion.crashlytics
+import io.github.castasat.pranacoin_wallet.application.PranacoinWallet2.Companion.log
+import io.github.castasat.pranacoin_wallet.application.PranacoinWallet2.Companion.pranacoinServerApi
+import io.github.castasat.pranacoin_wallet.architecture.EventWrapper
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers.mainThread
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import io.reactivex.rxjava3.schedulers.Schedulers.io
 
 class MainViewModel(application: Application) : AndroidViewModel(application) {
-
     var googleAccountId: String? = null
     var googleEmail: String? = null
-    private val pranacoinWallet2: PranacoinWallet2 = application as PranacoinWallet2
-
     val balanceLiveData = MutableLiveData<String>()
     val publicAddressLiveData = MutableLiveData<String>()
     val privateKeyLiveData = MutableLiveData<String>()
     val sendPranacoinsTransactionLiveData = MutableLiveData<EventWrapper<String>>()
     val errorLiveData = MutableLiveData<EventWrapper<String>>()
-
     private val compositeDisposable = CompositeDisposable()
 
     override fun onCleared() {

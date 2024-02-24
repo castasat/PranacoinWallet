@@ -1,4 +1,4 @@
-package com.openyogaland.denis.pranacoin_wallet_2_0.view.dialog
+package io.github.castasat.pranacoin_wallet.view.dialog
 
 import android.content.Context
 import androidx.appcompat.app.AlertDialog

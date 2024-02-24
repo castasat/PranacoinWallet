@@ -1,4 +1,4 @@
-package com.openyogaland.denis.pranacoin_wallet_2_0.domain
+package io.github.castasat.pranacoin_wallet.domain
 
 import android.content.Context
 import android.graphics.Bitmap
@@ -10,8 +10,8 @@ import com.google.zxing.MultiFormatWriter
 import com.google.zxing.WriterException
 import com.google.zxing.common.BitMatrix
 import com.openyogaland.denis.pranacoin_wallet_2_0.R
-import com.openyogaland.denis.pranacoin_wallet_2_0.application.PranacoinWallet2.Companion.crashlytics
-import com.openyogaland.denis.pranacoin_wallet_2_0.application.PranacoinWallet2.Companion.log
+import io.github.castasat.pranacoin_wallet.application.PranacoinWallet2.Companion.crashlytics
+import io.github.castasat.pranacoin_wallet.application.PranacoinWallet2.Companion.log
 
 object QRCodeUtil {
     private const val QR_CODE_DIMENSION = 500

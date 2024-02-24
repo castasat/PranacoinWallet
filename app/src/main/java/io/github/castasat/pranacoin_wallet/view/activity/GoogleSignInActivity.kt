@@ -1,6 +1,6 @@
 @file:Suppress("NAME_SHADOWING")
 
-package com.openyogaland.denis.pranacoin_wallet_2_0.view.activity
+package io.github.castasat.pranacoin_wallet.view.activity
 
 import android.content.Intent
 import android.os.Bundle
@@ -22,8 +22,8 @@ import com.google.firebase.analytics.ktx.analytics
 import com.google.firebase.crashlytics.FirebaseCrashlytics
 import com.google.firebase.ktx.Firebase
 import com.openyogaland.denis.pranacoin_wallet_2_0.R
-import com.openyogaland.denis.pranacoin_wallet_2_0.application.PranacoinWallet2.Companion.crashlytics
-import com.openyogaland.denis.pranacoin_wallet_2_0.application.PranacoinWallet2.Companion.log
+import io.github.castasat.pranacoin_wallet.application.PranacoinWallet2.Companion.crashlytics
+import io.github.castasat.pranacoin_wallet.application.PranacoinWallet2.Companion.log
 
 class GoogleSignInActivity : AppCompatActivity() {
 
@@ -103,6 +103,7 @@ class GoogleSignInActivity : AppCompatActivity() {
         startActivityForResult(signInIntent, RC_SIGN_IN)
     }
 
+    @Deprecated("Deprecated in Java")
     override fun onActivityResult(
         requestCode: Int,
         resultCode: Int,

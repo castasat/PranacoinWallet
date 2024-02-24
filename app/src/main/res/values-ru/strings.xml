@@ -15,7 +15,7 @@
     </string>
     <string name="input_address_here">Введите адрес…</string>
     <string name="input_sum_here">Введите сумму…</string>
-    <string name="app_name">Пранакоин Кошелёк 2.0</string>
+    <string name="app_name">Пранакоин Кошелёк</string>
     <string name="get_private_key">Получить приватный ключ</string>
     <string name="scan">Сканировать адрес</string>
     <string name="public_address_qr_code">QR-код публичного адреса</string>

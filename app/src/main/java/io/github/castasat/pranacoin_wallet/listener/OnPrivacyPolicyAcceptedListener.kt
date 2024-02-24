@@ -1,4 +1,4 @@
-package com.openyogaland.denis.pranacoin_wallet_2_0.listener
+package io.github.castasat.pranacoin_wallet.listener
 
 interface
 OnPrivacyPolicyAcceptedListener {

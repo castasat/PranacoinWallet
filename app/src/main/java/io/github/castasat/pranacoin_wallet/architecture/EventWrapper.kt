@@ -1,4 +1,4 @@
-package com.openyogaland.denis.pranacoin_wallet_2_0.architecture
+package io.github.castasat.pranacoin_wallet.architecture
 
 @Suppress("MemberVisibilityCanBePrivate")
 class EventWrapper<out TYPE>(private val event: TYPE) {
