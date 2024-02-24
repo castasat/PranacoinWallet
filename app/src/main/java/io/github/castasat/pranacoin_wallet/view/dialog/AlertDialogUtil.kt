@@ -2,7 +2,7 @@ package io.github.castasat.pranacoin_wallet.view.dialog
 
 import android.content.Context
 import androidx.appcompat.app.AlertDialog
-import com.openyogaland.denis.pranacoin_wallet_2_0.R
+import io.github.castasat.pranacoin_wallet.R
 
 object AlertDialogUtil {
     fun showAlertDialog(context: Context, title: String, message: String) {

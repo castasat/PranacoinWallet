@@ -11,7 +11,8 @@
 /signing/*
 /captures
 .externalNativeBuild
-keystore.properties_0
-keystore.jks
 /.idea/
 /keystore.properties
+/app/keystore.jks
+/app/private_key.pepk
+/app/debug/

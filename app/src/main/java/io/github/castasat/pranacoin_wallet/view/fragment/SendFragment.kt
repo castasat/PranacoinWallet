@@ -15,9 +15,9 @@ import com.google.firebase.crashlytics.FirebaseCrashlytics
 import com.google.zxing.integration.android.IntentIntegrator.forSupportFragment
 import com.google.zxing.integration.android.IntentIntegrator.parseActivityResult
 import com.google.zxing.integration.android.IntentResult
-import com.openyogaland.denis.pranacoin_wallet_2_0.R
-import io.github.castasat.pranacoin_wallet.application.PranacoinWallet2.Companion.hasConnection
-import io.github.castasat.pranacoin_wallet.application.PranacoinWallet2.Companion.log
+import io.github.castasat.pranacoin_wallet.R
+import io.github.castasat.pranacoin_wallet.application.PranacoinWallet3.Companion.hasConnection
+import io.github.castasat.pranacoin_wallet.application.PranacoinWallet3.Companion.log
 import io.github.castasat.pranacoin_wallet.view.dialog.AlertDialogUtil.showAlertDialog
 import io.github.castasat.pranacoin_wallet.viewmodel.MainViewModel
 import java.lang.Double.parseDouble

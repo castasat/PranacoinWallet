@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.openyogaland.denis.pranacoin_wallet_2_0">
+    package="io.github.castasat.pranacoin_wallet">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
@@ -10,7 +10,7 @@
     <uses-permission android:name="android.permission.WAKE_LOCK" />
 
     <application
-        android:name="io.github.castasat.pranacoin_wallet.application.PranacoinWallet2"
+        android:name="io.github.castasat.pranacoin_wallet.application.PranacoinWallet3"
         android:allowBackup="true"
         android:fullBackupContent="true"
         android:hardwareAccelerated="true"
@@ -68,7 +68,6 @@
                     android:path="/pranacoin_wallet_2_0"
                     android:scheme="http" />
             </intent-filter>
-            <tools:validation testUrl="http://denis.openyogaland.com/pranacoin_wallet_2_0" />
         </activity>
 
         <activity

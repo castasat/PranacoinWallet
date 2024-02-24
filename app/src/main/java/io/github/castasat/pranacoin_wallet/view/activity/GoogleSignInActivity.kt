@@ -21,9 +21,9 @@ import com.google.firebase.analytics.FirebaseAnalytics
 import com.google.firebase.analytics.ktx.analytics
 import com.google.firebase.crashlytics.FirebaseCrashlytics
 import com.google.firebase.ktx.Firebase
-import com.openyogaland.denis.pranacoin_wallet_2_0.R
-import io.github.castasat.pranacoin_wallet.application.PranacoinWallet2.Companion.crashlytics
-import io.github.castasat.pranacoin_wallet.application.PranacoinWallet2.Companion.log
+import io.github.castasat.pranacoin_wallet.R
+import io.github.castasat.pranacoin_wallet.application.PranacoinWallet3.Companion.crashlytics
+import io.github.castasat.pranacoin_wallet.application.PranacoinWallet3.Companion.log
 
 class GoogleSignInActivity : AppCompatActivity() {
 

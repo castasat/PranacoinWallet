@@ -13,9 +13,9 @@ import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.fragment.app.FragmentManager
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
-import com.openyogaland.denis.pranacoin_wallet_2_0.R
-import io.github.castasat.pranacoin_wallet.application.PranacoinWallet2.Companion.crashlytics
-import io.github.castasat.pranacoin_wallet.application.PranacoinWallet2.Companion.log
+import io.github.castasat.pranacoin_wallet.R
+import io.github.castasat.pranacoin_wallet.application.PranacoinWallet3.Companion.crashlytics
+import io.github.castasat.pranacoin_wallet.application.PranacoinWallet3.Companion.log
 
 class ProgressDialog private constructor() : BottomSheetDialogFragment() {
 

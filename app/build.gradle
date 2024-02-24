@@ -21,19 +21,19 @@ def keystoreProperties = new Properties()
 keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
 
 android {
-    namespace 'com.openyogaland.denis.pranacoin_wallet_2_0'
+    namespace 'io.github.castasat.pranacoin_wallet'
     compileSdk ANDROID_COMPILE_SDK_VERSION
-    /*signingConfigs {
+    signingConfigs {
         defaultConfig {
             keyAlias keystoreProperties['keyAlias']
             keyPassword keystoreProperties['keyPassword']
-            // TODO storeFile file(keystoreProperties['storeFile'])
+            storeFile file(keystoreProperties['storeFile'])
             storePassword keystoreProperties['storePassword']
         }
-    }*/
+    }
     defaultConfig {
-        applicationId "com.openyogaland.denis.pranacoin_wallet_2_0"
-        archivesBaseName = "com.openyogaland.denis.pranacoin_wallet_2_0"
+        applicationId "io.github.castasat.pranacoin_wallet"
+        archivesBaseName = "io.github.castasat.pranacoin_wallet."
         minSdk ANDROID_MIN_SDK_VERSION
         targetSdk ANDROID_TARGET_SDK_VERSION
         versionCode 3_00_00
@@ -41,7 +41,7 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables { useSupportLibrary = true }
         multiDexEnabled true
-        // signingConfig signingConfigs.defaultConfig
+        signingConfig signingConfigs.defaultConfig
         javaCompileOptions {
             annotationProcessorOptions {
                 arguments = ["room.schemaLocation": "$projectDir/schemas".toString()]
@@ -63,7 +63,7 @@ android {
     }
     buildTypes {
         release {
-            // signingConfig signingConfigs.defaultConfig
+            signingConfig signingConfigs.defaultConfig
             debuggable false
             zipAlignEnabled true
             minifyEnabled true
@@ -74,7 +74,7 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
         debug {
-            // signingConfig signingConfigs.defaultConfig
+            signingConfig signingConfigs.defaultConfig
             debuggable true
             zipAlignEnabled true
             minifyEnabled false
@@ -120,13 +120,6 @@ android {
 }
 configurations {
     cleanedAnnotations
-    configureEach {
-        resolutionStrategy {
-            dependencySubstitution {
-                // substitute module('io.reactivex.rxjava2:rxjava') with module('io.reactivex.rxjava3:rxjava:3.0.5')
-            }
-        }
-    }
 }
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')

@@ -8,7 +8,7 @@ import android.util.Log
 import androidx.appcompat.app.AppCompatDelegate.setCompatVectorFromResourcesEnabled
 import com.google.firebase.crashlytics.FirebaseCrashlytics
 import com.google.gson.GsonBuilder
-import com.openyogaland.denis.pranacoin_wallet_2_0.BuildConfig.DEBUG
+import io.github.castasat.pranacoin_wallet.BuildConfig.DEBUG
 import io.github.castasat.pranacoin_wallet.network.PranacoinServerApi
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -18,7 +18,7 @@ import retrofit2.adapter.rxjava3.RxJava3CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit.SECONDS
 
-class PranacoinWallet2 : Application() {
+class PranacoinWallet3 : Application() {
     override fun onCreate() {
         super.onCreate()
         // for use of vector drawables on pre-lollipop

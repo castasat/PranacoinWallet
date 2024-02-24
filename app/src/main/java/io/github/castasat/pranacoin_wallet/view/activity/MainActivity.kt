@@ -16,7 +16,7 @@ import androidx.fragment.app.DialogFragment.STYLE_NO_TITLE
 import androidx.fragment.app.Fragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.bottomnavigation.BottomNavigationView.OnNavigationItemSelectedListener
-import com.openyogaland.denis.pranacoin_wallet_2_0.R
+import io.github.castasat.pranacoin_wallet.R
 import io.github.castasat.pranacoin_wallet.listener.OnPrivacyPolicyAcceptedListener
 import io.github.castasat.pranacoin_wallet.view.activity.GoogleSignInActivity.Companion.GOOGLE_ACCOUNT_ID
 import io.github.castasat.pranacoin_wallet.view.activity.GoogleSignInActivity.Companion.GOOGLE_EMAIL

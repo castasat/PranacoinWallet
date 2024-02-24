@@ -3,9 +3,9 @@ package io.github.castasat.pranacoin_wallet.viewmodel
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
-import io.github.castasat.pranacoin_wallet.application.PranacoinWallet2.Companion.crashlytics
-import io.github.castasat.pranacoin_wallet.application.PranacoinWallet2.Companion.log
-import io.github.castasat.pranacoin_wallet.application.PranacoinWallet2.Companion.pranacoinServerApi
+import io.github.castasat.pranacoin_wallet.application.PranacoinWallet3.Companion.crashlytics
+import io.github.castasat.pranacoin_wallet.application.PranacoinWallet3.Companion.log
+import io.github.castasat.pranacoin_wallet.application.PranacoinWallet3.Companion.pranacoinServerApi
 import io.github.castasat.pranacoin_wallet.architecture.EventWrapper
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers.mainThread
 import io.reactivex.rxjava3.disposables.CompositeDisposable

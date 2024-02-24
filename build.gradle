@@ -25,7 +25,7 @@ buildscript {
     appcompatVersion = '1.6.1'
     lifecycleVersion = '2.6.2'
     activityComposeVersion = '1.7.2'
-    navigationVersion = '2.6.0' // 2.7.3 for sdk 34
+    navigationVersion = '2.7.3'
     constraintLayoutVersion = '1.0.1'
     lottieComposeVersion = '5.2.0'
     dataStoreVersion = "1.0.0"
