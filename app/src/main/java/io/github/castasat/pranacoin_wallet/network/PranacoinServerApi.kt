@@ -1,4 +1,4 @@
-package com.openyogaland.denis.pranacoin_wallet_2_0.network
+package io.github.castasat.pranacoin_wallet.network
 
 import io.reactivex.rxjava3.core.Single
 import retrofit2.http.GET

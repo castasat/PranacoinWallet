@@ -1,4 +1,4 @@
-package com.openyogaland.denis.pranacoin_wallet_2_0.application
+package io.github.castasat.pranacoin_wallet.application
 
 import android.app.Application
 import android.content.Context
@@ -9,7 +9,7 @@ import androidx.appcompat.app.AppCompatDelegate.setCompatVectorFromResourcesEnab
 import com.google.firebase.crashlytics.FirebaseCrashlytics
 import com.google.gson.GsonBuilder
 import com.openyogaland.denis.pranacoin_wallet_2_0.BuildConfig.DEBUG
-import com.openyogaland.denis.pranacoin_wallet_2_0.network.PranacoinServerApi
+import io.github.castasat.pranacoin_wallet.network.PranacoinServerApi
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import okhttp3.logging.HttpLoggingInterceptor.Level.BODY
@@ -26,7 +26,7 @@ class PranacoinWallet2 : Application() {
     }
 
     companion object {
-        private const val APP_ID = "PranacoinWallet2.0"
+        private const val APP_ID = "PranacoinWallet"
         private const val PRANACOIN_SERVER_URL = "http://95.213.191.196/" // port 80 for http
         private const val CONNECT_TIMEOUT_SECONDS = 15L
         private const val READ_TIMEOUT_SECONDS = 20L

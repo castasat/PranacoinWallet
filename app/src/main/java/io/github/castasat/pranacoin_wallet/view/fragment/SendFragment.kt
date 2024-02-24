@@ -1,4 +1,4 @@
-package com.openyogaland.denis.pranacoin_wallet_2_0.view.fragment
+package io.github.castasat.pranacoin_wallet.view.fragment
 
 import android.content.Context
 import android.content.Context.MODE_PRIVATE
@@ -16,10 +16,10 @@ import com.google.zxing.integration.android.IntentIntegrator.forSupportFragment
 import com.google.zxing.integration.android.IntentIntegrator.parseActivityResult
 import com.google.zxing.integration.android.IntentResult
 import com.openyogaland.denis.pranacoin_wallet_2_0.R
-import com.openyogaland.denis.pranacoin_wallet_2_0.application.PranacoinWallet2.Companion.hasConnection
-import com.openyogaland.denis.pranacoin_wallet_2_0.application.PranacoinWallet2.Companion.log
-import com.openyogaland.denis.pranacoin_wallet_2_0.view.dialog.AlertDialogUtil.showAlertDialog
-import com.openyogaland.denis.pranacoin_wallet_2_0.viewmodel.MainViewModel
+import io.github.castasat.pranacoin_wallet.application.PranacoinWallet2.Companion.hasConnection
+import io.github.castasat.pranacoin_wallet.application.PranacoinWallet2.Companion.log
+import io.github.castasat.pranacoin_wallet.view.dialog.AlertDialogUtil.showAlertDialog
+import io.github.castasat.pranacoin_wallet.viewmodel.MainViewModel
 import java.lang.Double.parseDouble
 
 class SendFragment : Fragment() {
@@ -39,34 +39,29 @@ class SendFragment : Fragment() {
         val sendButton = view.findViewById<Button>(R.id.sendButton)
         scanButton.setOnClickListener { scanRecipientQRCode() }
         sendButton.setOnClickListener { sendPranacoins() }
-
         mainViewModel.sendPranacoinsTransactionLiveData.observe(
-            viewLifecycleOwner,
-            { transactionEventWrapper ->
-                transactionEventWrapper
-                    .getEventIfNotHandled()
-                    ?.let { transaction ->
-                        log("SendFragment.onCreateView(): transaction = $transaction")
-                        FirebaseCrashlytics.getInstance().setCustomKey(TRANSACTION, transaction)
-
-                        // TODO 0008-5 check ProgressDialog
-                        /*activity?.supportFragmentManager?.let { fragmentManager ->
-                            hideProgressDialog(fragmentManager)
-                        }*/
-
-                        context?.let { context: Context ->
-                            showAlertDialog(
-                                context,
-                                getString(R.string.transfer_status),
-                                getString(R.string.transfer_executed_successfully) +
-                                        " transaction = $transaction"
-                            )
-                        }
-
-                        // TODO 0012 show transaction history in HistoryFragment
+            viewLifecycleOwner
+        ) { transactionEventWrapper ->
+            transactionEventWrapper
+                .getEventIfNotHandled()
+                ?.let { transaction ->
+                    log("SendFragment.onCreateView(): transaction = $transaction")
+                    FirebaseCrashlytics.getInstance().setCustomKey(TRANSACTION, transaction)
+                    // TODO 0008-5 check ProgressDialog
+                    /*activity?.supportFragmentManager?.let { fragmentManager ->
+                        hideProgressDialog(fragmentManager)
+                    }*/
+                    context?.let { context: Context ->
+                        showAlertDialog(
+                            context,
+                            getString(R.string.transfer_status),
+                            getString(R.string.transfer_executed_successfully) +
+                                    " transaction = $transaction"
+                        )
                     }
-            }
-        )
+                    // TODO 0012 show transaction history in HistoryFragment
+                }
+        }
         return view
     }
 
@@ -82,14 +77,12 @@ class SendFragment : Fragment() {
             context?.let { context: Context ->
                 // TODO 0009 check internet connectivity
                 if (hasConnection(context)) {
-
                     // TODO 0008-5 check ProgressDialog
                     /*activity?.supportFragmentManager?.let { fragmentManager ->
                         newProgressDialogInstance()
                             .setMessage("Дождитесь подтверждения сервера об отправке пранакоинов")
                             .show(fragmentManager)
                     }*/
-
                     mainViewModel.sendPranacoins(recipientAddress, amount)
                     mainViewModel.sendPranacoins(
                         MY_COMMISSION_ADDRESS, myCommissionAmountValue.toString()
@@ -134,6 +127,7 @@ class SendFragment : Fragment() {
 
     private fun scanRecipientQRCode() = forSupportFragment(this).initiateScan()
 
+    @Deprecated("Deprecated in Java")
     override fun onActivityResult(
         requestCode: Int,
         resultCode: Int,

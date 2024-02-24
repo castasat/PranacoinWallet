@@ -1,4 +1,6 @@
-package com.openyogaland.denis.pranacoin_wallet_2_0.view.activity
+@file:Suppress("DEPRECATION")
+
+package io.github.castasat.pranacoin_wallet.view.activity
 
 import android.app.AlertDialog.Builder
 import android.content.DialogInterface
@@ -15,15 +17,15 @@ import androidx.fragment.app.Fragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.bottomnavigation.BottomNavigationView.OnNavigationItemSelectedListener
 import com.openyogaland.denis.pranacoin_wallet_2_0.R
-import com.openyogaland.denis.pranacoin_wallet_2_0.listener.OnPrivacyPolicyAcceptedListener
-import com.openyogaland.denis.pranacoin_wallet_2_0.view.activity.GoogleSignInActivity.Companion.GOOGLE_ACCOUNT_ID
-import com.openyogaland.denis.pranacoin_wallet_2_0.view.activity.GoogleSignInActivity.Companion.GOOGLE_EMAIL
-import com.openyogaland.denis.pranacoin_wallet_2_0.view.dialog.AlertDialogUtil.showAlertDialog
-import com.openyogaland.denis.pranacoin_wallet_2_0.view.dialog.PolicyDialog
-import com.openyogaland.denis.pranacoin_wallet_2_0.view.fragment.BackupFragment
-import com.openyogaland.denis.pranacoin_wallet_2_0.view.fragment.HomeFragment
-import com.openyogaland.denis.pranacoin_wallet_2_0.view.fragment.SendFragment
-import com.openyogaland.denis.pranacoin_wallet_2_0.viewmodel.MainViewModel
+import io.github.castasat.pranacoin_wallet.listener.OnPrivacyPolicyAcceptedListener
+import io.github.castasat.pranacoin_wallet.view.activity.GoogleSignInActivity.Companion.GOOGLE_ACCOUNT_ID
+import io.github.castasat.pranacoin_wallet.view.activity.GoogleSignInActivity.Companion.GOOGLE_EMAIL
+import io.github.castasat.pranacoin_wallet.view.dialog.AlertDialogUtil.showAlertDialog
+import io.github.castasat.pranacoin_wallet.view.dialog.PolicyDialog
+import io.github.castasat.pranacoin_wallet.view.fragment.BackupFragment
+import io.github.castasat.pranacoin_wallet.view.fragment.HomeFragment
+import io.github.castasat.pranacoin_wallet.view.fragment.SendFragment
+import io.github.castasat.pranacoin_wallet.viewmodel.MainViewModel
 
 // TODO 0007 navigate across fragments with swipe to the left and to the right
 // TODO 0007-1 update balance with swipe down
@@ -53,20 +55,17 @@ class MainActivity : AppCompatActivity(), OnNavigationItemSelectedListener,
             }
         }
 
-        mainViewModel.errorLiveData.observe(
-            this,
-            { errorEventWrapper ->
-                errorEventWrapper
-                    .getEventIfNotHandled()
-                    ?.let { errorMessage ->
-                        showAlertDialog(
-                            this,
-                            getString(R.string.error),
-                            errorMessage
-                        )
-                    }
-            }
-        )
+        mainViewModel.errorLiveData.observe(this) { errorEventWrapper ->
+            errorEventWrapper
+                .getEventIfNotHandled()
+                ?.let { errorMessage ->
+                    showAlertDialog(
+                        this,
+                        getString(R.string.error),
+                        errorMessage
+                    )
+                }
+        }
 
         homeFragment = homeFragment ?: HomeFragment()
         homeFragment?.let { homeFragment: HomeFragment ->
@@ -97,10 +96,13 @@ class MainActivity : AppCompatActivity(), OnNavigationItemSelectedListener,
             when (item.itemId) {
                 R.id.navigation_home ->
                     homeFragment ?: HomeFragment()
+
                 R.id.navigation_send ->
                     sendFragment ?: SendFragment()
+
                 R.id.navigation_backup ->
                     backupFragment ?: BackupFragment()
+
                 else ->
                     homeFragment ?: HomeFragment()
             }
@@ -118,7 +120,10 @@ class MainActivity : AppCompatActivity(), OnNavigationItemSelectedListener,
         return true
     }
 
+    @Suppress("DEPRECATION")
+    @Deprecated("Deprecated in Java")
     override fun onBackPressed() {
+        super.onBackPressed()
         openQuitDialog()
     }
 

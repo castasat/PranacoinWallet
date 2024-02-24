@@ -1,4 +1,4 @@
-package com.openyogaland.denis.pranacoin_wallet_2_0.view.fragment
+package io.github.castasat.pranacoin_wallet.view.fragment
 
 import android.content.Context
 import android.content.Context.MODE_PRIVATE
@@ -17,11 +17,11 @@ import androidx.fragment.app.activityViewModels
 import com.google.firebase.crashlytics.FirebaseCrashlytics
 import com.google.zxing.WriterException
 import com.openyogaland.denis.pranacoin_wallet_2_0.R
-import com.openyogaland.denis.pranacoin_wallet_2_0.application.PranacoinWallet2.Companion.crashlytics
-import com.openyogaland.denis.pranacoin_wallet_2_0.application.PranacoinWallet2.Companion.log
-import com.openyogaland.denis.pranacoin_wallet_2_0.domain.QRCodeUtil.textToImageEncode
-import com.openyogaland.denis.pranacoin_wallet_2_0.view.dialog.AlertDialogUtil.showAlertDialog
-import com.openyogaland.denis.pranacoin_wallet_2_0.viewmodel.MainViewModel
+import io.github.castasat.pranacoin_wallet.application.PranacoinWallet2.Companion.crashlytics
+import io.github.castasat.pranacoin_wallet.application.PranacoinWallet2.Companion.log
+import io.github.castasat.pranacoin_wallet.domain.QRCodeUtil.textToImageEncode
+import io.github.castasat.pranacoin_wallet.view.dialog.AlertDialogUtil.showAlertDialog
+import io.github.castasat.pranacoin_wallet.viewmodel.MainViewModel
 
 // TODO 0017 share publicAddress
 // TODO 0018 create commercial
@@ -74,25 +74,23 @@ class HomeFragment : Fragment() {
         }
 
         mainViewModel.balanceLiveData.observe(
-            viewLifecycleOwner,
-            { balance ->
-                saveBalance(balance)
-                showBalance(balance)
-                log("HomeFragment.onCreateView(): balance = $balance")
-                FirebaseCrashlytics.getInstance().setCustomKey(BALANCE, balance)
-            }
-        )
+            viewLifecycleOwner
+        ) { balance ->
+            saveBalance(balance)
+            showBalance(balance)
+            log("HomeFragment.onCreateView(): balance = $balance")
+            FirebaseCrashlytics.getInstance().setCustomKey(BALANCE, balance)
+        }
 
         mainViewModel.publicAddressLiveData.observe(
-            viewLifecycleOwner,
-            { publicAddress ->
-                savePublicAddress(publicAddress)
-                showPublicAddress(publicAddress)
-                showQRCode(publicAddress)
-                log("HomeFragment.onCreateView(): publicAddress = $publicAddress")
-                FirebaseCrashlytics.getInstance().setCustomKey(PUBLIC_ADDRESS, publicAddress)
-            }
-        )
+            viewLifecycleOwner
+        ) { publicAddress ->
+            savePublicAddress(publicAddress)
+            showPublicAddress(publicAddress)
+            showQRCode(publicAddress)
+            log("HomeFragment.onCreateView(): publicAddress = $publicAddress")
+            FirebaseCrashlytics.getInstance().setCustomKey(PUBLIC_ADDRESS, publicAddress)
+        }
 
         // TODO 0009 check internet connectivity and load values from local database
         //  if not connected

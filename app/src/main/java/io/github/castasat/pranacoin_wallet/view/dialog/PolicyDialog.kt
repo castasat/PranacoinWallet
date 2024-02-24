@@ -1,4 +1,4 @@
-package com.openyogaland.denis.pranacoin_wallet_2_0.view.dialog
+package io.github.castasat.pranacoin_wallet.view.dialog
 
 import android.app.Dialog
 import android.content.DialogInterface
@@ -16,7 +16,7 @@ import android.widget.CompoundButton
 import android.widget.CompoundButton.OnCheckedChangeListener
 import androidx.appcompat.app.AppCompatDialogFragment
 import com.openyogaland.denis.pranacoin_wallet_2_0.R
-import com.openyogaland.denis.pranacoin_wallet_2_0.listener.OnPrivacyPolicyAcceptedListener
+import io.github.castasat.pranacoin_wallet.listener.OnPrivacyPolicyAcceptedListener
 
 class PolicyDialog : AppCompatDialogFragment(), OnCheckedChangeListener {
     // fields

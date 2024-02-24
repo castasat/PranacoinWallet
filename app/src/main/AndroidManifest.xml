@@ -11,7 +11,7 @@
 
     <!-- TODO 0005 fix cleartext network traffic -->
     <application
-        android:name=".application.PranacoinWallet2"
+        android:name="io.github.castasat.pranacoin_wallet.application.PranacoinWallet2"
         android:allowBackup="true"
         android:fullBackupContent="true"
         android:hardwareAccelerated="true"
@@ -36,25 +36,24 @@
             android:value="true" />
 
         <activity
-            android:name=".view.activity.GoogleSignInActivity"
+            android:name="io.github.castasat.pranacoin_wallet.view.activity.GoogleSignInActivity"
+            android:exported="true"
             android:noHistory="true"><!-- exclude from back stack to finish on back press -->
-
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
-
         </activity>
 
         <activity
-            android:name=".view.activity.MainActivity"
+            android:name="io.github.castasat.pranacoin_wallet.view.activity.MainActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
+            android:exported="true"
             android:label="@string/app_name"
             android:screenOrientation="portrait"
             android:stateNotNeeded="true">
-
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
                 <action android:name="android.intent.action.MAIN" />
@@ -67,9 +66,7 @@
                     android:path="/pranacoin_wallet_2_0"
                     android:scheme="http" />
             </intent-filter>
-
             <tools:validation testUrl="http://denis.openyogaland.com/pranacoin_wallet_2_0" />
-
         </activity>
 
         <activity
