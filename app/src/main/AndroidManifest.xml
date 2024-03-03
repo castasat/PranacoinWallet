@@ -20,8 +20,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="false"
         android:theme="@style/AppTheme"
-        android:usesCleartextTraffic="true"
-        tools:targetApi="n">
+        android:usesCleartextTraffic="true">
 
         <meta-data
             android:name="search-engine"
@@ -62,11 +61,12 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
                 <category android:name="android.intent.category.BROWSABLE" />
+                <category android:name="android.intent.category.DEFAULT" />
 
                 <data
-                    android:host="denis.openyogaland.com"
-                    android:path="/pranacoin_wallet_2_0"
-                    android:scheme="http" />
+                    android:host="castasat.github.io"
+                    android:path="//pranacoin_wallet_privacy_policy"
+                    android:scheme="https" />
             </intent-filter>
         </activity>
 
