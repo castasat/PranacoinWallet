@@ -36,8 +36,8 @@ android {
         archivesBaseName = "io.github.castasat.pranacoin_wallet."
         minSdk ANDROID_MIN_SDK_VERSION
         targetSdk ANDROID_TARGET_SDK_VERSION
-        versionCode 3_00_01
-        versionName "3.00.01"
+        versionCode 3_00_03
+        versionName "3.00.03"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables { useSupportLibrary = true }
         multiDexEnabled true

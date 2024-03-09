@@ -35,4 +35,5 @@
     <string name="scanResult">"Результат сканирования: "</string>
     <string name="private_key_qr_generation_failed">Не удалось создать QR-код для приватного ключа</string>
     <string name="public_address_qr_generation_failed">Не удалось создать QR-код для публичного адреса</string>
+    <string name="privacy_policy">политика конфиденциальности</string>
 </resources>

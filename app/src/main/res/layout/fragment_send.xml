@@ -9,6 +9,7 @@
 
     <EditText
         android:id="@+id/recipientAddressEditText"
+        android:importantForAutofill="no"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="@dimen/fragment_margin"
@@ -36,6 +37,7 @@
 
     <EditText
         android:id="@+id/sumEditText"
+        android:importantForAutofill="no"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="@dimen/fragment_margin"
@@ -54,6 +56,7 @@
         android:layout_height="wrap_content"
         android:padding="@dimen/fragment_margin"
         android:text="@string/title_send"
+        android:contentDescription="@string/title_send"
         app:layout_constraintTop_toBottomOf="@+id/sumEditText"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintStart_toStartOf="parent"
